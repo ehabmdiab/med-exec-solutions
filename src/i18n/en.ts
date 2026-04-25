@@ -211,6 +211,6 @@ export const en = {
       { year: "2024", text: "Portfolio expands across dental, disposables, and labs." },
     ],
   },
-} as const;
+};
 
 export type Dict = typeof en;

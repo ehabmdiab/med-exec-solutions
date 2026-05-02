@@ -233,7 +233,7 @@ function ParticleField() {
 
 export function Logo3DScene() {
   return (
-    <div className="absolute inset-0 z-[1] pointer-events-none">
+    <div className="absolute inset-0 z-[1] pointer-events-none opacity-90 hidden sm:block">
       <Canvas
         camera={{ position: [0, 0, 7], fov: 45 }}
         gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}

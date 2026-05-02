@@ -45,7 +45,6 @@ export function Hero() {
 
         <div
           className="mt-16 lg:mt-24 grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/15 rounded-2xl overflow-hidden border border-white/15 backdrop-blur-md max-w-4xl"
-          style={{ transform: `translateY(${-parallaxY * 0.3}px)`, willChange: "transform" }}
         >
           {t.hero.stats.map((s) => (
             <div key={s.label} className="bg-primary/30 p-5 lg:p-7 backdrop-blur-md">

@@ -2,13 +2,10 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/i18n/I18nProvider";
-import { useParallax } from "@/hooks/useParallax";
-import { HeroScene } from "@/components/HeroScene";
-import heroImg from "@/assets/hero-cleanroom.jpg";
+import { MetaballHero } from "@/components/MetaballHero";
 
 export function Hero() {
   const { t } = useI18n();
-  const parallaxY = useParallax(0.35);
 
   return (
     <section className="relative min-h-[88vh] flex items-center overflow-hidden">

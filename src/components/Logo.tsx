@@ -6,11 +6,13 @@ export function Logo({ inverted = false }: { inverted?: boolean }) {
   const { t } = useI18n();
   return (
     <Link to="/" className="flex items-center gap-2 group" aria-label={t.brand.name}>
-      <img
-        src={logoImg}
-        alt="AUH Logo"
-        className="h-9 w-9 object-contain transition-transform group-hover:scale-105"
-      />
+      <span className="flex h-10 w-10 items-center justify-center rounded-lg overflow-hidden shadow-soft transition-transform group-hover:scale-105">
+        <img
+          src={logoImg}
+          alt="AUH Logo"
+          className="h-full w-full object-cover"
+        />
+      </span>
       <span className="flex flex-col leading-none">
         <span className={`font-display font-extrabold text-base tracking-tight ${inverted ? "text-white" : "text-primary"}`}>
           AUH

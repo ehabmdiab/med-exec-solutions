@@ -8,21 +8,9 @@ export function Hero() {
   const { t } = useI18n();
 
   return (
-    <section className="relative min-h-[88vh] flex items-center overflow-hidden">
-      {/* Parallax background image */}
-      <div className="absolute inset-0" style={{ transform: `translateY(${parallaxY}px)`, willChange: "transform" }}>
-        <img
-          src={heroImg}
-          alt="Engineers in a cleanroom medical manufacturing facility"
-          className="h-[120%] w-full object-cover"
-          loading="eager"
-        />
-      </div>
-      <div className="absolute inset-0 bg-gradient-overlay" />
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent" />
-
-      {/* Three.js particle + ring overlay */}
-      <HeroScene />
+    <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-primary">
+      {/* Metaball Three.js background */}
+      <MetaballHero />
 
       <div className="container-wide relative z-10 py-24 lg:py-32">
         <div className="max-w-3xl animate-fade-in-up">

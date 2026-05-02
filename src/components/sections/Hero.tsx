@@ -2,15 +2,17 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/i18n/I18nProvider";
-import { MetaballHero } from "@/components/MetaballHero";
+import { Logo3DScene } from "@/components/Logo3DScene";
 
 export function Hero() {
   const { t } = useI18n();
 
   return (
-    <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-primary">
-      {/* Metaball Three.js background */}
-      <MetaballHero />
+    <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-[#0A1628]">
+      {/* Gradient overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A2540] via-[#0A1628] to-[#071020] z-0" />
+      {/* 3D Logo background */}
+      <Logo3DScene />
 
       <div className="container-wide relative z-10 py-24 lg:py-32">
         <div className="max-w-3xl animate-fade-in-up">

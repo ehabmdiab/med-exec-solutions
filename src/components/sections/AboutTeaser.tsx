@@ -3,17 +3,19 @@ import { ArrowRight, Lightbulb, ShieldCheck, Workflow } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/i18n/I18nProvider";
 import { Reveal } from "@/components/Reveal";
+import { useParallax } from "@/hooks/useParallax";
 import labImg from "@/assets/lab-engineer.jpg";
 
 const ICONS = [Lightbulb, ShieldCheck, Workflow];
 
 export function AboutTeaser() {
   const { t } = useI18n();
+  const parallaxY = useParallax(0.08);
   return (
-    <section className="py-20 lg:py-28 bg-background">
+    <section className="py-20 lg:py-28 bg-background overflow-hidden">
       <div className="container-wide grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         <Reveal className="lg:col-span-6 order-2 lg:order-1">
-          <div className="relative">
+          <div className="relative" style={{ transform: `translateY(${parallaxY}px)`, willChange: "transform" }}>
             <div className="absolute -inset-4 bg-gradient-soft rounded-3xl -z-10" />
             <img
               src={labImg}

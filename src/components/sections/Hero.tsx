@@ -2,22 +2,30 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useParallax } from "@/hooks/useParallax";
+import { HeroScene } from "@/components/HeroScene";
 import heroImg from "@/assets/hero-cleanroom.jpg";
 
 export function Hero() {
   const { t } = useI18n();
+  const parallaxY = useParallax(0.35);
+
   return (
     <section className="relative min-h-[88vh] flex items-center overflow-hidden">
-      <div className="absolute inset-0">
+      {/* Parallax background image */}
+      <div className="absolute inset-0" style={{ transform: `translateY(${parallaxY}px)`, willChange: "transform" }}>
         <img
           src={heroImg}
           alt="Engineers in a cleanroom medical manufacturing facility"
-          className="h-full w-full object-cover"
+          className="h-[120%] w-full object-cover"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-gradient-overlay" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent" />
       </div>
+      <div className="absolute inset-0 bg-gradient-overlay" />
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent" />
+
+      {/* Three.js particle + ring overlay */}
+      <HeroScene />
 
       <div className="container-wide relative z-10 py-24 lg:py-32">
         <div className="max-w-3xl animate-fade-in-up">
@@ -50,7 +58,10 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-16 lg:mt-24 grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/15 rounded-2xl overflow-hidden border border-white/15 backdrop-blur-md max-w-4xl">
+        <div
+          className="mt-16 lg:mt-24 grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/15 rounded-2xl overflow-hidden border border-white/15 backdrop-blur-md max-w-4xl"
+          style={{ transform: `translateY(${-parallaxY * 0.3}px)`, willChange: "transform" }}
+        >
           {t.hero.stats.map((s) => (
             <div key={s.label} className="bg-primary/30 p-5 lg:p-7 backdrop-blur-md">
               <p className="font-display text-2xl lg:text-4xl font-bold text-white">{s.value}</p>

@@ -233,7 +233,7 @@ function ParticleField() {
 
 export function Logo3DScene() {
   return (
-    <div className="absolute inset-0 z-[1]">
+    <div className="absolute inset-0 z-[1] pointer-events-none">
       <Canvas
         camera={{ position: [0, 0, 7], fov: 45 }}
         gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
@@ -243,7 +243,10 @@ export function Logo3DScene() {
         <SceneLighting />
         <Environment preset="city" environmentIntensity={0.4} />
         <ParticleField />
-        <LogoGroup />
+        {/* Position logo to the right side */}
+        <group position={[2.8, 0, 0]} scale={0.7}>
+          <LogoGroup />
+        </group>
       </Canvas>
     </div>
   );

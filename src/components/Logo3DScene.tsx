@@ -27,14 +27,14 @@ function useLogoTexture() {
 
 function buildInnerVShape() {
   const shape = new THREE.Shape();
-  shape.moveTo(-0.74, 1.22);
-  shape.bezierCurveTo(-0.6, 0.82, -0.55, 0.28, -0.55, -0.46);
-  shape.bezierCurveTo(-0.55, -0.83, -0.45, -1.02, -0.24, -1.02);
-  shape.bezierCurveTo(-0.06, -1.02, -0.2, -0.42, 0, -0.42);
-  shape.bezierCurveTo(0.2, -0.42, 0.06, -1.02, 0.24, -1.02);
-  shape.bezierCurveTo(0.45, -1.02, 0.55, -0.83, 0.55, -0.46);
-  shape.bezierCurveTo(0.55, 0.28, 0.6, 0.82, 0.74, 1.22);
-  shape.bezierCurveTo(0.3, 1.35, -0.3, 1.35, -0.74, 1.22);
+  shape.moveTo(-0.86, 1.24);
+  shape.bezierCurveTo(-0.66, 0.88, -0.6, 0.28, -0.6, -0.45);
+  shape.bezierCurveTo(-0.6, -0.92, -0.47, -1.14, -0.24, -1.14);
+  shape.bezierCurveTo(-0.03, -1.14, -0.19, -0.48, 0, -0.48);
+  shape.bezierCurveTo(0.19, -0.48, 0.03, -1.14, 0.24, -1.14);
+  shape.bezierCurveTo(0.47, -1.14, 0.6, -0.92, 0.6, -0.45);
+  shape.bezierCurveTo(0.6, 0.28, 0.66, 0.88, 0.86, 1.24);
+  shape.bezierCurveTo(0.36, 1.4, -0.36, 1.4, -0.86, 1.24);
   shape.closePath();
   return shape;
 }
@@ -66,11 +66,12 @@ function buildRightOuterVShape() {
 function buildWhiteLowerEdgeShape(side: -1 | 1) {
   const shape = new THREE.Shape();
   const s = side;
-  shape.moveTo(s * 0.33, -0.52);
-  shape.bezierCurveTo(s * 0.38, -0.72, s * 0.43, -0.9, s * 0.55, -1.0);
-  shape.bezierCurveTo(s * 0.47, -1.1, s * 0.28, -1.13, s * 0.14, -1.04);
-  shape.bezierCurveTo(s * 0.2, -0.82, s * 0.2, -0.58, s * 0.24, -0.46);
-  shape.bezierCurveTo(s * 0.26, -0.4, s * 0.31, -0.43, s * 0.33, -0.52);
+  shape.moveTo(s * 0.36, 0.95);
+  shape.bezierCurveTo(s * 0.46, 0.48, s * 0.48, -0.14, s * 0.48, -0.78);
+  shape.bezierCurveTo(s * 0.48, -1.04, s * 0.42, -1.16, s * 0.28, -1.16);
+  shape.bezierCurveTo(s * 0.12, -1.16, s * 0.16, -0.84, s * 0.18, -0.54);
+  shape.bezierCurveTo(s * 0.2, 0.04, s * 0.18, 0.58, s * 0.26, 1.02);
+  shape.bezierCurveTo(s * 0.29, 1.1, s * 0.34, 1.06, s * 0.36, 0.95);
   shape.closePath();
   return shape;
 }

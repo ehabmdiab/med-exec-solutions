@@ -27,46 +27,51 @@ function useLogoTexture() {
 
 function buildInnerVShape() {
   const shape = new THREE.Shape();
-  shape.moveTo(-0.66, 1.24);
-  shape.bezierCurveTo(-0.5, 0.8, -0.42, 0.28, -0.4, -0.36);
-  shape.bezierCurveTo(-0.38, -0.96, -0.28, -1.28, -0.03, -1.48);
-  shape.bezierCurveTo(0.23, -1.28, 0.38, -0.96, 0.4, -0.36);
-  shape.bezierCurveTo(0.42, 0.28, 0.5, 0.8, 0.66, 1.24);
-  shape.bezierCurveTo(0.26, 1.36, -0.26, 1.36, -0.66, 1.24);
+  shape.moveTo(-0.86, 1.24);
+  shape.bezierCurveTo(-0.66, 0.88, -0.6, 0.28, -0.6, -0.45);
+  shape.bezierCurveTo(-0.6, -0.92, -0.47, -1.14, -0.24, -1.14);
+  shape.bezierCurveTo(-0.03, -1.14, -0.19, -0.48, 0, -0.48);
+  shape.bezierCurveTo(0.19, -0.48, 0.03, -1.14, 0.24, -1.14);
+  shape.bezierCurveTo(0.47, -1.14, 0.6, -0.92, 0.6, -0.45);
+  shape.bezierCurveTo(0.6, 0.28, 0.66, 0.88, 0.86, 1.24);
+  shape.bezierCurveTo(0.36, 1.4, -0.36, 1.4, -0.86, 1.24);
   shape.closePath();
   return shape;
 }
 
 function buildLeftOuterVShape() {
   const shape = new THREE.Shape();
-  shape.moveTo(-1.1, 1.28);
-  shape.bezierCurveTo(-0.62, 1, -0.43, 0.48, -0.4, -0.26);
-  shape.bezierCurveTo(-0.38, -0.96, -0.25, -1.38, 0, -1.52);
-  shape.bezierCurveTo(-0.76, -1.34, -1.28, -0.77, -1.34, -0.02);
-  shape.lineTo(-1.34, 1.48);
-  shape.bezierCurveTo(-1.27, 1.45, -1.18, 1.38, -1.1, 1.28);
+  shape.moveTo(-1.28, 1.5);
+  shape.bezierCurveTo(-0.83, 1.3, -0.66, 0.65, -0.65, -0.52);
+  shape.bezierCurveTo(-0.65, -1.02, -0.47, -1.28, -0.08, -1.5);
+  shape.bezierCurveTo(-0.76, -1.5, -1.31, -0.97, -1.36, -0.15);
+  shape.lineTo(-1.36, 1.48);
+  shape.bezierCurveTo(-1.34, 1.52, -1.31, 1.53, -1.28, 1.5);
   shape.closePath();
   return shape;
 }
 
 function buildRightOuterVShape() {
   const shape = new THREE.Shape();
-  shape.moveTo(1.1, 1.28);
-  shape.bezierCurveTo(0.62, 1, 0.43, 0.48, 0.4, -0.26);
-  shape.bezierCurveTo(0.38, -0.96, 0.25, -1.38, 0, -1.52);
-  shape.bezierCurveTo(0.76, -1.34, 1.28, -0.77, 1.34, -0.02);
-  shape.lineTo(1.34, 1.48);
-  shape.bezierCurveTo(1.27, 1.45, 1.18, 1.38, 1.1, 1.28);
+  shape.moveTo(1.28, 1.5);
+  shape.bezierCurveTo(0.83, 1.3, 0.66, 0.65, 0.65, -0.52);
+  shape.bezierCurveTo(0.65, -1.02, 0.47, -1.28, 0.08, -1.5);
+  shape.bezierCurveTo(0.76, -1.5, 1.31, -0.97, 1.36, -0.15);
+  shape.lineTo(1.36, 1.48);
+  shape.bezierCurveTo(1.34, 1.52, 1.31, 1.53, 1.28, 1.5);
   shape.closePath();
   return shape;
 }
 
-function buildCenterBaseShape() {
+function buildWhiteLowerEdgeShape(side: -1 | 1) {
   const shape = new THREE.Shape();
-  shape.moveTo(-0.28, -1.14);
-  shape.bezierCurveTo(-0.2, -1.42, -0.1, -1.55, 0, -1.6);
-  shape.bezierCurveTo(0.1, -1.55, 0.2, -1.42, 0.28, -1.14);
-  shape.bezierCurveTo(0.2, -1.04, -0.2, -1.04, -0.28, -1.14);
+  const s = side;
+  shape.moveTo(s * 0.36, 0.95);
+  shape.bezierCurveTo(s * 0.46, 0.48, s * 0.48, -0.14, s * 0.48, -0.78);
+  shape.bezierCurveTo(s * 0.48, -1.04, s * 0.42, -1.16, s * 0.28, -1.16);
+  shape.bezierCurveTo(s * 0.12, -1.16, s * 0.16, -0.84, s * 0.18, -0.54);
+  shape.bezierCurveTo(s * 0.2, 0.04, s * 0.18, 0.58, s * 0.26, 1.02);
+  shape.bezierCurveTo(s * 0.29, 1.1, s * 0.34, 1.06, s * 0.36, 0.95);
   shape.closePath();
   return shape;
 }
@@ -121,7 +126,7 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
   const groupRef = useRef<THREE.Group>(null!);
   const { pointer } = useThree();
 
-  const [leftGeometry, rightGeometry, baseGeometry, innerGeometry, pillGeometry, arcGeometry] = useMemo(() => {
+  const [leftGeometry, rightGeometry, innerGeometry, pillGeometry, arcGeometry, leftEdgeGeometry, rightEdgeGeometry] = useMemo(() => {
     const depthOptions: THREE.ExtrudeGeometryOptions = {
       depth: 0.22,
       bevelEnabled: true,
@@ -135,10 +140,11 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
     const geometries = [
       new THREE.ExtrudeGeometry(buildLeftOuterVShape(), depthOptions),
       new THREE.ExtrudeGeometry(buildRightOuterVShape(), depthOptions),
-      new THREE.ExtrudeGeometry(buildCenterBaseShape(), depthOptions),
       new THREE.ExtrudeGeometry(buildInnerVShape(), shallowOptions),
       new THREE.ExtrudeGeometry(buildRoundedRectShape(0.32, 0.72, 0.05), depthOptions),
       new THREE.ExtrudeGeometry(buildTopArcShape(), depthOptions),
+      new THREE.ExtrudeGeometry(buildWhiteLowerEdgeShape(-1), shallowOptions),
+      new THREE.ExtrudeGeometry(buildWhiteLowerEdgeShape(1), shallowOptions),
     ];
 
     geometries.forEach((geometry) => {
@@ -177,28 +183,16 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
     [],
   );
 
-  const baseMaterial = useMemo(
-    () =>
-      new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color("#20a7a4"),
-        roughness: 0.24,
-        metalness: 0.14,
-        clearcoat: 0.6,
-        clearcoatRoughness: 0.16,
-        envMapIntensity: 1.22,
-        transparent: true,
-      }),
-    [],
-  );
-
   const innerMaterial = useMemo(
     () =>
       new THREE.MeshPhysicalMaterial({
         color: new THREE.Color("#f7faf9"),
-        roughness: 0.38,
-        metalness: 0.03,
-        clearcoat: 0.32,
-        envMapIntensity: 0.82,
+        roughness: 0.18,
+        metalness: 0.02,
+        clearcoat: 0.56,
+        envMapIntensity: 1.45,
+        emissive: new THREE.Color("#f7faf9"),
+        emissiveIntensity: 0.16,
         transparent: true,
       }),
     [],
@@ -229,7 +223,7 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
     const progress = dissolveProgress.current;
     const opacity = 1 - progress * 0.9;
     group.scale.setScalar(1 + progress * 0.05);
-    [leftMaterial, rightMaterial, baseMaterial, innerMaterial, orangeMaterial].forEach((material) => {
+    [leftMaterial, rightMaterial, innerMaterial, orangeMaterial].forEach((material) => {
       material.opacity = opacity;
     });
   });
@@ -239,7 +233,9 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
       <group ref={groupRef}>
         <mesh geometry={leftGeometry} material={leftMaterial} position={[0, 0, 0]} />
         <mesh geometry={rightGeometry} material={rightMaterial} position={[0, 0, 0]} />
-        <mesh geometry={innerGeometry} material={innerMaterial} position={[0, 0.02, 0.17]} scale={[0.72, 0.98, 1]} />
+        <mesh geometry={innerGeometry} material={innerMaterial} position={[0, 0.02, 0.29]} scale={[1.08, 1, 1]} />
+        <mesh geometry={leftEdgeGeometry} material={innerMaterial} position={[0, 0.02, 0.42]} scale={[1.05, 1, 1]} />
+        <mesh geometry={rightEdgeGeometry} material={innerMaterial} position={[0, 0.02, 0.42]} scale={[1.05, 1, 1]} />
         <mesh geometry={pillGeometry} material={orangeMaterial} position={[0, 0.1, 0.25]} />
         <mesh geometry={arcGeometry} material={orangeMaterial} position={[0, 0.97, 0.25]} scale={[0.82, 0.5, 1]} />
       </group>
@@ -298,15 +294,15 @@ function DissolveParticles({ active }: { active: boolean }) {
       const px = (x / canvas.width - 0.5) * LOGO_WIDTH;
       const py = (0.5 - y / canvas.height) * LOGO_HEIGHT;
       const pz = (Math.random() - 0.5) * 0.12;
-      const outward = new THREE.Vector3(px, py, 0.55).normalize();
-      const lift = Math.random() * 0.9 + 0.45;
+      const bladeDirection = new THREE.Vector3(0.9, -0.18, 0.75).normalize();
+      const lift = Math.random() * 0.55 + 0.28;
 
       base[i * 3] = px;
       base[i * 3 + 1] = py;
       base[i * 3 + 2] = pz;
-      velocity[i * 3] = outward.x * (0.7 + Math.random() * 1.4) + (Math.random() - 0.5) * 1.1;
-      velocity[i * 3 + 1] = outward.y * (0.7 + Math.random() * 1.4) + (Math.random() - 0.5) * 1.1;
-      velocity[i * 3 + 2] = lift + Math.random() * 1.2;
+      velocity[i * 3] = bladeDirection.x * (1.1 + Math.random() * 1.7) + (Math.random() - 0.5) * 0.25;
+      velocity[i * 3 + 1] = bladeDirection.y * (0.55 + Math.random() * 1.1) + lift;
+      velocity[i * 3 + 2] = bladeDirection.z * (0.9 + Math.random() * 1.4);
       color[i * 3] = data[pixelIndex] / 255;
       color[i * 3 + 1] = data[pixelIndex + 1] / 255;
       color[i * 3 + 2] = data[pixelIndex + 2] / 255;
@@ -327,16 +323,21 @@ function DissolveParticles({ active }: { active: boolean }) {
     const positions = positionAttribute.array as Float32Array;
 
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const wobble = Math.sin(time * 2.2 + i * 0.37) * 0.045 * progress;
-      positions[i * 3] = basePositions[i * 3] + velocities[i * 3] * progress * 1.55 + wobble;
-      positions[i * 3 + 1] = basePositions[i * 3 + 1] + velocities[i * 3 + 1] * progress * 1.55 + wobble * 0.5;
-      positions[i * 3 + 2] = basePositions[i * 3 + 2] + velocities[i * 3 + 2] * progress * 1.35;
+      const px = basePositions[i * 3];
+      const py = basePositions[i * 3 + 1];
+      const sliceCoordinate = px + py * 0.28;
+      const blade = -1.7 + progress * 3.4;
+      const localProgress = THREE.MathUtils.clamp((blade - sliceCoordinate) * 2.7, 0, 1);
+      const wobble = Math.sin(time * 9 + i * 0.37) * 0.026 * localProgress;
+      positions[i * 3] = px + velocities[i * 3] * localProgress * 1.7 + wobble;
+      positions[i * 3 + 1] = py + velocities[i * 3 + 1] * localProgress * 1.35 - localProgress * localProgress * 0.48;
+      positions[i * 3 + 2] = basePositions[i * 3 + 2] + velocities[i * 3 + 2] * localProgress * 1.25;
     }
 
     positionAttribute.needsUpdate = true;
     const material = pointsRef.current.material as THREE.PointsMaterial;
-    material.opacity = Math.min(0.95, progress * 1.2);
-    material.size = THREE.MathUtils.lerp(0.014, 0.038, progress);
+    material.opacity = Math.min(0.96, progress * 1.35);
+    material.size = THREE.MathUtils.lerp(0.011, 0.032, progress);
   });
 
   return (
@@ -411,8 +412,8 @@ function InteractiveScene() {
   const dissolveRef = useRef(0);
   const { viewport } = useThree();
   const isCompact = viewport.width < 6.2;
-  const logoPosition: [number, number, number] = isCompact ? [0.95, -1.05, 0] : [2.55, 0.02, 0];
-  const logoScale = isCompact ? 0.47 : 0.78;
+  const logoPosition: [number, number, number] = isCompact ? [1.18, -0.3, 0] : [2.55, 0.02, 0];
+  const logoScale = isCompact ? 0.42 : 0.78;
 
   useFrame((_, delta) => {
     dissolveRef.current = THREE.MathUtils.damp(dissolveRef.current, hovered ? 1 : 0, 3.9, delta);

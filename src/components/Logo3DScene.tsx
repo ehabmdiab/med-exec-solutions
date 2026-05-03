@@ -247,8 +247,8 @@ function InteractiveScene() {
   const [hovered, setHovered] = useState(false);
   const { viewport } = useThree();
   const isCompact = viewport.width < 6.2;
-  const logoPosition: [number, number, number] = isCompact ? [0.8, -0.2, 0] : [2.2, 0, 0];
-  const logoScale = isCompact ? 0.5 : 0.85;
+  const logoPosition: [number, number, number] = isCompact ? [0, -0.3, 0] : [2.2, 0, 0];
+  const logoScale = isCompact ? 0.6 : 0.85;
 
   return (
     <>

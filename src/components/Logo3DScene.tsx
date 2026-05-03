@@ -8,72 +8,99 @@ const ORANGE = "#F36C21";
 const TEAL_LEFT = "#6FC1A6";
 const TEAL_RIGHT = "#2F7F89";
 
-/* ── Shape builders ─────────────────────────────────────── */
+/* ─── Build the outer U shape with the inner cavity as a TRUE HOLE ─── */
 
-function buildUShape(): THREE.Shape {
+function buildOuterUShape(): THREE.Shape {
   const shape = new THREE.Shape();
-  // Outer U path - start top-left, go down, curve bottom, up right
-  shape.moveTo(-1.4, 1.6);
-  // Left outer edge going down
-  shape.bezierCurveTo(-1.4, 1.6, -1.42, 0.6, -1.42, -0.2);
-  shape.bezierCurveTo(-1.42, -1.1, -0.9, -1.7, 0, -1.7);
-  shape.bezierCurveTo(0.9, -1.7, 1.42, -1.1, 1.42, -0.2);
-  shape.bezierCurveTo(1.42, 0.6, 1.4, 1.6, 1.4, 1.6);
-  // Top-right wing tip curves inward
-  shape.bezierCurveTo(1.2, 1.5, 1.05, 1.3, 1.0, 1.0);
-  shape.lineTo(1.0, -0.15);
-  shape.bezierCurveTo(1.0, -0.85, 0.6, -1.2, 0, -1.2);
-  shape.bezierCurveTo(-0.6, -1.2, -1.0, -0.85, -1.0, -0.15);
-  shape.lineTo(-1.0, 1.0);
-  shape.bezierCurveTo(-1.05, 1.3, -1.2, 1.5, -1.4, 1.6);
-  shape.closePath();
-  return shape;
-}
 
-function buildLeftHalf(): THREE.Shape {
-  // Left half of U for teal-left color
-  const shape = new THREE.Shape();
-  shape.moveTo(-1.4, 1.6);
-  shape.bezierCurveTo(-1.4, 1.6, -1.42, 0.6, -1.42, -0.2);
-  shape.bezierCurveTo(-1.42, -1.1, -0.9, -1.7, 0, -1.7);
-  shape.lineTo(0, -1.2);
-  shape.bezierCurveTo(-0.6, -1.2, -1.0, -0.85, -1.0, -0.15);
-  shape.lineTo(-1.0, 1.0);
-  shape.bezierCurveTo(-1.05, 1.3, -1.2, 1.5, -1.4, 1.6);
-  shape.closePath();
-  return shape;
-}
+  // Outer shell — a wide, rounded, shield-like U
+  // Start top-left, clockwise
+  shape.moveTo(-1.28, 1.4);
 
-function buildRightHalf(): THREE.Shape {
-  const shape = new THREE.Shape();
-  shape.moveTo(1.4, 1.6);
-  shape.bezierCurveTo(1.4, 1.6, 1.42, 0.6, 1.42, -0.2);
-  shape.bezierCurveTo(1.42, -1.1, 0.9, -1.7, 0, -1.7);
-  shape.lineTo(0, -1.2);
-  shape.bezierCurveTo(0.6, -1.2, 1.0, -0.85, 1.0, -0.15);
-  shape.lineTo(1.0, 1.0);
-  shape.bezierCurveTo(1.05, 1.3, 1.2, 1.5, 1.4, 1.6);
+  // Left outer wall — gentle outward bulge then straight down
+  shape.bezierCurveTo(-1.42, 1.15, -1.48, 0.5, -1.48, -0.15);
+
+  // Bottom-left → bottom-center: wide smooth curve
+  shape.bezierCurveTo(-1.48, -1.2, -0.88, -1.78, 0, -1.78);
+
+  // Bottom-center → bottom-right
+  shape.bezierCurveTo(0.88, -1.78, 1.48, -1.2, 1.48, -0.15);
+
+  // Right outer wall going up
+  shape.bezierCurveTo(1.48, 0.5, 1.42, 1.15, 1.28, 1.4);
+
+  // Right wing tip — smooth inward curve
+  shape.bezierCurveTo(1.18, 1.35, 1.08, 1.18, 1.02, 0.9);
+
+  // Right inner wall going down
+  shape.lineTo(1.02, -0.1);
+
+  // Inner bottom-right curve
+  shape.bezierCurveTo(1.02, -0.88, 0.58, -1.28, 0, -1.28);
+
+  // Inner bottom-left curve
+  shape.bezierCurveTo(-0.58, -1.28, -1.02, -0.88, -1.02, -0.1);
+
+  // Left inner wall going up
+  shape.lineTo(-1.02, 0.9);
+
+  // Left wing tip
+  shape.bezierCurveTo(-1.08, 1.18, -1.18, 1.35, -1.28, 1.4);
+
   shape.closePath();
+
+  // ─── HOLE: the inner white negative space ───
+  // Wide vertical cavity with two legs and a center bump (tooth) pushing up
+  const hole = new THREE.Path();
+
+  // Top-left of cavity
+  hole.moveTo(-0.56, 1.0);
+
+  // Left leg going down
+  hole.lineTo(-0.56, -0.25);
+
+  // Left leg bottom — rounded outward then inward
+  hole.bezierCurveTo(-0.56, -0.62, -0.48, -0.82, -0.35, -0.88);
+
+  // Curve toward center tooth — left side going up
+  hole.bezierCurveTo(-0.24, -0.92, -0.16, -0.78, -0.12, -0.58);
+
+  // Center tooth — smooth upward bump
+  hole.bezierCurveTo(-0.08, -0.42, -0.04, -0.34, 0, -0.32);
+  hole.bezierCurveTo(0.04, -0.34, 0.08, -0.42, 0.12, -0.58);
+
+  // Right side of tooth going back down
+  hole.bezierCurveTo(0.16, -0.78, 0.24, -0.92, 0.35, -0.88);
+
+  // Right leg bottom
+  hole.bezierCurveTo(0.48, -0.82, 0.56, -0.62, 0.56, -0.25);
+
+  // Right leg going up
+  hole.lineTo(0.56, 1.0);
+
+  // Close top
+  hole.lineTo(-0.56, 1.0);
+
+  hole.closePath();
+  shape.holes.push(hole);
+
   return shape;
 }
 
 function buildTopArc(): THREE.Shape {
-  // Floating arc above the pillar - like a rounded cap/horseshoe
   const shape = new THREE.Shape();
-  const outerR = 0.48;
-  const innerR = 0.3;
-  // Arc from ~20° to ~160°
-  shape.absarc(0, 0, outerR, Math.PI * 0.08, Math.PI * 0.92, false);
-  shape.absarc(0, 0, innerR, Math.PI * 0.92, Math.PI * 0.08, true);
+  const outerR = 0.42;
+  const innerR = 0.26;
+  shape.absarc(0, 0, outerR, Math.PI * 0.1, Math.PI * 0.9, false);
+  shape.absarc(0, 0, innerR, Math.PI * 0.9, Math.PI * 0.1, true);
   shape.closePath();
   return shape;
 }
 
 function buildPillar(): THREE.Shape {
-  // Vertical rounded rectangle
-  const w = 0.32;
-  const h = 0.82;
-  const r = 0.1;
+  const w = 0.3;
+  const h = 0.76;
+  const r = 0.09;
   const hw = w / 2;
   const hh = h / 2;
   const shape = new THREE.Shape();
@@ -94,53 +121,76 @@ function makeGeometry(shape: THREE.Shape, depth = DEPTH) {
   const geo = new THREE.ExtrudeGeometry(shape, {
     depth,
     bevelEnabled: true,
-    bevelThickness: 0.02,
-    bevelSize: 0.015,
+    bevelThickness: 0.018,
+    bevelSize: 0.012,
     bevelSegments: 5,
-    curveSegments: 64,
+    curveSegments: 72,
   });
   geo.translate(0, 0, -depth / 2);
   geo.computeVertexNormals();
   return geo;
 }
 
-/* ── Logo mesh group ────────────────────────────────────── */
+/* ─── Apply left-right gradient via vertex colors ─── */
+
+function applyGradientColors(geometry: THREE.BufferGeometry) {
+  const pos = geometry.attributes.position;
+  const colors = new Float32Array(pos.count * 3);
+  const leftCol = new THREE.Color(TEAL_LEFT);
+  const rightCol = new THREE.Color(TEAL_RIGHT);
+  const tmpCol = new THREE.Color();
+
+  // Find x bounds
+  let minX = Infinity, maxX = -Infinity;
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i);
+    if (x < minX) minX = x;
+    if (x > maxX) maxX = x;
+  }
+
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i);
+    const t = (x - minX) / (maxX - minX || 1);
+    tmpCol.copy(leftCol).lerp(rightCol, t);
+    colors[i * 3] = tmpCol.r;
+    colors[i * 3 + 1] = tmpCol.g;
+    colors[i * 3 + 2] = tmpCol.b;
+  }
+
+  geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+}
+
+/* ─── Logo mesh group ─── */
 
 function LogoGroup({ hovered }: { hovered: boolean }) {
   const groupRef = useRef<THREE.Group>(null!);
   const { pointer } = useThree();
-  const targetScale = useRef(1);
   const currentScale = useRef(1);
-  const targetEmissive = useRef(0);
   const currentEmissive = useRef(0);
 
-  const geometries = useMemo(() => ({
-    left: makeGeometry(buildLeftHalf()),
-    right: makeGeometry(buildRightHalf()),
-    arc: makeGeometry(buildTopArc(), 0.16),
-    pillar: makeGeometry(buildPillar(), 0.16),
-  }), []);
+  const { baseGeo, arcGeo, pillarGeo } = useMemo(() => {
+    const base = makeGeometry(buildOuterUShape());
+    applyGradientColors(base);
+    return {
+      baseGeo: base,
+      arcGeo: makeGeometry(buildTopArc(), 0.14),
+      pillarGeo: makeGeometry(buildPillar(), 0.14),
+    };
+  }, []);
 
   const materials = useMemo(() => ({
-    left: new THREE.MeshStandardMaterial({
-      color: TEAL_LEFT,
+    base: new THREE.MeshStandardMaterial({
+      vertexColors: true,
       metalness: 0.2,
       roughness: 0.4,
-      emissive: TEAL_LEFT,
-      emissiveIntensity: 0,
-    }),
-    right: new THREE.MeshStandardMaterial({
-      color: TEAL_RIGHT,
-      metalness: 0.2,
-      roughness: 0.4,
-      emissive: TEAL_RIGHT,
+      emissive: new THREE.Color(TEAL_LEFT).lerp(new THREE.Color(TEAL_RIGHT), 0.5),
       emissiveIntensity: 0,
     }),
     orange: new THREE.MeshStandardMaterial({
       color: ORANGE,
       metalness: 0.2,
       roughness: 0.4,
-      emissive: ORANGE,
+      emissive: new THREE.Color(ORANGE),
       emissiveIntensity: 0,
     }),
   }), []);
@@ -149,53 +199,51 @@ function LogoGroup({ hovered }: { hovered: boolean }) {
     const g = groupRef.current;
     if (!g) return;
 
-    // Target rotation toward cursor
-    const targetRotY = hovered ? pointer.x * 0.3 : 0;
-    const targetRotX = hovered ? -pointer.y * 0.2 : 0;
-    g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, targetRotY + Math.sin(clock.elapsedTime * 0.5) * 0.03, delta * 4);
-    g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, targetRotX + Math.cos(clock.elapsedTime * 0.4) * 0.02, delta * 4);
+    // Tilt toward cursor on hover
+    const targetRotY = hovered ? pointer.x * 0.28 : 0;
+    const targetRotX = hovered ? -pointer.y * 0.18 : 0;
+    const idle = clock.elapsedTime;
+    g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, targetRotY + Math.sin(idle * 0.5) * 0.025, delta * 4);
+    g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, targetRotX + Math.cos(idle * 0.4) * 0.015, delta * 4);
 
     // Floating
-    g.position.y = Math.sin(clock.elapsedTime * 0.8) * 0.06;
+    g.position.y = Math.sin(idle * 0.8) * 0.05;
 
     // Scale
-    targetScale.current = hovered ? 1.05 : 1;
-    currentScale.current = THREE.MathUtils.lerp(currentScale.current, targetScale.current, delta * 5);
+    const targetScale = hovered ? 1.05 : 1;
+    currentScale.current = THREE.MathUtils.lerp(currentScale.current, targetScale, delta * 5);
     g.scale.setScalar(currentScale.current);
 
     // Emissive
-    targetEmissive.current = hovered ? 0.15 : 0;
-    currentEmissive.current = THREE.MathUtils.lerp(currentEmissive.current, targetEmissive.current, delta * 5);
-    materials.left.emissiveIntensity = currentEmissive.current;
-    materials.right.emissiveIntensity = currentEmissive.current;
-    materials.orange.emissiveIntensity = currentEmissive.current * 1.5;
+    const targetEm = hovered ? 0.12 : 0;
+    currentEmissive.current = THREE.MathUtils.lerp(currentEmissive.current, targetEm, delta * 5);
+    materials.base.emissiveIntensity = currentEmissive.current;
+    materials.orange.emissiveIntensity = currentEmissive.current * 1.4;
   });
 
   return (
     <group ref={groupRef}>
-      {/* Teal U-shape halves */}
-      <mesh geometry={geometries.left} material={materials.left} />
-      <mesh geometry={geometries.right} material={materials.right} />
-      {/* Orange pillar centered */}
-      <mesh geometry={geometries.pillar} material={materials.orange} position={[0, 0.05, 0.02]} />
+      {/* Teal U-shape with true hole cutout */}
+      <mesh geometry={baseGeo} material={materials.base} castShadow />
+      {/* Orange pillar centered inside cavity */}
+      <mesh geometry={pillarGeo} material={materials.orange} position={[0, 0.18, 0.02]} castShadow />
       {/* Orange arc floating above */}
-      <mesh geometry={geometries.arc} material={materials.orange} position={[0, 0.95, 0.02]} scale={[0.9, 0.55, 1]} />
-      {/* Shadow catcher */}
+      <mesh geometry={arcGeo} material={materials.orange} position={[0, 0.88, 0.02]} scale={[0.85, 0.5, 1]} castShadow />
+      {/* Shadow plane */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.85, 0]} receiveShadow>
         <planeGeometry args={[4, 4]} />
-        <shadowMaterial opacity={0.15} />
+        <shadowMaterial opacity={0.12} />
       </mesh>
     </group>
   );
 }
 
-/* ── Lighting ───────────────────────────────────────────── */
+/* ─── Lighting ─── */
 
 function StudioLighting() {
   return (
     <>
-      <ambientLight intensity={0.4} />
-      {/* Key light - top front */}
+      <ambientLight intensity={0.35} />
       <directionalLight
         position={[2, 4, 5]}
         intensity={1.2}
@@ -204,20 +252,18 @@ function StudioLighting() {
         shadow-mapSize-height={1024}
         shadow-radius={8}
       />
-      {/* Fill light - side */}
-      <directionalLight position={[-3, 2, 2]} intensity={0.6} color="#B0E0E6" />
-      {/* Rim light - back */}
-      <directionalLight position={[0, 1, -4]} intensity={0.5} color="#FFE4C4" />
+      <directionalLight position={[-3, 2, 2]} intensity={0.5} color="#B0E0E6" />
+      <directionalLight position={[0, 1, -4]} intensity={0.45} color="#FFE4C4" />
     </>
   );
 }
 
-/* ── Background particles (subtle abstract lines) ──────── */
+/* ─── Background particles ─── */
 
 function BackgroundLines() {
   const ref = useRef<THREE.Points>(null!);
-  const count = 180;
   const positions = useMemo(() => {
+    const count = 160;
     const p = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       p[i * 3] = (Math.random() - 0.5) * 16;
@@ -236,18 +282,18 @@ function BackgroundLines() {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial size={0.015} color="#999999" transparent opacity={0.15} sizeAttenuation depthWrite={false} />
+      <pointsMaterial size={0.015} color="#999999" transparent opacity={0.12} sizeAttenuation depthWrite={false} />
     </points>
   );
 }
 
-/* ── Interactive scene ──────────────────────────────────── */
+/* ─── Interactive scene ─── */
 
 function InteractiveScene() {
   const [hovered, setHovered] = useState(false);
   const { viewport } = useThree();
   const isCompact = viewport.width < 6.2;
-  const logoPosition: [number, number, number] = isCompact ? [0, -0.3, 0] : [2.2, 0, 0];
+  const logoPosition: [number, number, number] = isCompact ? [0, -0.2, 0] : [2.2, 0, 0];
   const logoScale = isCompact ? 0.6 : 0.85;
 
   return (
@@ -257,7 +303,6 @@ function InteractiveScene() {
       <BackgroundLines />
       <group position={logoPosition} scale={logoScale}>
         <LogoGroup hovered={hovered} />
-        {/* Invisible hover plane */}
         <mesh
           onPointerEnter={() => setHovered(true)}
           onPointerLeave={() => setHovered(false)}
@@ -271,7 +316,7 @@ function InteractiveScene() {
   );
 }
 
-/* ── Exported component ─────────────────────────────────── */
+/* ─── Exported component ─── */
 
 export function Logo3DScene() {
   return (

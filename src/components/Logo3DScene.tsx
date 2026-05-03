@@ -142,7 +142,7 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
     ];
 
     geometries.forEach((geometry) => {
-      geometry.center();
+      geometry.translate(0, 0, -0.1);
       geometry.computeVertexNormals();
     });
 
@@ -237,12 +237,11 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
   return (
     <Float speed={1.1} rotationIntensity={0.08} floatIntensity={0.24} floatingRange={[-0.07, 0.07]}>
       <group ref={groupRef}>
-        <mesh geometry={leftGeometry} material={leftMaterial} position={[-0.33, 0.12, 0]} rotation={[0, 0, 0.02]} scale={[1.03, 1.02, 1]} />
-        <mesh geometry={rightGeometry} material={rightMaterial} position={[0.33, 0.12, 0]} rotation={[0, 0, -0.02]} scale={[1.03, 1.02, 1]} />
-        <mesh geometry={baseGeometry} material={baseMaterial} position={[0, -0.1, 0.01]} scale={[2.05, 1.08, 1]} />
-        <mesh geometry={innerGeometry} material={innerMaterial} position={[0, 0.2, 0.13]} scale={[1.22, 1.1, 1]} />
-        <mesh geometry={pillGeometry} material={orangeMaterial} position={[0, 0.08, 0.23]} />
-        <mesh geometry={arcGeometry} material={orangeMaterial} position={[0, 0.95, 0.23]} scale={[0.9, 0.55, 1]} />
+        <mesh geometry={leftGeometry} material={leftMaterial} position={[0, 0, 0]} />
+        <mesh geometry={rightGeometry} material={rightMaterial} position={[0, 0, 0]} />
+        <mesh geometry={innerGeometry} material={innerMaterial} position={[0, 0.02, 0.17]} scale={[0.72, 0.98, 1]} />
+        <mesh geometry={pillGeometry} material={orangeMaterial} position={[0, 0.1, 0.25]} />
+        <mesh geometry={arcGeometry} material={orangeMaterial} position={[0, 0.97, 0.25]} scale={[0.82, 0.5, 1]} />
       </group>
     </Float>
   );

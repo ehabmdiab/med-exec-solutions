@@ -182,6 +182,9 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
       emissive: new THREE.Color("hsl(22 88% 28%)"),
       emissiveIntensity: 0.1,
     });
+    [left, right, topaz, white, orange].forEach((material) => {
+      material.toneMapped = false;
+    });
     return { left, right, topaz, white, orange };
   }, [bladePlane]);
 
@@ -204,8 +207,8 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
   return (
     <Float speed={1.05} rotationIntensity={0.07} floatIntensity={0.22} floatingRange={[-0.06, 0.06]}>
       <group ref={groupRef}>
-        <mesh geometry={leftGeometry} material={materials.left} />
-        <mesh geometry={rightGeometry} material={materials.right} />
+        <mesh geometry={leftGeometry} material={materials.left} position={[0, 0, 0.06]} />
+        <mesh geometry={rightGeometry} material={materials.right} position={[0, 0, 0.06]} />
         <mesh geometry={leftTopazEdge} material={materials.topaz} position={[0, 0, 0.24]} />
         <mesh geometry={rightTopazEdge} material={materials.topaz} position={[0, 0, 0.24]} />
         <mesh geometry={leftWhiteWall} material={materials.white} position={[0, 0, 0.34]} />

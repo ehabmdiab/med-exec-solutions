@@ -17,6 +17,8 @@ const LOGO_HEIGHT = 2.9;
 const PARTICLE_COUNT = 1900;
 const DEPTH = 0.24;
 
+const hslColor = (h: number, s: number, l: number) => new THREE.Color().setHSL(h / 360, s / 100, l / 100);
+
 function buildLeftBodyShape() {
   const shape = new THREE.Shape();
   shape.moveTo(-1.3, 1.48);
@@ -129,9 +131,9 @@ function makeExtrudedGeometry(shape: THREE.Shape, depth = DEPTH) {
   return geometry;
 }
 
-function createLogoMaterial(color: string, clippingPlane: THREE.Plane, options: Partial<THREE.MeshPhysicalMaterialParameters> = {}) {
+function createLogoMaterial(color: THREE.Color, clippingPlane: THREE.Plane, options: Partial<THREE.MeshPhysicalMaterialParameters> = {}) {
   return new THREE.MeshPhysicalMaterial({
-    color: new THREE.Color(color),
+    color,
     roughness: 0.22,
     metalness: 0.13,
     clearcoat: 0.72,

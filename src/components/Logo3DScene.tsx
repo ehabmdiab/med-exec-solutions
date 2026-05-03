@@ -409,8 +409,8 @@ function InteractiveScene() {
   const dissolveRef = useRef(0);
   const { viewport } = useThree();
   const isCompact = viewport.width < 6.2;
-  const logoPosition: [number, number, number] = isCompact ? [0.95, -1.05, 0] : [2.55, 0.02, 0];
-  const logoScale = isCompact ? 0.47 : 0.78;
+  const logoPosition: [number, number, number] = isCompact ? [1.18, -0.3, 0] : [2.55, 0.02, 0];
+  const logoScale = isCompact ? 0.42 : 0.78;
 
   useFrame((_, delta) => {
     dissolveRef.current = THREE.MathUtils.damp(dissolveRef.current, hovered ? 1 : 0, 3.9, delta);

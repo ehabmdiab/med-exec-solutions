@@ -13,77 +13,73 @@ const TEAL_RIGHT = "#2F7F89";
 function buildOuterUShape(): THREE.Shape {
   const shape = new THREE.Shape();
 
-  // Start top-left wing tip, go clockwise
-  // Top-left
-  shape.moveTo(-1.35, 1.55);
+  // Outer shell — a wide, rounded, shield-like U
+  // Start top-left, clockwise
+  shape.moveTo(-1.28, 1.4);
 
-  // Left outer edge going down
-  shape.bezierCurveTo(-1.38, 1.2, -1.4, 0.5, -1.4, -0.1);
+  // Left outer wall — gentle outward bulge then straight down
+  shape.bezierCurveTo(-1.42, 1.15, -1.48, 0.5, -1.48, -0.15);
 
-  // Bottom-left curve
-  shape.bezierCurveTo(-1.4, -1.15, -0.85, -1.72, 0, -1.72);
+  // Bottom-left → bottom-center: wide smooth curve
+  shape.bezierCurveTo(-1.48, -1.2, -0.88, -1.78, 0, -1.78);
 
-  // Bottom-right curve
-  shape.bezierCurveTo(0.85, -1.72, 1.4, -1.15, 1.4, -0.1);
+  // Bottom-center → bottom-right
+  shape.bezierCurveTo(0.88, -1.78, 1.48, -1.2, 1.48, -0.15);
 
-  // Right outer edge going up
-  shape.bezierCurveTo(1.4, 0.5, 1.38, 1.2, 1.35, 1.55);
+  // Right outer wall going up
+  shape.bezierCurveTo(1.48, 0.5, 1.42, 1.15, 1.28, 1.4);
 
-  // Right wing tip curves inward
-  shape.bezierCurveTo(1.22, 1.45, 1.1, 1.25, 1.05, 0.95);
+  // Right wing tip — smooth inward curve
+  shape.bezierCurveTo(1.18, 1.35, 1.08, 1.18, 1.02, 0.9);
 
   // Right inner wall going down
-  shape.lineTo(1.05, -0.05);
+  shape.lineTo(1.02, -0.1);
 
   // Inner bottom-right curve
-  shape.bezierCurveTo(1.05, -0.82, 0.62, -1.22, 0, -1.22);
+  shape.bezierCurveTo(1.02, -0.88, 0.58, -1.28, 0, -1.28);
 
   // Inner bottom-left curve
-  shape.bezierCurveTo(-0.62, -1.22, -1.05, -0.82, -1.05, -0.05);
+  shape.bezierCurveTo(-0.58, -1.28, -1.02, -0.88, -1.02, -0.1);
 
   // Left inner wall going up
-  shape.lineTo(-1.05, 0.95);
+  shape.lineTo(-1.02, 0.9);
 
   // Left wing tip
-  shape.bezierCurveTo(-1.1, 1.25, -1.22, 1.45, -1.35, 1.55);
+  shape.bezierCurveTo(-1.08, 1.18, -1.18, 1.35, -1.28, 1.4);
 
   shape.closePath();
 
   // ─── HOLE: the inner white negative space ───
-  // This is the cavity between the two inner walls.
-  // It has two vertical channels (legs) going down, and a rounded bump
-  // (tooth/semicircle) pushing UP in the center bottom.
+  // Wide vertical cavity with two legs and a center bump (tooth) pushing up
   const hole = new THREE.Path();
 
-  // Start at top-left of inner cavity
-  hole.moveTo(-0.52, 1.0);
+  // Top-left of cavity
+  hole.moveTo(-0.56, 1.0);
 
   // Left leg going down
-  hole.lineTo(-0.52, -0.3);
+  hole.lineTo(-0.56, -0.25);
 
-  // Left leg bottom curve going inward
-  hole.bezierCurveTo(-0.52, -0.72, -0.42, -0.92, -0.28, -0.92);
+  // Left leg bottom — rounded outward then inward
+  hole.bezierCurveTo(-0.56, -0.62, -0.48, -0.82, -0.35, -0.88);
 
-  // Bottom-left of center tooth - curve upward
-  hole.bezierCurveTo(-0.18, -0.92, -0.1, -0.75, -0.08, -0.55);
+  // Curve toward center tooth — left side going up
+  hole.bezierCurveTo(-0.24, -0.92, -0.16, -0.78, -0.12, -0.58);
 
-  // Center tooth upward bump (left side going up)
-  hole.bezierCurveTo(-0.05, -0.38, -0.02, -0.3, 0, -0.28);
+  // Center tooth — smooth upward bump
+  hole.bezierCurveTo(-0.08, -0.42, -0.04, -0.34, 0, -0.32);
+  hole.bezierCurveTo(0.04, -0.34, 0.08, -0.42, 0.12, -0.58);
 
-  // Center tooth top (right side going down)
-  hole.bezierCurveTo(0.02, -0.3, 0.05, -0.38, 0.08, -0.55);
+  // Right side of tooth going back down
+  hole.bezierCurveTo(0.16, -0.78, 0.24, -0.92, 0.35, -0.88);
 
-  // Bottom-right of center tooth
-  hole.bezierCurveTo(0.1, -0.75, 0.18, -0.92, 0.28, -0.92);
-
-  // Right leg bottom curve going outward
-  hole.bezierCurveTo(0.42, -0.92, 0.52, -0.72, 0.52, -0.3);
+  // Right leg bottom
+  hole.bezierCurveTo(0.48, -0.82, 0.56, -0.62, 0.56, -0.25);
 
   // Right leg going up
-  hole.lineTo(0.52, 1.0);
+  hole.lineTo(0.56, 1.0);
 
-  // Top of cavity - close back
-  hole.lineTo(-0.52, 1.0);
+  // Close top
+  hole.lineTo(-0.56, 1.0);
 
   hole.closePath();
   shape.holes.push(hole);

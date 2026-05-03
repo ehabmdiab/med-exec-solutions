@@ -231,9 +231,9 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
       <group ref={groupRef}>
         <mesh geometry={leftGeometry} material={leftMaterial} position={[0, 0, 0]} />
         <mesh geometry={rightGeometry} material={rightMaterial} position={[0, 0, 0]} />
-        <mesh geometry={innerGeometry} material={innerMaterial} position={[0, 0.02, 0.18]} scale={[1.02, 1, 1]} />
-        <mesh geometry={leftEdgeGeometry} material={innerMaterial} position={[0, 0.02, 0.31]} />
-        <mesh geometry={rightEdgeGeometry} material={innerMaterial} position={[0, 0.02, 0.31]} />
+        <mesh geometry={innerGeometry} material={innerMaterial} position={[0, 0.02, 0.29]} scale={[1.08, 1, 1]} />
+        <mesh geometry={leftEdgeGeometry} material={innerMaterial} position={[0, 0.02, 0.42]} scale={[1.05, 1, 1]} />
+        <mesh geometry={rightEdgeGeometry} material={innerMaterial} position={[0, 0.02, 0.42]} scale={[1.05, 1, 1]} />
         <mesh geometry={pillGeometry} material={orangeMaterial} position={[0, 0.1, 0.25]} />
         <mesh geometry={arcGeometry} material={orangeMaterial} position={[0, 0.97, 0.25]} scale={[0.82, 0.5, 1]} />
       </group>

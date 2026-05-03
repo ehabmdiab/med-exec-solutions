@@ -19,32 +19,32 @@ const DEPTH = 0.24;
 
 function buildLeftBodyShape() {
   const shape = new THREE.Shape();
-  shape.moveTo(-1.26, 1.42);
-  shape.bezierCurveTo(-0.96, 1.22, -0.9, 0.54, -0.9, -0.34);
-  shape.bezierCurveTo(-0.9, -1.04, -0.52, -1.39, 0, -1.42);
-  shape.bezierCurveTo(-0.02, -1.2, -0.02, -0.93, 0, -0.72);
-  shape.bezierCurveTo(-0.12, -0.66, -0.22, -0.65, -0.31, -0.76);
-  shape.bezierCurveTo(-0.43, -0.91, -0.33, -1.08, -0.55, -1.08);
-  shape.bezierCurveTo(-0.72, -1.08, -0.74, -0.86, -0.74, -0.54);
-  shape.lineTo(-0.74, 0.58);
-  shape.bezierCurveTo(-0.74, 0.98, -0.82, 1.27, -1.08, 1.4);
-  shape.bezierCurveTo(-1.15, 1.44, -1.22, 1.45, -1.26, 1.42);
+  shape.moveTo(-1.3, 1.48);
+  shape.bezierCurveTo(-0.98, 1.23, -0.86, 0.56, -0.86, -0.36);
+  shape.bezierCurveTo(-0.86, -1.02, -0.48, -1.38, 0, -1.42);
+  shape.bezierCurveTo(-0.03, -1.2, -0.03, -0.91, 0, -0.68);
+  shape.bezierCurveTo(-0.14, -0.62, -0.25, -0.64, -0.36, -0.78);
+  shape.bezierCurveTo(-0.48, -0.94, -0.36, -1.1, -0.58, -1.1);
+  shape.bezierCurveTo(-0.76, -1.1, -0.78, -0.87, -0.78, -0.54);
+  shape.lineTo(-0.78, 0.62);
+  shape.bezierCurveTo(-0.78, 1.03, -0.88, 1.32, -1.16, 1.45);
+  shape.bezierCurveTo(-1.22, 1.49, -1.28, 1.5, -1.3, 1.48);
   shape.closePath();
   return shape;
 }
 
 function buildRightBodyShape() {
   const shape = new THREE.Shape();
-  shape.moveTo(1.26, 1.42);
-  shape.bezierCurveTo(0.96, 1.22, 0.9, 0.54, 0.9, -0.34);
-  shape.bezierCurveTo(0.9, -1.04, 0.52, -1.39, 0, -1.42);
-  shape.bezierCurveTo(0.02, -1.2, 0.02, -0.93, 0, -0.72);
-  shape.bezierCurveTo(0.12, -0.66, 0.22, -0.65, 0.31, -0.76);
-  shape.bezierCurveTo(0.43, -0.91, 0.33, -1.08, 0.55, -1.08);
-  shape.bezierCurveTo(0.72, -1.08, 0.74, -0.86, 0.74, -0.54);
-  shape.lineTo(0.74, 0.58);
-  shape.bezierCurveTo(0.74, 0.98, 0.82, 1.27, 1.08, 1.4);
-  shape.bezierCurveTo(1.15, 1.44, 1.22, 1.45, 1.26, 1.42);
+  shape.moveTo(1.3, 1.48);
+  shape.bezierCurveTo(0.98, 1.23, 0.86, 0.56, 0.86, -0.36);
+  shape.bezierCurveTo(0.86, -1.02, 0.48, -1.38, 0, -1.42);
+  shape.bezierCurveTo(0.03, -1.2, 0.03, -0.91, 0, -0.68);
+  shape.bezierCurveTo(0.14, -0.62, 0.25, -0.64, 0.36, -0.78);
+  shape.bezierCurveTo(0.48, -0.94, 0.36, -1.1, 0.58, -1.1);
+  shape.bezierCurveTo(0.76, -1.1, 0.78, -0.87, 0.78, -0.54);
+  shape.lineTo(0.78, 0.62);
+  shape.bezierCurveTo(0.78, 1.03, 0.88, 1.32, 1.16, 1.45);
+  shape.bezierCurveTo(1.22, 1.49, 1.28, 1.5, 1.3, 1.48);
   shape.closePath();
   return shape;
 }

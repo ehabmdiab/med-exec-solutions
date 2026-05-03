@@ -352,7 +352,7 @@ function InteractiveScene() {
       <Environment preset="city" environmentIntensity={0.35} />
       <ParticleField />
       <DissolveParticles active={hovered} logoCenter={logoPosition} />
-      <group position={logoPosition} scale={0.85}>
+      <group position={logoPosition} scale={0.6}>
         {/* Invisible interaction sphere */}
         <mesh
           onPointerEnter={() => setHovered(true)}

@@ -168,20 +168,20 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
     );
 
   const materials = useMemo(() => {
-    const left = createLogoMaterial("hsl(169 48% 64%)", bladePlane, { emissive: new THREE.Color("hsl(169 46% 18%)"), emissiveIntensity: 0.05 });
-    const right = createLogoMaterial("hsl(186 49% 39%)", bladePlane, { emissive: new THREE.Color("hsl(186 48% 15%)"), emissiveIntensity: 0.05 });
-    const topaz = createLogoMaterial("hsl(174 52% 57%)", bladePlane, { envMapIntensity: 1.5, clearcoat: 0.86 });
-    const white = createLogoMaterial("hsl(178 28% 96%)", bladePlane, {
+    const left = createLogoMaterial(hslColor(169, 48, 64), bladePlane, { emissive: hslColor(169, 46, 18), emissiveIntensity: 0.05 });
+    const right = createLogoMaterial(hslColor(186, 49, 39), bladePlane, { emissive: hslColor(186, 48, 15), emissiveIntensity: 0.05 });
+    const topaz = createLogoMaterial(hslColor(174, 52, 57), bladePlane, { envMapIntensity: 1.5, clearcoat: 0.86 });
+    const white = createLogoMaterial(hslColor(178, 28, 96), bladePlane, {
       roughness: 0.16,
       metalness: 0.01,
-      emissive: new THREE.Color("hsl(178 28% 92%)"),
+      emissive: hslColor(178, 28, 92),
       emissiveIntensity: 0.18,
       envMapIntensity: 1.7,
     });
-    const orange = createLogoMaterial("hsl(21 91% 56%)", bladePlane, {
+    const orange = createLogoMaterial(hslColor(21, 91, 56), bladePlane, {
       roughness: 0.2,
       metalness: 0.12,
-      emissive: new THREE.Color("hsl(22 88% 28%)"),
+      emissive: hslColor(22, 88, 28),
       emissiveIntensity: 0.1,
     });
     [left, right, topaz, white, orange].forEach((material) => {

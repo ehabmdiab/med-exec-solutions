@@ -285,14 +285,14 @@ function DissolveParticles({ active }: { active: boolean }) {
 
   const { basePositions, velocities, colors, sliceOffsets } = useMemo(() => {
     const sources = [
-      makeParticleSource(buildLeftBodyShape(), "hsl(169 48% 64%)", 34),
-      makeParticleSource(buildRightBodyShape(), "hsl(186 49% 39%)", 34),
-      makeParticleSource(buildTopazInnerEdgeShape(-1), "hsl(174 52% 62%)", 8),
-      makeParticleSource(buildTopazInnerEdgeShape(1), "hsl(174 52% 62%)", 8),
-      makeParticleSource(buildWhiteInnerWallShape(-1), "hsl(178 28% 96%)", 6),
-      makeParticleSource(buildWhiteInnerWallShape(1), "hsl(178 28% 96%)", 6),
-      makeParticleSource(buildRoundedRectShape(0.34, 0.78, 0.055), "hsl(21 91% 56%)", 7),
-      makeParticleSource(buildTopArcShape(), "hsl(21 91% 56%)", 7),
+      makeParticleSource(buildLeftBodyShape(), "#74d1c1", 34),
+      makeParticleSource(buildRightBodyShape(), "#2f98a2", 34),
+      makeParticleSource(buildTopazInnerEdgeShape(-1), "#5fd0c6", 8),
+      makeParticleSource(buildTopazInnerEdgeShape(1), "#5fd0c6", 8),
+      makeParticleSource(buildWhiteInnerWallShape(-1), "#f1fbfb", 6),
+      makeParticleSource(buildWhiteInnerWallShape(1), "#f1fbfb", 6),
+      makeParticleSource(buildRoundedRectShape(0.34, 0.78, 0.055), "#f97322", 7),
+      makeParticleSource(buildTopArcShape(), "#f97322", 7),
     ];
     const totalWeight = sources.reduce((sum, source) => sum + source.weight, 0);
     const base = new Float32Array(PARTICLE_COUNT * 3);

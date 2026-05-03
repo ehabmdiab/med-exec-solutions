@@ -187,10 +187,12 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
     () =>
       new THREE.MeshPhysicalMaterial({
         color: new THREE.Color("#f7faf9"),
-        roughness: 0.38,
-        metalness: 0.03,
-        clearcoat: 0.32,
-        envMapIntensity: 0.82,
+        roughness: 0.18,
+        metalness: 0.02,
+        clearcoat: 0.56,
+        envMapIntensity: 1.45,
+        emissive: new THREE.Color("#f7faf9"),
+        emissiveIntensity: 0.16,
         transparent: true,
       }),
     [],

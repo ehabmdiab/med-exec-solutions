@@ -82,11 +82,11 @@ function buildWhiteInnerWallShape(side: -1 | 1) {
 
 function buildCentralTopazBridgeShape() {
   const shape = new THREE.Shape();
-  shape.moveTo(-0.32, -0.79);
-  shape.bezierCurveTo(-0.2, -0.61, -0.08, -0.55, 0, -0.55);
-  shape.bezierCurveTo(0.08, -0.55, 0.2, -0.61, 0.32, -0.79);
-  shape.bezierCurveTo(0.24, -0.66, 0.16, -0.58, 0, -0.58);
-  shape.bezierCurveTo(-0.16, -0.58, -0.24, -0.66, -0.32, -0.79);
+  shape.moveTo(-0.36, -0.8);
+  shape.bezierCurveTo(-0.23, -0.62, -0.11, -0.54, 0, -0.54);
+  shape.bezierCurveTo(0.11, -0.54, 0.23, -0.62, 0.36, -0.8);
+  shape.bezierCurveTo(0.26, -0.68, 0.15, -0.62, 0, -0.62);
+  shape.bezierCurveTo(-0.15, -0.62, -0.26, -0.68, -0.36, -0.8);
   shape.closePath();
   return shape;
 }

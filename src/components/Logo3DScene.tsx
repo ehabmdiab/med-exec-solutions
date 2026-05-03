@@ -291,15 +291,15 @@ function DissolveParticles({ active }: { active: boolean }) {
       const px = (x / canvas.width - 0.5) * LOGO_WIDTH;
       const py = (0.5 - y / canvas.height) * LOGO_HEIGHT;
       const pz = (Math.random() - 0.5) * 0.12;
-      const outward = new THREE.Vector3(px, py, 0.55).normalize();
-      const lift = Math.random() * 0.9 + 0.45;
+      const bladeDirection = new THREE.Vector3(0.9, -0.18, 0.75).normalize();
+      const lift = Math.random() * 0.55 + 0.28;
 
       base[i * 3] = px;
       base[i * 3 + 1] = py;
       base[i * 3 + 2] = pz;
-      velocity[i * 3] = outward.x * (0.7 + Math.random() * 1.4) + (Math.random() - 0.5) * 1.1;
-      velocity[i * 3 + 1] = outward.y * (0.7 + Math.random() * 1.4) + (Math.random() - 0.5) * 1.1;
-      velocity[i * 3 + 2] = lift + Math.random() * 1.2;
+      velocity[i * 3] = bladeDirection.x * (1.1 + Math.random() * 1.7) + (Math.random() - 0.5) * 0.25;
+      velocity[i * 3 + 1] = bladeDirection.y * (0.55 + Math.random() * 1.1) + lift;
+      velocity[i * 3 + 2] = bladeDirection.z * (0.9 + Math.random() * 1.4);
       color[i * 3] = data[pixelIndex] / 255;
       color[i * 3 + 1] = data[pixelIndex + 1] / 255;
       color[i * 3 + 2] = data[pixelIndex + 2] / 255;
@@ -320,16 +320,21 @@ function DissolveParticles({ active }: { active: boolean }) {
     const positions = positionAttribute.array as Float32Array;
 
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const wobble = Math.sin(time * 2.2 + i * 0.37) * 0.045 * progress;
-      positions[i * 3] = basePositions[i * 3] + velocities[i * 3] * progress * 1.55 + wobble;
-      positions[i * 3 + 1] = basePositions[i * 3 + 1] + velocities[i * 3 + 1] * progress * 1.55 + wobble * 0.5;
-      positions[i * 3 + 2] = basePositions[i * 3 + 2] + velocities[i * 3 + 2] * progress * 1.35;
+      const px = basePositions[i * 3];
+      const py = basePositions[i * 3 + 1];
+      const sliceCoordinate = px + py * 0.28;
+      const blade = -1.7 + progress * 3.4;
+      const localProgress = THREE.MathUtils.clamp((blade - sliceCoordinate) * 2.7, 0, 1);
+      const wobble = Math.sin(time * 9 + i * 0.37) * 0.026 * localProgress;
+      positions[i * 3] = px + velocities[i * 3] * localProgress * 1.7 + wobble;
+      positions[i * 3 + 1] = py + velocities[i * 3 + 1] * localProgress * 1.35 - localProgress * localProgress * 0.48;
+      positions[i * 3 + 2] = basePositions[i * 3 + 2] + velocities[i * 3 + 2] * localProgress * 1.25;
     }
 
     positionAttribute.needsUpdate = true;
     const material = pointsRef.current.material as THREE.PointsMaterial;
-    material.opacity = Math.min(0.95, progress * 1.2);
-    material.size = THREE.MathUtils.lerp(0.014, 0.038, progress);
+    material.opacity = Math.min(0.96, progress * 1.35);
+    material.size = THREE.MathUtils.lerp(0.011, 0.032, progress);
   });
 
   return (

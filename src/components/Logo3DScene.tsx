@@ -117,74 +117,139 @@ function InnerVNegativeSpace({ progress }: { progress: DissolveRef }) {
   return <mesh ref={meshRef} geometry={geometry} material={material} position={[0, -0.05, -0.035]} scale={[1.04, 1, 1]} />;
 }
 
-function ExactLogoPlanes({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
+function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
   const groupRef = useRef<THREE.Group>(null!);
-  const texture = useLogoTexture();
   const { pointer } = useThree();
 
-  const frontMaterial = useMemo(
+  const [leftGeometry, rightGeometry, baseGeometry, innerGeometry, pillGeometry, arcGeometry] = useMemo(() => {
+    const depthOptions: THREE.ExtrudeGeometryOptions = {
+      depth: 0.22,
+      bevelEnabled: true,
+      bevelThickness: 0.025,
+      bevelSize: 0.018,
+      bevelSegments: 5,
+      curveSegments: 56,
+    };
+
+    const shallowOptions = { ...depthOptions, depth: 0.14, bevelThickness: 0.018, bevelSize: 0.012 };
+    const geometries = [
+      new THREE.ExtrudeGeometry(buildLeftOuterVShape(), depthOptions),
+      new THREE.ExtrudeGeometry(buildRightOuterVShape(), depthOptions),
+      new THREE.ExtrudeGeometry(buildCenterBaseShape(), depthOptions),
+      new THREE.ExtrudeGeometry(buildInnerVShape(), shallowOptions),
+      new THREE.ExtrudeGeometry(buildRoundedRectShape(0.32, 0.72, 0.05), depthOptions),
+      new THREE.ExtrudeGeometry(buildTopArcShape(), depthOptions),
+    ];
+
+    geometries.forEach((geometry) => {
+      geometry.center();
+      geometry.computeVertexNormals();
+    });
+
+    return geometries;
+  }, []);
+
+  const leftMaterial = useMemo(
     () =>
       new THREE.MeshPhysicalMaterial({
-        map: texture,
+        color: new THREE.Color("#78d2c1"),
+        roughness: 0.26,
+        metalness: 0.12,
+        clearcoat: 0.62,
+        clearcoatRoughness: 0.18,
+        envMapIntensity: 1.25,
         transparent: true,
-        alphaTest: 0.04,
-        roughness: 0.32,
-        metalness: 0.08,
-        clearcoat: 0.55,
-        clearcoatRoughness: 0.22,
-        envMapIntensity: 1.15,
-        side: THREE.DoubleSide,
-        depthWrite: false,
       }),
-    [texture],
+    [],
   );
 
-  const depthMaterials = useMemo(
+  const rightMaterial = useMemo(
     () =>
-      Array.from(
-        { length: 10 },
-        (_, i) =>
-          new THREE.MeshBasicMaterial({
-            map: texture,
-            color: new THREE.Color(i < 5 ? "#178f92" : "#0d6f80"),
-            transparent: true,
-            alphaTest: 0.04,
-            opacity: 0.11,
-            side: THREE.DoubleSide,
-            depthWrite: false,
-          }),
-      ),
-    [texture],
+      new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color("#118894"),
+        roughness: 0.26,
+        metalness: 0.16,
+        clearcoat: 0.64,
+        clearcoatRoughness: 0.18,
+        envMapIntensity: 1.25,
+        transparent: true,
+      }),
+    [],
+  );
+
+  const baseMaterial = useMemo(
+    () =>
+      new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color("#20a7a4"),
+        roughness: 0.24,
+        metalness: 0.14,
+        clearcoat: 0.6,
+        clearcoatRoughness: 0.16,
+        envMapIntensity: 1.22,
+        transparent: true,
+      }),
+    [],
+  );
+
+  const innerMaterial = useMemo(
+    () =>
+      new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color("#f7faf9"),
+        roughness: 0.38,
+        metalness: 0.03,
+        clearcoat: 0.32,
+        envMapIntensity: 0.82,
+        transparent: true,
+      }),
+    [],
+  );
+
+  const orangeMaterial = useMemo(
+    () =>
+      new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color("#f36f24"),
+        roughness: 0.22,
+        metalness: 0.16,
+        clearcoat: 0.56,
+        clearcoatRoughness: 0.14,
+        envMapIntensity: 1.05,
+        emissive: new THREE.Color("#8c3300"),
+        emissiveIntensity: 0.08,
+        transparent: true,
+      }),
+    [],
   );
 
   useFrame(({ clock }, delta) => {
     const group = groupRef.current;
-    group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, pointer.x * 0.28 + Math.sin(clock.elapsedTime * 0.22) * 0.035, delta * 3);
-    group.rotation.x = THREE.MathUtils.lerp(group.rotation.x, -pointer.y * 0.14 + Math.cos(clock.elapsedTime * 0.18) * 0.02, delta * 3);
+    group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, pointer.x * 0.3 + Math.sin(clock.elapsedTime * 0.22) * 0.035, delta * 3);
+    group.rotation.x = THREE.MathUtils.lerp(group.rotation.x, -pointer.y * 0.15 + Math.cos(clock.elapsedTime * 0.18) * 0.02, delta * 3);
     group.rotation.z = THREE.MathUtils.lerp(group.rotation.z, pointer.x * 0.025, delta * 2.6);
 
-    const opacity = 1 - dissolveProgress.current * 0.94;
-    frontMaterial.opacity = opacity;
-    depthMaterials.forEach((material, index) => {
-      material.opacity = (0.12 - index * 0.006) * opacity;
+    const progress = dissolveProgress.current;
+    const opacity = 1 - progress * 0.9;
+    group.scale.setScalar(1 + progress * 0.05);
+    [leftMaterial, rightMaterial, baseMaterial, innerMaterial, orangeMaterial].forEach((material) => {
+      material.opacity = opacity;
     });
   });
 
   return (
     <Float speed={1.1} rotationIntensity={0.08} floatIntensity={0.24} floatingRange={[-0.07, 0.07]}>
       <group ref={groupRef}>
-        <InnerVNegativeSpace progress={dissolveProgress} />
-        {depthMaterials.map((material, index) => (
-          <mesh key={index} material={material} position={[0, 0, -0.14 + index * 0.014]} scale={[1 + index * 0.003, 1 + index * 0.003, 1]}>
-            <planeGeometry args={[LOGO_WIDTH, LOGO_HEIGHT, 1, 1]} />
-          </mesh>
-        ))}
-        <mesh material={frontMaterial} position={[0, 0, 0.04]}>
-          <planeGeometry args={[LOGO_WIDTH, LOGO_HEIGHT, 1, 1]} />
-        </mesh>
+        <mesh geometry={leftGeometry} material={leftMaterial} position={[-0.33, 0.12, 0]} rotation={[0, 0, 0.02]} scale={[1.03, 1.02, 1]} />
+        <mesh geometry={rightGeometry} material={rightMaterial} position={[0.33, 0.12, 0]} rotation={[0, 0, -0.02]} scale={[1.03, 1.02, 1]} />
+        <mesh geometry={baseGeometry} material={baseMaterial} position={[0, -0.1, 0.01]} scale={[2.05, 1.08, 1]} />
+        <mesh geometry={innerGeometry} material={innerMaterial} position={[0, 0.2, 0.13]} scale={[1.22, 1.1, 1]} />
+        <mesh geometry={pillGeometry} material={orangeMaterial} position={[0, 0.08, 0.23]} />
+        <mesh geometry={arcGeometry} material={orangeMaterial} position={[0, 0.95, 0.23]} scale={[0.9, 0.55, 1]} />
       </group>
     </Float>
   );
+}
+
+function ExactLogoPlanes({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
+  return <VLogoMark dissolveProgress={dissolveProgress} />;
 }
 
 function DissolveParticles({ active }: { active: boolean }) {

@@ -206,11 +206,11 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
       <group ref={groupRef}>
         <mesh geometry={leftGeometry} material={materials.left} />
         <mesh geometry={rightGeometry} material={materials.right} />
-        <mesh geometry={leftTopazEdge} material={materials.topaz} position={[0, 0, 0.22]} />
-        <mesh geometry={rightTopazEdge} material={materials.topaz} position={[0, 0, 0.22]} />
-        <mesh geometry={leftWhiteWall} material={materials.white} position={[0, 0, 0.3]} />
-        <mesh geometry={rightWhiteWall} material={materials.white} position={[0, 0, 0.3]} />
-        <mesh geometry={bridgeGeometry} material={materials.topaz} position={[0, 0, 0.28]} />
+        <mesh geometry={leftTopazEdge} material={materials.topaz} position={[0, 0, 0.24]} />
+        <mesh geometry={rightTopazEdge} material={materials.topaz} position={[0, 0, 0.24]} />
+        <mesh geometry={leftWhiteWall} material={materials.white} position={[0, 0, 0.34]} />
+        <mesh geometry={rightWhiteWall} material={materials.white} position={[0, 0, 0.34]} />
+        <mesh geometry={bridgeGeometry} material={materials.topaz} position={[0, 0, 0.32]} />
         <mesh geometry={pillGeometry} material={materials.orange} position={[0, 0.24, 0.34]} />
         <mesh geometry={arcGeometry} material={materials.orange} position={[0, 1.03, 0.34]} scale={[0.84, 0.52, 1]} />
       </group>

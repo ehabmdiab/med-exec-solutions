@@ -125,7 +125,7 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
   const groupRef = useRef<THREE.Group>(null!);
   const { pointer } = useThree();
 
-  const [leftGeometry, rightGeometry, baseGeometry, innerGeometry, pillGeometry, arcGeometry] = useMemo(() => {
+  const [leftGeometry, rightGeometry, innerGeometry, pillGeometry, arcGeometry, leftEdgeGeometry, rightEdgeGeometry] = useMemo(() => {
     const depthOptions: THREE.ExtrudeGeometryOptions = {
       depth: 0.22,
       bevelEnabled: true,
@@ -139,10 +139,11 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
     const geometries = [
       new THREE.ExtrudeGeometry(buildLeftOuterVShape(), depthOptions),
       new THREE.ExtrudeGeometry(buildRightOuterVShape(), depthOptions),
-      new THREE.ExtrudeGeometry(buildCenterBaseShape(), depthOptions),
       new THREE.ExtrudeGeometry(buildInnerVShape(), shallowOptions),
       new THREE.ExtrudeGeometry(buildRoundedRectShape(0.32, 0.72, 0.05), depthOptions),
       new THREE.ExtrudeGeometry(buildTopArcShape(), depthOptions),
+      new THREE.ExtrudeGeometry(buildWhiteLowerEdgeShape(-1), shallowOptions),
+      new THREE.ExtrudeGeometry(buildWhiteLowerEdgeShape(1), shallowOptions),
     ];
 
     geometries.forEach((geometry) => {
@@ -176,20 +177,6 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
         clearcoat: 0.64,
         clearcoatRoughness: 0.18,
         envMapIntensity: 1.25,
-        transparent: true,
-      }),
-    [],
-  );
-
-  const baseMaterial = useMemo(
-    () =>
-      new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color("#20a7a4"),
-        roughness: 0.24,
-        metalness: 0.14,
-        clearcoat: 0.6,
-        clearcoatRoughness: 0.16,
-        envMapIntensity: 1.22,
         transparent: true,
       }),
     [],
@@ -233,7 +220,7 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
     const progress = dissolveProgress.current;
     const opacity = 1 - progress * 0.9;
     group.scale.setScalar(1 + progress * 0.05);
-    [leftMaterial, rightMaterial, baseMaterial, innerMaterial, orangeMaterial].forEach((material) => {
+    [leftMaterial, rightMaterial, innerMaterial, orangeMaterial].forEach((material) => {
       material.opacity = opacity;
     });
   });
@@ -243,7 +230,9 @@ function VLogoMark({ dissolveProgress }: { dissolveProgress: DissolveRef }) {
       <group ref={groupRef}>
         <mesh geometry={leftGeometry} material={leftMaterial} position={[0, 0, 0]} />
         <mesh geometry={rightGeometry} material={rightMaterial} position={[0, 0, 0]} />
-        <mesh geometry={innerGeometry} material={innerMaterial} position={[0, 0.02, 0.17]} scale={[0.72, 0.98, 1]} />
+        <mesh geometry={innerGeometry} material={innerMaterial} position={[0, 0.02, 0.18]} scale={[1.02, 1, 1]} />
+        <mesh geometry={leftEdgeGeometry} material={innerMaterial} position={[0, 0.02, 0.31]} />
+        <mesh geometry={rightEdgeGeometry} material={innerMaterial} position={[0, 0.02, 0.31]} />
         <mesh geometry={pillGeometry} material={orangeMaterial} position={[0, 0.1, 0.25]} />
         <mesh geometry={arcGeometry} material={orangeMaterial} position={[0, 0.97, 0.25]} scale={[0.82, 0.5, 1]} />
       </group>

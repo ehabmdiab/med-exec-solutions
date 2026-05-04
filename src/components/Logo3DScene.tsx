@@ -121,7 +121,7 @@ function createSweepMaterial(leftColor: THREE.Color, rightColor: THREE.Color, gr
     color: gradient ? 0xffffff : leftColor,
     metalness: 0.34,
     roughness: 0.28,
-    side: THREE.DoubleSide,
+    side: THREE.FrontSide,
   }) as SweepMaterial;
 
   material.onBeforeCompile = (shader) => {

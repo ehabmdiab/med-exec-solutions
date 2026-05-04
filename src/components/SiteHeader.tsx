@@ -34,8 +34,8 @@ export function SiteHeader() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled || open
-          ? "glass border-b border-border/40 shadow-elevate translate-y-0 opacity-100"
-          : "bg-transparent -translate-y-full opacity-0 pointer-events-none"
+          ? "glass border-b border-border/40 shadow-elevate"
+          : "bg-transparent"
       }`}
     >
       <div className="container-wide flex h-16 items-center justify-between gap-6 lg:h-20">

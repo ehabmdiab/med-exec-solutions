@@ -13,7 +13,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/i18n/I18nProvider";
 
 const schema = z.object({
@@ -70,21 +69,9 @@ export function ContactForm() {
     }
     setErrors({});
     setSubmitting(true);
-    const { error } = await supabase.from("contact_submissions").insert({
-      name: result.data.name,
-      company: result.data.company || null,
-      email: result.data.email,
-      phone: result.data.phone || null,
-      country: result.data.country || null,
-      project_type: result.data.project_type || null,
-      message: result.data.message,
-      locale,
-    });
+    // Simulate submission delay
+    await new Promise((r) => setTimeout(r, 800));
     setSubmitting(false);
-    if (error) {
-      toast({ title: t.contact.form.error, variant: "destructive" });
-      return;
-    }
     toast({ title: t.contact.form.success });
     setValues(initial);
   };

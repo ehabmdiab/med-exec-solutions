@@ -39,7 +39,7 @@ export default function Services() {
 
   return (
     <Layout>
-      <section className="pt-16 pb-16 lg:pt-24 lg:pb-20 bg-gradient-soft">
+      <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-gradient-soft">
         <div className="container-wide max-w-3xl">
           <Reveal>
             <span className="eyebrow">{t.services.eyebrow}</span>

@@ -14,7 +14,7 @@ const ICONS = {
 export function ServicesGrid() {
   const { t } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
-  const [floatingOffset, setFloatingOffset] = useState(0);
+  
 
   useEffect(() => {
     let ctx: { revert: () => void } | null = null;

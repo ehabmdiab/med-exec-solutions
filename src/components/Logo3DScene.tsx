@@ -112,7 +112,7 @@ function buildArcShape() {
 
 type SweepMaterial = THREE.MeshStandardMaterial & {
   userData: {
-    shader?: THREE.Shader;
+    shader?: { uniforms: Record<string, { value: unknown }> };
   };
 };
 

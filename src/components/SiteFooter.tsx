@@ -8,16 +8,15 @@ export function SiteFooter() {
   const offices = [t.contact.offices.egypt, t.contact.offices.saudi];
 
   return (
-    <footer className="bg-card border-t border-border relative noise-overlay">
+    <footer className="bg-card border-t border-border relative">
       <div className="container-wide py-16 grid gap-12 md:grid-cols-2 lg:grid-cols-4 relative z-10">
         <div className="space-y-4">
           <Logo inverted />
           <p className="text-sm text-muted-foreground max-w-xs">{t.footer.tagline}</p>
-          {/* Accent dots */}
           <div className="flex gap-2 pt-2">
             <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="w-2 h-2 rounded-full bg-accent" />
-            <span className="w-2 h-2 rounded-full bg-accent-gold" />
+            <span className="w-2 h-2 rounded-full" style={{ background: '#DD9B1F' }} />
+            <span className="w-2 h-2 rounded-full" style={{ background: '#E8742B' }} />
           </div>
         </div>
 
@@ -33,7 +32,7 @@ export function SiteFooter() {
               { to: "/contact", label: t.nav.contact },
             ].map((l) => (
               <li key={l.to}>
-                <Link to={l.to} className="text-foreground/60 hover:text-primary transition-colors">
+                <Link to={l.to} className="text-muted-foreground hover:text-primary transition-colors">
                   {l.label}
                 </Link>
               </li>
@@ -48,15 +47,15 @@ export function SiteFooter() {
           <div className="grid sm:grid-cols-2 gap-6">
             {offices.map((o) => (
               <div key={o.label} className="space-y-2 text-sm">
-                <p className="font-semibold text-foreground">{o.label}</p>
-                <p className="flex items-start gap-2 text-foreground/50">
+                <p className="font-semibold" style={{ color: '#3E6A6A' }}>{o.label}</p>
+                <p className="flex items-start gap-2 text-muted-foreground">
                   <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary" /> {o.address}
                 </p>
-                <p className="flex items-center gap-2 text-foreground/50">
+                <p className="flex items-center gap-2 text-muted-foreground">
                   <Phone className="h-4 w-4 shrink-0 text-primary" />
                   <a href={`tel:${o.phone.replace(/\s/g, "")}`} className="hover:text-primary">{o.phone}</a>
                 </p>
-                <p className="flex items-center gap-2 text-foreground/50">
+                <p className="flex items-center gap-2 text-muted-foreground">
                   <Mail className="h-4 w-4 shrink-0 text-primary" />
                   <a href={`mailto:${o.email}`} className="hover:text-primary">{o.email}</a>
                 </p>

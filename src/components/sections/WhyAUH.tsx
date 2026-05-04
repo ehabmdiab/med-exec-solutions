@@ -6,7 +6,6 @@ export function WhyAUH() {
   const { t } = useI18n();
   return (
     <section className="py-20 lg:py-28 bg-background relative overflow-hidden">
-      <div className="absolute -top-24 -end-24 w-96 h-96 rounded-full bg-primary/[0.03] blur-3xl" aria-hidden />
       <div className="container-wide relative">
         <div className="max-w-3xl">
           <Reveal>
@@ -20,13 +19,13 @@ export function WhyAUH() {
         <div className="mt-14 grid md:grid-cols-2 gap-5 lg:gap-6">
           {t.why.items.map((item, i) => (
             <Reveal key={item.title} delay={i * 100}>
-              <div className="bg-card rounded-2xl border border-border p-7 lg:p-8 h-full hover-lift gradient-border-hover">
+              <div className="bg-card rounded-2xl border border-border p-7 lg:p-8 h-full hover-lift gradient-border-hover shadow-soft">
                 <div className="flex gap-4">
-                  <span className="shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 text-accent">
+                  <span className="shrink-0 flex h-10 w-10 items-center justify-center rounded-full" style={{ background: '#E8742B15', color: '#E8742B' }}>
                     <CheckCircle2 className="h-5 w-5" />
                   </span>
                   <div>
-                    <h3 className="font-display font-bold text-lg text-foreground">{item.title}</h3>
+                    <h3 className="font-display font-bold text-lg" style={{ color: '#3E6A6A' }}>{item.title}</h3>
                     <p className="text-muted-foreground mt-2">{item.desc}</p>
                   </div>
                 </div>

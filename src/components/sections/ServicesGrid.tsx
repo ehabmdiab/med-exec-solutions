@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Factory, FileCheck2, Wind, ShieldCheck } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import { Reveal } from "@/components/Reveal";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 
 const ICONS = {
   turnkey: Factory,

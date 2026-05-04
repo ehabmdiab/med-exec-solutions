@@ -10,9 +10,8 @@ export function Hero() {
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden">
       {/* Hard split background */}
-      <div className="absolute inset-0 flex" aria-hidden>
-        <div className="w-1/2 bg-[#2EC0B1]" />
-        <div className="w-1/2 bg-[#3E6A6A]" />
+      <div className="absolute inset-0 bg-[#366E6C]" aria-hidden>
+        <div className="absolute inset-0 bg-[#02C8B3] origin-top-left" style={{ clipPath: 'polygon(0 0, 85% 0, 75% 100%, 0 100%)' }} />
       </div>
 
       {/* Very subtle noise */}

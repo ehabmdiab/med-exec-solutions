@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Factory, FileCheck2, Wind, ShieldCheck } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import { Reveal } from "@/components/Reveal";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 
 const ICONS = {
   turnkey: Factory,
@@ -14,7 +14,7 @@ const ICONS = {
 export function ServicesGrid() {
   const { t } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
-  const [floatingOffset, setFloatingOffset] = useState(0);
+  
 
   useEffect(() => {
     let ctx: { revert: () => void } | null = null;

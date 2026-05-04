@@ -15,7 +15,7 @@ export default function About() {
 
   return (
     <Layout>
-      <section className="relative pt-16 pb-20 lg:pt-24 lg:pb-28 bg-gradient-soft overflow-hidden">
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-soft overflow-hidden">
         <div className="container-wide grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7">
             <Reveal>

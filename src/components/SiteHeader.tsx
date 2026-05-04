@@ -49,7 +49,9 @@ export function SiteHeader() {
               end={l.to === "/"}
               className={({ isActive }) =>
                 `px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  isActive ? "text-primary" : "text-muted-foreground hover:text-primary"
+                  scrolled
+                    ? isActive ? "text-primary" : "text-muted-foreground hover:text-primary"
+                    : isActive ? "text-white" : "text-white/80 hover:text-white"
                 }`
               }
             >

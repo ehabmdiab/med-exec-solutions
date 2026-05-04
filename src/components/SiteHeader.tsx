@@ -40,7 +40,7 @@ export function SiteHeader() {
       }`}
     >
       <div className="container-wide flex h-16 items-center justify-between gap-6 lg:h-20">
-        <Logo inverted={!scrolled} />
+        <Logo inverted={isHome && !scrolled} />
 
         <nav className="hidden lg:flex items-center gap-1">
           {links.map((l) => (
@@ -50,9 +50,9 @@ export function SiteHeader() {
               end={l.to === "/"}
               className={({ isActive }) =>
                 `px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  scrolled
-                    ? isActive ? "text-primary" : "text-muted-foreground hover:text-primary"
-                    : isActive ? "text-white" : "text-white/80 hover:text-white"
+                  isHome && !scrolled
+                    ? isActive ? "text-white" : "text-white/80 hover:text-white"
+                    : isActive ? "text-primary" : "text-muted-foreground hover:text-primary"
                 }`
               }
             >
@@ -65,7 +65,7 @@ export function SiteHeader() {
           <button
             onClick={toggle}
             className={`hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
-              scrolled ? "text-muted-foreground hover:text-primary" : "text-white/80 hover:text-white"
+              isHome && !scrolled ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-primary"
             }`}
             aria-label={`Switch language to ${locale === "en" ? "Arabic" : "English"}`}
           >
@@ -78,7 +78,7 @@ export function SiteHeader() {
           </Button>
 
           <button
-            className={`lg:hidden p-2 ${scrolled ? "text-muted-foreground" : "text-white"}`}
+            className={`lg:hidden p-2 ${isHome && !scrolled ? "text-white" : "text-muted-foreground"}`}
             onClick={() => setOpen((o) => !o)}
             aria-label="Toggle menu"
             aria-expanded={open}

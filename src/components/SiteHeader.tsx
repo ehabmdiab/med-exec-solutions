@@ -33,7 +33,7 @@ export function SiteHeader() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled || open ? "glass border-b border-border shadow-soft" : "bg-transparent"
+        scrolled || open ? "glass border-b border-border" : "bg-transparent"
       }`}
     >
       <div className="container-wide flex h-16 items-center justify-between gap-6 lg:h-20">
@@ -47,7 +47,7 @@ export function SiteHeader() {
               end={l.to === "/"}
               className={({ isActive }) =>
                 `px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  isActive ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-primary hover:bg-primary/5"
+                  isActive ? "text-primary" : "text-foreground/60 hover:text-primary"
                 }`
               }
             >
@@ -59,7 +59,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <button
             onClick={toggle}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-foreground/70 hover:text-primary transition-colors rounded-lg"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-foreground/60 hover:text-primary transition-colors rounded-lg"
             aria-label={`Switch language to ${locale === "en" ? "Arabic" : "English"}`}
           >
             <Languages className="h-4 w-4" />
@@ -71,7 +71,7 @@ export function SiteHeader() {
           </Button>
 
           <button
-            className="lg:hidden p-2 text-secondary"
+            className="lg:hidden p-2 text-foreground"
             onClick={() => setOpen((o) => !o)}
             aria-label="Toggle menu"
             aria-expanded={open}
@@ -90,7 +90,7 @@ export function SiteHeader() {
                 to={l.to}
                 end={l.to === "/"}
                 className={({ isActive }) =>
-                  `py-3 text-base font-medium ${isActive ? "text-primary" : "text-foreground/80"}`
+                  `py-3 text-base font-medium ${isActive ? "text-primary" : "text-foreground/70"}`
                 }
               >
                 {l.label}
@@ -98,7 +98,7 @@ export function SiteHeader() {
             ))}
             <button
               onClick={toggle}
-              className="py-3 text-start text-base font-medium text-foreground/80 inline-flex items-center gap-2"
+              className="py-3 text-start text-base font-medium text-foreground/70 inline-flex items-center gap-2"
             >
               <Languages className="h-4 w-4" />
               {locale === "en" ? "العربية" : "English"}

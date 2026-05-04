@@ -5,12 +5,12 @@ import { Reveal } from "@/components/Reveal";
 export function WhyAUH() {
   const { t } = useI18n();
   return (
-    <section className="py-20 lg:py-28 bg-primary/[0.04] relative overflow-hidden">
-      <div className="absolute -top-24 -end-24 w-96 h-96 rounded-full bg-primary/5 blur-3xl" aria-hidden />
-      <div className="absolute -bottom-24 -start-24 w-96 h-96 rounded-full bg-accent/5 blur-3xl" aria-hidden />
+    <section className="py-20 lg:py-28 bg-background relative overflow-hidden">
+      <div className="absolute -top-24 -end-24 w-96 h-96 rounded-full bg-primary/[0.03] blur-3xl" aria-hidden />
       <div className="container-wide relative">
         <div className="max-w-3xl">
           <Reveal>
+            <div className="w-12 h-[2px] bg-gradient-to-r from-primary to-accent-gold mb-6" />
             <span className="eyebrow">{t.why.eyebrow}</span>
             <h2 className="section-title mt-3">{t.why.title}</h2>
             <p className="section-sub italic">{t.why.sub}</p>
@@ -19,14 +19,14 @@ export function WhyAUH() {
 
         <div className="mt-14 grid md:grid-cols-2 gap-5 lg:gap-6">
           {t.why.items.map((item, i) => (
-            <Reveal key={item.title} delay={i * 70}>
+            <Reveal key={item.title} delay={i * 100}>
               <div className="bg-card rounded-2xl border border-border p-7 lg:p-8 h-full hover-lift gradient-border-hover">
                 <div className="flex gap-4">
-                  <span className="shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-accent">
+                  <span className="shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 text-accent">
                     <CheckCircle2 className="h-5 w-5" />
                   </span>
                   <div>
-                    <h3 className="font-display font-bold text-lg text-secondary">{item.title}</h3>
+                    <h3 className="font-display font-bold text-lg text-foreground">{item.title}</h3>
                     <p className="text-muted-foreground mt-2">{item.desc}</p>
                   </div>
                 </div>

@@ -203,7 +203,7 @@ function LogoGroup({ hovered }: { hovered: boolean }) {
 
   const { baseGeometry, arcGeometry, pillarGeometry } = useMemo(() => {
     const extrusion: THREE.ExtrudeGeometryOptions = {
-      depth: 0.16,
+      depth: 0.02,
       bevelEnabled: false,
       curveSegments: 40,
     };

@@ -11,6 +11,16 @@ import g2 from "@/assets/gallery/g2.webp";
 import g3 from "@/assets/gallery/g3.webp";
 import g4 from "@/assets/gallery/g4.webp";
 import g5 from "@/assets/gallery/g5.webp";
+import n1 from "@/assets/gallery/n1.webp";
+import n2 from "@/assets/gallery/n2.webp";
+import n3 from "@/assets/gallery/n3.webp";
+import n4 from "@/assets/gallery/n4.webp";
+import n5 from "@/assets/gallery/n5.webp";
+import n6 from "@/assets/gallery/n6.webp";
+import n7 from "@/assets/gallery/n7.webp";
+import n8 from "@/assets/gallery/n8.webp";
+import n9 from "@/assets/gallery/n9.webp";
+import n10 from "@/assets/gallery/n10.webp";
 import poster1 from "@/assets/gallery/clip1-poster.webp";
 
 type MediaItem = {

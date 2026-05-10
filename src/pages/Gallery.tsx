@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useSEO } from "@/hooks/useSEO";
+import { MeshGradient } from "@paper-design/shaders-react";
 
 import g1 from "@/assets/gallery/g1.webp";
 import g2 from "@/assets/gallery/g2.webp";

@@ -212,9 +212,17 @@ function LogoGroup({ hovered }: { hovered: boolean }) {
     const arcGeometry = new THREE.ExtrudeGeometry(buildArcShape(), { ...extrusion, depth: 0.14 });
     const pillarGeometry = new THREE.ExtrudeGeometry(buildPillarShape(), { ...extrusion, depth: 0.15 });
 
-    baseGeometry.center();
-    arcGeometry.center();
-    pillarGeometry.center();
+    // Center all geometries by the SAME offset (the base's center) so their
+    // original SVG-relative positions are preserved. Centering each piece
+    // independently caused the orange pillar/arc to drift, leaving stray
+    // outline artifacts behind the teal shape.
+    baseGeometry.computeBoundingBox();
+    const bb = baseGeometry.boundingBox!;
+    const cx = (bb.min.x + bb.max.x) / 2;
+    const cy = (bb.min.y + bb.max.y) / 2;
+    baseGeometry.translate(-cx, -cy, 0);
+    arcGeometry.translate(-cx, -cy, 0);
+    pillarGeometry.translate(-cx, -cy, 0);
 
     return { baseGeometry, arcGeometry, pillarGeometry };
   }, []);
@@ -250,9 +258,9 @@ function LogoGroup({ hovered }: { hovered: boolean }) {
 
   return (
     <group ref={groupRef}>
-      <mesh geometry={baseGeometry} material={materials.teal} castShadow receiveShadow position={[0, -0.02, 0]} />
-      <mesh geometry={arcGeometry} material={materials.orange} castShadow receiveShadow position={[0.02, 3.02, 0.12]} />
-      <mesh geometry={pillarGeometry} material={materials.orange} castShadow receiveShadow position={[0, 1.14, 0.14]} />
+      <mesh geometry={baseGeometry} material={materials.teal} castShadow receiveShadow />
+      <mesh geometry={arcGeometry} material={materials.orange} castShadow receiveShadow position={[0, 0, 0.12]} />
+      <mesh geometry={pillarGeometry} material={materials.orange} castShadow receiveShadow position={[0, 0, 0.14]} />
     </group>
   );
 }

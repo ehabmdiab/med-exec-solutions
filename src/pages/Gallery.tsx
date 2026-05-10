@@ -42,6 +42,12 @@ type MediaItem = {
 
 const ITEMS_EN: MediaItem[] = [
   { id: "v1", type: "video", src: "/gallery/clip1.mp4", poster: poster1, title: "Cleanroom Walkthrough", caption: "Inside an operational AUH facility", span: "md:col-span-8 md:row-span-2" },
+  { id: "v2", type: "video", src: "/gallery/v2.mp4", poster: poster2, title: "Facility Tour", caption: "Walkthrough of a delivered AUH facility", span: "md:col-span-6 md:row-span-3" },
+  { id: "v3", type: "video", src: "/gallery/v3.mp4", poster: poster3, title: "Production In Motion", caption: "Live shot of an active manufacturing line", span: "md:col-span-6 md:row-span-3" },
+  { id: "v4", type: "video", src: "/gallery/v4.mp4", poster: poster4, title: "Cleanroom Operations", caption: "Inside an ISO-classified suite", span: "md:col-span-4 md:row-span-2" },
+  { id: "v5", type: "video", src: "/gallery/v5.mp4", poster: poster5, title: "Equipment Handover", caption: "Validated equipment ready for production", span: "md:col-span-4 md:row-span-2" },
+  { id: "v6", type: "video", src: "/gallery/v6.mp4", poster: poster6, title: "Site Progress", caption: "Construction milestone capture", span: "md:col-span-4 md:row-span-2" },
+  { id: "v7", type: "video", src: "/gallery/v7.mp4", poster: poster7, title: "Final Walkthrough", caption: "Pre-handover inspection footage", span: "md:col-span-12 md:row-span-2" },
   { id: "g1", type: "image", src: g1, title: "Production Line", caption: "Stainless-steel manufacturing equipment", span: "md:col-span-4 md:row-span-2" },
   { id: "g2", type: "image", src: g2, title: "Automated Packaging", caption: "Integrated medical disposables line", span: "md:col-span-7 md:row-span-2" },
   { id: "g3", type: "image", src: g3, title: "Cleanroom Suite", caption: "ISO-classified controlled environment", span: "md:col-span-5 md:row-span-2" },
@@ -57,12 +63,6 @@ const ITEMS_EN: MediaItem[] = [
   { id: "n8", type: "image", src: n8, title: "Production Floor", caption: "Stainless equipment with epoxy lines", span: "md:col-span-7 md:row-span-2" },
   { id: "n9", type: "image", src: n9, title: "Blue Cleanroom", caption: "Finished epoxy floor and pressure-balanced suite", span: "md:col-span-5 md:row-span-2" },
   { id: "n10", type: "image", src: n10, title: "Validation Walkthrough", caption: "Final inspection inside an ISO suite", span: "md:col-span-12 md:row-span-2" },
-  { id: "v2", type: "video", src: "/gallery/v2.mp4", poster: poster2, title: "Facility Tour", caption: "Walkthrough of a delivered AUH facility", span: "md:col-span-6 md:row-span-3" },
-  { id: "v3", type: "video", src: "/gallery/v3.mp4", poster: poster3, title: "Production In Motion", caption: "Live shot of an active manufacturing line", span: "md:col-span-6 md:row-span-3" },
-  { id: "v4", type: "video", src: "/gallery/v4.mp4", poster: poster4, title: "Cleanroom Operations", caption: "Inside an ISO-classified suite", span: "md:col-span-4 md:row-span-2" },
-  { id: "v5", type: "video", src: "/gallery/v5.mp4", poster: poster5, title: "Equipment Handover", caption: "Validated equipment ready for production", span: "md:col-span-4 md:row-span-2" },
-  { id: "v6", type: "video", src: "/gallery/v6.mp4", poster: poster6, title: "Site Progress", caption: "Construction milestone capture", span: "md:col-span-4 md:row-span-2" },
-  { id: "v7", type: "video", src: "/gallery/v7.mp4", poster: poster7, title: "Final Walkthrough", caption: "Pre-handover inspection footage", span: "md:col-span-12 md:row-span-2" },
 ];
 
 const ITEMS_AR: MediaItem[] = [

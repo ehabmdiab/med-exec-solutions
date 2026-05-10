@@ -308,10 +308,6 @@ function InteractiveScene() {
           <planeGeometry args={[7.2, 8.2]} />
           <meshBasicMaterial transparent opacity={0} depthWrite={false} />
         </mesh>
-        <mesh rotation-x={-Math.PI / 2} position={[0, -3.85, -0.08]} receiveShadow>
-          <planeGeometry args={[8.5, 8.5]} />
-          <shadowMaterial transparent opacity={0.18} />
-        </mesh>
       </group>
     </>
   );

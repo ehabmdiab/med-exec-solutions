@@ -328,11 +328,6 @@ function InteractiveScene({ mirror }: { mirror: boolean }) {
       <StudioLighting />
       <group position={compact ? [compactX, -0.1, 0] : [sideX, 0.05, 0]} scale={compact ? 0.7 : 0.9}>
         <LogoGroup hovered={hovered} />
-        {/* Soft circular shadow catcher — round shape avoids the horizontal tail/seam */}
-        <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, -3.4, 0]}>
-          <circleGeometry args={[14, 96]} />
-          <shadowMaterial transparent opacity={0.28} />
-        </mesh>
         <mesh onPointerEnter={() => setHovered(true)} onPointerLeave={() => setHovered(false)} position={[0, 0.1, 0.75]}>
           <planeGeometry args={[7.2, 8.2]} />
           <meshBasicMaterial transparent opacity={0} depthWrite={false} />

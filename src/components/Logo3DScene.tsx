@@ -258,7 +258,7 @@ function LogoGroup({ hovered }: { hovered: boolean }) {
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} onPointerOver={onPointerOver} onPointerOut={onPointerOut}>
       <mesh geometry={baseGeometry} material={materials.teal} castShadow receiveShadow />
       <mesh geometry={arcGeometry} material={materials.orange} castShadow receiveShadow position={[0, 0, 0.12]} />
       <mesh geometry={pillarGeometry} material={materials.orange} castShadow receiveShadow position={[0, 0, 0.14]} />

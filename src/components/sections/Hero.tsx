@@ -25,7 +25,7 @@ export function Hero() {
       {/* 3D Model — centered across the split */}
       <Logo3DScene />
 
-      <div className="container-wide relative z-10 py-24 lg:py-32">
+      <div className="container-wide relative z-10 py-24 lg:py-32 pointer-events-none">
         <div className="max-w-3xl animate-fade-in-up">
           {/* Accent line */}
           <div className="w-12 h-[2px] bg-gradient-to-r from-white/80 to-white/40 mb-6" />

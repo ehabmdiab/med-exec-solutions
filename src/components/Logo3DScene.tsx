@@ -312,11 +312,7 @@ function InteractiveScene() {
       <StudioLighting />
       <group position={compact ? [0.15, -0.1, 0] : [2.25, 0.05, 0]} scale={compact ? 0.7 : 0.9}>
         <LogoGroup hovered={hovered} />
-        {/* Ground shadow catcher */}
-        <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, -3.4, 0]}>
-          <planeGeometry args={[14, 14]} />
-          <shadowMaterial transparent opacity={0.28} />
-        </mesh>
+        {/* Ground shadow catcher removed — was producing a visible horizontal seam */}
         <mesh onPointerEnter={() => setHovered(true)} onPointerLeave={() => setHovered(false)} position={[0, 0.1, 0.75]}>
           <planeGeometry args={[7.2, 8.2]} />
           <meshBasicMaterial transparent opacity={0} depthWrite={false} />

@@ -11,6 +11,16 @@ import g2 from "@/assets/gallery/g2.webp";
 import g3 from "@/assets/gallery/g3.webp";
 import g4 from "@/assets/gallery/g4.webp";
 import g5 from "@/assets/gallery/g5.webp";
+import n1 from "@/assets/gallery/n1.webp";
+import n2 from "@/assets/gallery/n2.webp";
+import n3 from "@/assets/gallery/n3.webp";
+import n4 from "@/assets/gallery/n4.webp";
+import n5 from "@/assets/gallery/n5.webp";
+import n6 from "@/assets/gallery/n6.webp";
+import n7 from "@/assets/gallery/n7.webp";
+import n8 from "@/assets/gallery/n8.webp";
+import n9 from "@/assets/gallery/n9.webp";
+import n10 from "@/assets/gallery/n10.webp";
 import poster1 from "@/assets/gallery/clip1-poster.webp";
 
 type MediaItem = {
@@ -31,6 +41,16 @@ const ITEMS_EN: MediaItem[] = [
   { id: "g3", type: "image", src: g3, title: "Cleanroom Suite", caption: "ISO-classified controlled environment", span: "md:col-span-5 md:row-span-2" },
   { id: "g4", type: "image", src: g4, title: "Site Inspection", caption: "Final walk-through before handover", span: "md:col-span-5 md:row-span-2" },
   { id: "g5", type: "image", src: g5, title: "Epoxy Floor Finish", caption: "Pharmaceutical-grade hygienic flooring", span: "md:col-span-7 md:row-span-2" },
+  { id: "n1", type: "image", src: n1, title: "Cleanroom Corridor", caption: "Controlled-access circulation with HEPA ceiling", span: "md:col-span-4 md:row-span-3" },
+  { id: "n2", type: "image", src: n2, title: "Material Pass-Box", caption: "Stainless-steel transfer hatch with pressure gauge", span: "md:col-span-4 md:row-span-2" },
+  { id: "n3", type: "image", src: n3, title: "Ideal Medical — Team", caption: "On-site at the delivered facility", span: "md:col-span-8 md:row-span-2" },
+  { id: "n4", type: "image", src: n4, title: "Ideal Medical Solutions", caption: "Facility entrance signage", span: "md:col-span-6 md:row-span-2" },
+  { id: "n5", type: "image", src: n5, title: "Glass Façade", caption: "Reflective curtain-wall office wing", span: "md:col-span-6 md:row-span-3" },
+  { id: "n6", type: "image", src: n6, title: "QC Laboratory", caption: "Bench layout with integrated services", span: "md:col-span-6 md:row-span-2" },
+  { id: "n7", type: "image", src: n7, title: "Gowning Room", caption: "Personnel lockers and stainless bench", span: "md:col-span-6 md:row-span-2" },
+  { id: "n8", type: "image", src: n8, title: "Production Floor", caption: "Stainless equipment with epoxy lines", span: "md:col-span-7 md:row-span-2" },
+  { id: "n9", type: "image", src: n9, title: "Blue Cleanroom", caption: "Finished epoxy floor and pressure-balanced suite", span: "md:col-span-5 md:row-span-2" },
+  { id: "n10", type: "image", src: n10, title: "Validation Walkthrough", caption: "Final inspection inside an ISO suite", span: "md:col-span-12 md:row-span-2" },
 ];
 
 const ITEMS_AR: MediaItem[] = [
@@ -40,6 +60,16 @@ const ITEMS_AR: MediaItem[] = [
   { id: "g3", type: "image", src: g3, title: "جناح الغرفة النظيفة", caption: "بيئة محكومة مطابقة لمعايير ISO", span: "md:col-span-5 md:row-span-2" },
   { id: "g4", type: "image", src: g4, title: "تفتيش الموقع", caption: "الجولة النهائية قبل التسليم", span: "md:col-span-5 md:row-span-2" },
   { id: "g5", type: "image", src: g5, title: "أرضية إيبوكسي", caption: "أرضيات صحية بمواصفات صيدلانية", span: "md:col-span-7 md:row-span-2" },
+  { id: "n1", type: "image", src: n1, title: "ممر الغرفة النظيفة", caption: "ممر محكوم مع سقف HEPA", span: "md:col-span-4 md:row-span-3" },
+  { id: "n2", type: "image", src: n2, title: "صندوق تمرير المواد", caption: "فتحة تمرير من الفولاذ مع مقياس ضغط", span: "md:col-span-4 md:row-span-2" },
+  { id: "n3", type: "image", src: n3, title: "فريق Ideal Medical", caption: "في موقع المنشأة المُسلَّمة", span: "md:col-span-8 md:row-span-2" },
+  { id: "n4", type: "image", src: n4, title: "Ideal Medical Solutions", caption: "لوحة مدخل المنشأة", span: "md:col-span-6 md:row-span-2" },
+  { id: "n5", type: "image", src: n5, title: "واجهة زجاجية", caption: "جناح إداري بواجهة عاكسة", span: "md:col-span-6 md:row-span-3" },
+  { id: "n6", type: "image", src: n6, title: "مختبر الجودة", caption: "بنش العمل بخدمات متكاملة", span: "md:col-span-6 md:row-span-2" },
+  { id: "n7", type: "image", src: n7, title: "غرفة التغيير", caption: "خزائن الموظفين ومقعد ستانلس", span: "md:col-span-6 md:row-span-2" },
+  { id: "n8", type: "image", src: n8, title: "صالة الإنتاج", caption: "معدات ستانلس مع خطوط إيبوكسي", span: "md:col-span-7 md:row-span-2" },
+  { id: "n9", type: "image", src: n9, title: "غرفة نظيفة زرقاء", caption: "أرضية إيبوكسي وضغط متوازن", span: "md:col-span-5 md:row-span-2" },
+  { id: "n10", type: "image", src: n10, title: "جولة التحقق", caption: "التفتيش النهائي داخل جناح ISO", span: "md:col-span-12 md:row-span-2" },
 ];
 
 const noContext = (e: React.MouseEvent | React.SyntheticEvent) => {

@@ -24,7 +24,7 @@ type MediaItem = {
 };
 
 const ITEMS_EN: MediaItem[] = [
-  { id: "v1", type: "video", src: "gallery/clip1.mp4", poster: poster1, title: "Cleanroom Walkthrough", caption: "Inside an operational AUH facility", span: "md:col-span-8 md:row-span-2" },
+  { id: "v1", type: "video", src: "/gallery/clip1.mp4", poster: poster1, title: "Cleanroom Walkthrough", caption: "Inside an operational AUH facility", span: "md:col-span-8 md:row-span-2" },
   { id: "g1", type: "image", src: g1, title: "Production Line", caption: "Stainless-steel manufacturing equipment", span: "md:col-span-4 md:row-span-2" },
   { id: "g2", type: "image", src: g2, title: "Automated Packaging", caption: "Integrated medical disposables line", span: "md:col-span-7 md:row-span-2" },
   { id: "g3", type: "image", src: g3, title: "Cleanroom Suite", caption: "ISO-classified controlled environment", span: "md:col-span-5 md:row-span-2" },
@@ -33,7 +33,7 @@ const ITEMS_EN: MediaItem[] = [
 ];
 
 const ITEMS_AR: MediaItem[] = [
-  { id: "v1", type: "video", src: "gallery/clip1.mp4", poster: poster1, title: "جولة داخل الغرفة النظيفة", caption: "داخل إحدى منشآت AUH التشغيلية", span: "md:col-span-8 md:row-span-2" },
+  { id: "v1", type: "video", src: "/gallery/clip1.mp4", poster: poster1, title: "جولة داخل الغرفة النظيفة", caption: "داخل إحدى منشآت AUH التشغيلية", span: "md:col-span-8 md:row-span-2" },
   { id: "g1", type: "image", src: g1, title: "خط الإنتاج", caption: "معدات تصنيع من الفولاذ المقاوم للصدأ", span: "md:col-span-4 md:row-span-2" },
   { id: "g2", type: "image", src: g2, title: "التعبئة الآلية", caption: "خط مستلزمات طبية متكامل", span: "md:col-span-7 md:row-span-2" },
   { id: "g3", type: "image", src: g3, title: "جناح الغرفة النظيفة", caption: "بيئة محكومة مطابقة لمعايير ISO", span: "md:col-span-5 md:row-span-2" },

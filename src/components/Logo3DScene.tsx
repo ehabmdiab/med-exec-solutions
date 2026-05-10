@@ -1,6 +1,7 @@
 import { Suspense, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useI18n } from "@/i18n/I18nProvider";
 
 type SvgPathDefinition = {
   d: string;

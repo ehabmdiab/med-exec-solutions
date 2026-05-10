@@ -276,12 +276,12 @@ function StudioLighting() {
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
-        shadow-camera-left={-14}
-        shadow-camera-right={14}
-        shadow-camera-top={14}
-        shadow-camera-bottom={-14}
+        shadow-camera-left={-40}
+        shadow-camera-right={40}
+        shadow-camera-top={40}
+        shadow-camera-bottom={-40}
         shadow-camera-near={0.1}
-        shadow-camera-far={40}
+        shadow-camera-far={80}
         shadow-bias={-0.0005}
       />
       <directionalLight position={[-3.8, 2.4, 2.5]} intensity={0.55} color="#C8F5FF" />

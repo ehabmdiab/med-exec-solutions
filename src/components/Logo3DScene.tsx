@@ -258,9 +258,9 @@ function LogoGroup({ hovered }: { hovered: boolean }) {
 
   return (
     <group ref={groupRef}>
-      <mesh geometry={baseGeometry} material={materials.teal} castShadow receiveShadow position={[0, -0.02, 0]} />
-      <mesh geometry={arcGeometry} material={materials.orange} castShadow receiveShadow position={[0.02, 3.02, 0.12]} />
-      <mesh geometry={pillarGeometry} material={materials.orange} castShadow receiveShadow position={[0, 1.14, 0.14]} />
+      <mesh geometry={baseGeometry} material={materials.teal} castShadow receiveShadow />
+      <mesh geometry={arcGeometry} material={materials.orange} castShadow receiveShadow position={[0, 0, 0.12]} />
+      <mesh geometry={pillarGeometry} material={materials.orange} castShadow receiveShadow position={[0, 0, 0.14]} />
     </group>
   );
 }

@@ -1,73 +1,99 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
-import { useI18n } from "@/i18n/I18nProvider";
+import { ArrowRight, Home } from "lucide-react";
 
 export default function NotFound() {
-  const { t } = useI18n();
-
   return (
     <Layout>
-      <section className="relative flex flex-1 items-center justify-center overflow-hidden px-6 py-24 lg:py-32">
-        {/* Subtle background decoration */}
+      <section className="relative flex min-h-[calc(100vh-200px)] items-center justify-center overflow-hidden px-6 py-24">
+        {/* Ambient background */}
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[100px]" />
+          <div className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/[0.06] blur-[120px]" />
+          <div className="absolute bottom-0 left-1/4 h-[400px] w-[400px] rounded-full bg-accent/[0.05] blur-[100px]" />
+          <div
+            className="absolute inset-0 opacity-[0.025]"
+            style={{
+              backgroundImage:
+                "radial-gradient(hsl(var(--secondary)) 1px, transparent 1px)",
+              backgroundSize: "32px 32px",
+            }}
+          />
         </div>
 
-        <div className="container-tight text-center">
-          {/* Large 404 */}
-          <div className="mb-8 inline-block">
-            <h1
-              className="font-extrabold leading-none tracking-tight"
-              style={{
-                fontSize: "clamp(6rem, 15vw, 12rem)",
-                color: "hsl(180 28% 33%)",
-                opacity: 0.12,
-                userSelect: "none",
-              }}
-            >
-              404
-            </h1>
-          </div>
+        <div className="container-tight relative">
+          <div className="mx-auto max-w-2xl text-center">
+            {/* Eyebrow */}
+            <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground backdrop-blur-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-glow" />
+              Error 404
+            </div>
 
-          {/* Content */}
-          <div className="relative -mt-20 sm:-mt-24 lg:-mt-28">
-            <span className="eyebrow mb-4 justify-center">{t.nav.home}</span>
-            <h2
-              className="font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight"
-              style={{ color: "hsl(180 28% 33%)" }}
-            >
-              Page not found
+            {/* Hero numerals */}
+            <div className="relative mb-8 flex items-center justify-center">
+              <h1
+                className="font-display font-extrabold leading-none tracking-tighter bg-clip-text text-transparent"
+                style={{
+                  fontSize: "clamp(7rem, 22vw, 16rem)",
+                  backgroundImage:
+                    "linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--primary)) 60%, hsl(var(--accent)) 100%)",
+                  letterSpacing: "-0.06em",
+                }}
+              >
+                404
+              </h1>
+            </div>
+
+            {/* Divider */}
+            <div className="mx-auto mb-8 h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
+
+            {/* Headline */}
+            <h2 className="font-display text-3xl font-bold tracking-tight text-secondary sm:text-4xl lg:text-5xl">
+              This page wandered off
             </h2>
-            <p className="section-sub mx-auto mt-5 max-w-lg">
-              Sorry, we couldn’t find the page you were looking for. It might
-              have been moved, renamed, or never existed.
+            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-muted-foreground">
+              The page you're looking for doesn't exist or has been moved.
+              Let's get you back on track.
             </p>
 
-            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            {/* Actions */}
+            <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 to="/"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground shadow-soft transition-all hover:shadow-elevate hover:brightness-105 active:scale-[0.98]"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-7 py-3.5 text-sm font-semibold text-secondary-foreground shadow-soft transition-all hover:shadow-elevate hover:brightness-110 active:scale-[0.98] sm:w-auto"
               >
-                Return Home
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
+                <Home className="h-4 w-4" />
+                Back to home
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-8 py-3 text-sm font-semibold text-secondary-foreground shadow-soft transition-all hover:bg-surface hover:shadow-elevate active:scale-[0.98]"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card/60 px-7 py-3.5 text-sm font-semibold text-secondary backdrop-blur-sm transition-all hover:bg-card hover:shadow-soft active:scale-[0.98] sm:w-auto"
               >
-                Contact Us
+                Contact support
               </Link>
+            </div>
+
+            {/* Quick links */}
+            <div className="mt-16">
+              <p className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                Or explore
+              </p>
+              <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
+                {[
+                  { to: "/about", label: "About" },
+                  { to: "/services", label: "Services" },
+                  { to: "/projects", label: "Projects" },
+                  { to: "/gallery", label: "Gallery" },
+                ].map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className="font-medium text-secondary/70 transition-colors hover:text-primary"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
             </div>
           </div>
         </div>

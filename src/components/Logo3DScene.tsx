@@ -212,9 +212,17 @@ function LogoGroup({ hovered }: { hovered: boolean }) {
     const arcGeometry = new THREE.ExtrudeGeometry(buildArcShape(), { ...extrusion, depth: 0.14 });
     const pillarGeometry = new THREE.ExtrudeGeometry(buildPillarShape(), { ...extrusion, depth: 0.15 });
 
-    baseGeometry.center();
-    arcGeometry.center();
-    pillarGeometry.center();
+    // Center all geometries by the SAME offset (the base's center) so their
+    // original SVG-relative positions are preserved. Centering each piece
+    // independently caused the orange pillar/arc to drift, leaving stray
+    // outline artifacts behind the teal shape.
+    baseGeometry.computeBoundingBox();
+    const bb = baseGeometry.boundingBox!;
+    const cx = (bb.min.x + bb.max.x) / 2;
+    const cy = (bb.min.y + bb.max.y) / 2;
+    baseGeometry.translate(-cx, -cy, 0);
+    arcGeometry.translate(-cx, -cy, 0);
+    pillarGeometry.translate(-cx, -cy, 0);
 
     return { baseGeometry, arcGeometry, pillarGeometry };
   }, []);

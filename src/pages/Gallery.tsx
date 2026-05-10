@@ -104,19 +104,19 @@ export default function Gallery() {
       <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20 overflow-hidden bg-black text-white">
         <MeshGradient
           className="absolute inset-0 w-full h-full"
-          colors={["#000000", "#06b6d4", "#0891b2", "#164e63", "#f97316"]}
+          colors={["#000000", "#2EC0B1", "#3E6A6A", "#164e63", "#E8742B"]}
           speed={0.3}
         />
         <MeshGradient
           className="absolute inset-0 w-full h-full opacity-60"
-          colors={["#000000", "#ffffff", "#06b6d4", "#f97316"]}
+          colors={["#000000", "#ffffff", "#2EC0B1", "#DD9B1F"]}
           speed={0.2}
         />
         <div className="absolute inset-0 bg-black/30" />
         <div className="container-wide relative max-w-3xl z-10">
           <Reveal>
             <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur px-3 py-1 text-xs font-semibold tracking-wider uppercase">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent-cyan animate-pulse" />
+              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
               {t.nav.gallery}
             </div>
             <h1 className="mt-5 font-display font-bold text-4xl lg:text-6xl leading-[1.05] text-balance">
@@ -184,8 +184,8 @@ export default function Gallery() {
                   {/* Gradient + label */}
                   <div className="absolute inset-0 z-20 bg-gradient-to-t from-primary/95 via-primary/30 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
                   <div className="absolute inset-x-0 bottom-0 z-30 p-4 md:p-5 text-white translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                    <div className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-accent-cyan">
-                      <span className="h-px w-6 bg-accent-cyan" />
+                    <div className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-accent-gold">
+                      <span className="h-px w-6 bg-accent-gold" />
                       {item.type === "video" ? (locale === "ar" ? "فيديو" : "Video") : (locale === "ar" ? "صورة" : "Photo")}
                     </div>
                     <h3 className="mt-1 font-display font-bold text-base md:text-lg leading-tight">{item.title}</h3>

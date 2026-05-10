@@ -302,7 +302,6 @@ function InteractiveScene() {
   return (
     <>
       <StudioLighting />
-      <BackgroundParticles />
       <group position={compact ? [0.15, -0.1, 0] : [2.25, 0.05, 0]} scale={compact ? 0.7 : 0.9}>
         <LogoGroup hovered={hovered} />
         <mesh onPointerEnter={() => setHovered(true)} onPointerLeave={() => setHovered(false)} position={[0, 0.1, 0.75]}>

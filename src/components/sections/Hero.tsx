@@ -25,7 +25,7 @@ export function Hero() {
       {/* 3D Model — centered across the split */}
       <Logo3DScene />
 
-      <div className="container-wide relative z-10 py-24 lg:py-32">
+      <div className="container-wide relative z-10 py-24 lg:py-32 pointer-events-none">
         <div className="max-w-3xl animate-fade-in-up">
           {/* Accent line */}
           <div className="w-12 h-[2px] bg-gradient-to-r from-white/80 to-white/40 mb-6" />
@@ -40,7 +40,7 @@ export function Hero() {
             {t.hero.subtitle}
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap gap-4 pointer-events-auto">
             <Button asChild size="lg" className="bg-white text-[#3E6A6A] hover:bg-white/90 hover-lift font-semibold rounded-xl shadow-elevate">
               <Link to="/contact">
                 {t.hero.primary}

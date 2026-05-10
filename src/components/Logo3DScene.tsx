@@ -1,6 +1,7 @@
 import { Suspense, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useI18n } from "@/i18n/I18nProvider";
 
 type SvgPathDefinition = {
   d: string;
@@ -302,15 +303,17 @@ function BackgroundParticles() {
   );
 }
 
-function InteractiveScene() {
+function InteractiveScene({ mirror }: { mirror: boolean }) {
   const [hovered, setHovered] = useState(false);
   const { viewport } = useThree();
   const compact = viewport.width < 6.2;
+  const sideX = mirror ? -2.25 : 2.25;
+  const compactX = mirror ? -0.15 : 0.15;
 
   return (
     <>
       <StudioLighting />
-      <group position={compact ? [0.15, -0.1, 0] : [2.25, 0.05, 0]} scale={compact ? 0.7 : 0.9}>
+      <group position={compact ? [compactX, -0.1, 0] : [sideX, 0.05, 0]} scale={compact ? 0.7 : 0.9}>
         <LogoGroup hovered={hovered} />
         {/* Soft circular shadow catcher — round shape avoids the horizontal tail/seam */}
         <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, -3.4, 0]}>
@@ -327,6 +330,8 @@ function InteractiveScene() {
 }
 
 export function Logo3DScene() {
+  const { dir } = useI18n();
+  const mirror = dir === "rtl";
   return (
     <div className="absolute inset-0 z-[1] pointer-events-auto opacity-95">
       <Canvas
@@ -343,7 +348,7 @@ export function Logo3DScene() {
         style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
-          <InteractiveScene />
+          <InteractiveScene mirror={mirror} />
         </Suspense>
       </Canvas>
     </div>

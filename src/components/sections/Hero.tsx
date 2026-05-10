@@ -40,7 +40,7 @@ export function Hero() {
             {t.hero.subtitle}
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap gap-4 pointer-events-auto">
             <Button asChild size="lg" className="bg-white text-[#3E6A6A] hover:bg-white/90 hover-lift font-semibold rounded-xl shadow-elevate">
               <Link to="/contact">
                 {t.hero.primary}

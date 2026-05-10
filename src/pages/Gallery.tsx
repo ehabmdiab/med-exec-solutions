@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useSEO } from "@/hooks/useSEO";
+import { MeshGradient } from "@paper-design/shaders-react";
 
 import g1 from "@/assets/gallery/g1.webp";
 import g2 from "@/assets/gallery/g2.webp";
@@ -100,15 +101,19 @@ export default function Gallery() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20 overflow-hidden bg-gradient-to-br from-primary via-primary to-secondary text-white">
-        <div className="absolute inset-0 opacity-20" style={{
-          backgroundImage: "radial-gradient(circle at 20% 20%, hsl(var(--accent-cyan)) 0, transparent 40%), radial-gradient(circle at 80% 60%, hsl(var(--secondary)) 0, transparent 45%)"
-        }} />
-        <div className="absolute inset-0 opacity-[0.07]" style={{
-          backgroundImage: "linear-gradient(hsl(0 0% 100% / 1) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 1) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }} />
-        <div className="container-wide relative max-w-3xl">
+      <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20 overflow-hidden bg-black text-white">
+        <MeshGradient
+          className="absolute inset-0 w-full h-full"
+          colors={["#000000", "#06b6d4", "#0891b2", "#164e63", "#f97316"]}
+          speed={0.3}
+        />
+        <MeshGradient
+          className="absolute inset-0 w-full h-full opacity-60"
+          colors={["#000000", "#ffffff", "#06b6d4", "#f97316"]}
+          speed={0.2}
+        />
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="container-wide relative max-w-3xl z-10">
           <Reveal>
             <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur px-3 py-1 text-xs font-semibold tracking-wider uppercase">
               <span className="h-1.5 w-1.5 rounded-full bg-accent-cyan animate-pulse" />

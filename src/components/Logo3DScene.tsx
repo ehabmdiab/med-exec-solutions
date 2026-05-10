@@ -195,7 +195,7 @@ function createSweepMaterial(leftColor: THREE.Color, rightColor: THREE.Color, gr
   return material;
 }
 
-function LogoGroup({ hovered }: { hovered: boolean }) {
+function LogoGroup({ hovered, onPointerOver, onPointerOut }: { hovered: boolean; onPointerOver?: (e: any) => void; onPointerOut?: (e: any) => void }) {
   const groupRef = useRef<THREE.Group>(null);
   const { pointer } = useThree();
   const sweepTime = useRef(0);

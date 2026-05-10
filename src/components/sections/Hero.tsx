@@ -9,10 +9,15 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-      {/* Hard split background */}
-      <div className="absolute inset-0 bg-[#D87C23]" aria-hidden>
-        <div className="absolute inset-0 bg-[#02C8B3] origin-top-left" style={{ clipPath: 'polygon(0 0, 90% 0, 65% 100%, 0 100%)' }} />
-      </div>
+      {/* Smooth continuous gradient background (teal -> orange) */}
+      <div
+        className="absolute inset-0"
+        aria-hidden
+        style={{
+          background:
+            'linear-gradient(110deg, #02C8B3 0%, #02C8B3 35%, #6FA76A 55%, #D87C23 80%, #D87C23 100%)',
+        }}
+      />
 
       {/* Very subtle noise */}
       <div className="absolute inset-0 noise-overlay z-[1]" />

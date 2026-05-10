@@ -330,6 +330,8 @@ function InteractiveScene({ mirror }: { mirror: boolean }) {
 }
 
 export function Logo3DScene() {
+  const { dir } = useI18n();
+  const mirror = dir === "rtl";
   return (
     <div className="absolute inset-0 z-[1] pointer-events-auto opacity-95">
       <Canvas
@@ -346,7 +348,7 @@ export function Logo3DScene() {
         style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
-          <InteractiveScene />
+          <InteractiveScene mirror={mirror} />
         </Suspense>
       </Canvas>
     </div>

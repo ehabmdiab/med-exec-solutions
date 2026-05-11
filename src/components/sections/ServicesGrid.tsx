@@ -36,10 +36,6 @@ export function ServicesGrid() {
                 to="/services"
                 className="group relative block bg-card rounded-2xl border border-border p-6 lg:p-7 shadow-soft hover-lift gradient-border-hover overflow-hidden"
               >
-                <span className="absolute top-4 end-5 text-[3.5rem] font-display font-extrabold leading-none text-muted/40 select-none">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-
                 <span
                   className="relative flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110"
                   style={{ background: `${accentColor}15`, color: accentColor }}

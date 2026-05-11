@@ -246,7 +246,8 @@ function LogoGroup({ hovered, onPointerOver, onPointerOut }: { hovered: boolean;
     scale.current = THREE.MathUtils.lerp(scale.current, hovered ? 1.05 : 1, delta * 5.2);
     group.scale.setScalar(scale.current);
 
-    sweepStrength.current = THREE.MathUtils.lerp(sweepStrength.current, 0, delta * 3.6);
+    sweepStrength.current = THREE.MathUtils.lerp(sweepStrength.current, hovered ? 1 : 0, delta * 3.6);
+    if (sweepStrength.current > 0.01) sweepTime.current += delta;
 
     for (const material of [materials.teal, materials.orange]) {
       const shader = material.userData.shader;

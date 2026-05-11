@@ -59,7 +59,10 @@ export default function About() {
             {t.about_page.timeline.map((m, i) => (
               <Reveal key={m.year} delay={i * 80}>
                 <li className="relative bg-card border border-border rounded-2xl p-6 h-full">
-                  <span className="absolute -top-3 start-6 inline-flex items-center justify-center px-3 py-1 rounded-full bg-gradient-cta text-white text-xs font-bold tracking-wider shadow-soft">
+                  <span
+                    className="absolute -top-3 start-6 inline-flex items-center justify-center px-3 py-1 rounded-full text-white text-sm font-bold tracking-wider shadow-soft"
+                    style={{ background: "#326F6D" }}
+                  >
                     {m.year}
                   </span>
                   <p className="mt-4 text-foreground font-medium leading-relaxed">{m.text}</p>

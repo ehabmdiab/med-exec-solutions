@@ -27,8 +27,6 @@ export function Hero() {
 
       <div className="container-wide relative z-10 py-24 lg:py-32 pointer-events-none">
         <div className="max-w-3xl animate-fade-in-up">
-          {/* Accent line */}
-          <div className="w-12 h-[2px] bg-gradient-to-r from-white/80 to-white/40 mb-6" />
           <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
             <ShieldCheck className="h-3.5 w-3.5" />
             {t.hero.eyebrow}

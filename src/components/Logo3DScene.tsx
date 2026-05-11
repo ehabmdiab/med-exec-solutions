@@ -357,7 +357,8 @@ export function Logo3DScene() {
         }}
         dpr={[1, 2]}
         shadows
-        style={{ background: "transparent" }}
+        style={{ background: "transparent", outline: "none" }}
+        tabIndex={-1}
       >
         <Suspense fallback={null}>
           <InteractiveScene mirror={mirror} />

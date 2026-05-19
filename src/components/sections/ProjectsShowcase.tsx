@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import { ArrowRight, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useProjects } from "@/hooks/useProjects";
 import dental from "@/assets/project-dental.jpg";
 import disposables from "@/assets/project-disposables.jpg";
 import saudi from "@/assets/project-saudi.jpg";
 import apex from "@/assets/project-apex.jpg";
 
-const IMAGES: Record<string, string> = {
+const FALLBACK_IMAGES: Record<string, string> = {
   "dental-art": dental,
   "ideal-solution": disposables,
   "sondos": saudi,
@@ -15,8 +16,24 @@ const IMAGES: Record<string, string> = {
 };
 
 export function ProjectsShowcase() {
-  const { t } = useI18n();
-  const items = t.projects.items;
+  const { t, locale } = useI18n();
+  const { projects } = useProjects(locale);
+
+  // Use DB projects when available; otherwise fall back to bundled i18n items.
+  const items =
+    projects && projects.length > 0
+      ? projects
+      : t.projects.items.map((p) => ({
+          id: p.slug,
+          slug: p.slug,
+          name: p.name,
+          location: p.location,
+          sector: p.sector,
+          problem: p.problem,
+          solution: p.solution,
+          outcome: p.outcome,
+          image_url: null as string | null,
+        }));
 
   return (
     <section className="bg-background relative overflow-hidden">
@@ -41,18 +58,20 @@ export function ProjectsShowcase() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {items.map((p) => (
+          {items.slice(0, 4).map((p) => (
             <article
-              key={p.slug}
+              key={p.id}
               className="group rounded-2xl overflow-hidden border border-border bg-card shadow-soft hover-lift gradient-border-hover flex flex-col"
             >
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <img
-                  src={IMAGES[p.slug]}
-                  alt={p.name}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
+              <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+                {(p.image_url || FALLBACK_IMAGES[p.slug]) && (
+                  <img
+                    src={p.image_url || FALLBACK_IMAGES[p.slug]}
+                    alt={p.name}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#3E6A6A]/85 via-[#3E6A6A]/20 to-transparent" />
                 <div className="absolute bottom-0 inset-x-0 p-5">
                   <p className="inline-flex items-center gap-1.5 text-xs font-medium text-white/80 mb-1">

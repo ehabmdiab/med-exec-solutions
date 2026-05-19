@@ -33,7 +33,7 @@ export function Hero() {
             <ShieldCheck className="h-3.5 w-3.5" />
             {t.hero.eyebrow}
           </span>
-          <h1 className="mt-6 font-display font-extrabold text-4xl sm:text-5xl lg:text-7xl !text-white leading-[1.05] text-balance">
+          <h1 className="mt-6 font-display font-extrabold text-4xl sm:text-5xl lg:text-7xl !text-white !leading-[1.35] text-balance pb-4 overflow-visible">
             {t.hero.title}
           </h1>
           <p className="mt-6 max-w-2xl text-lg sm:text-xl text-white/75 leading-relaxed">

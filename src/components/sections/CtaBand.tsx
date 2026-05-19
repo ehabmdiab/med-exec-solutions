@@ -11,7 +11,7 @@ export function CtaBand() {
       <div className="container-tight relative text-center z-10">
         <Reveal>
           <div className="w-12 h-[2px] bg-gradient-to-r from-primary to-accent-gold mx-auto mb-8" />
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-balance leading-tight" style={{ color: '#3E6A6A' }}>
+          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-balance !leading-[1.4] pb-3 overflow-visible" style={{ color: '#3E6A6A' }}>
             {t.cta.title}
           </h2>
           <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">{t.cta.sub}</p>

@@ -4,12 +4,13 @@ import { Reveal } from "@/components/Reveal";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useSEO } from "@/hooks/useSEO";
+import { useProjects } from "@/hooks/useProjects";
 import dental from "@/assets/project-dental.jpg";
 import disposables from "@/assets/project-disposables.jpg";
 import saudi from "@/assets/project-saudi.jpg";
 import apex from "@/assets/project-apex.jpg";
 
-const IMAGES: Record<string, string> = {
+const FALLBACK_IMAGES: Record<string, string> = {
   "dental-art": dental,
   "ideal-solution": disposables,
   "sondos": saudi,
@@ -17,11 +18,27 @@ const IMAGES: Record<string, string> = {
 };
 
 export default function Projects() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   useSEO({
     title: `${t.nav.projects} — AUH`,
     description: t.projects.sub,
   });
+  const { projects } = useProjects(locale);
+
+  const items =
+    projects && projects.length > 0
+      ? projects
+      : t.projects.items.map((p) => ({
+          id: p.slug,
+          slug: p.slug,
+          name: p.name,
+          location: p.location,
+          sector: p.sector,
+          problem: p.problem,
+          solution: p.solution,
+          outcome: p.outcome,
+          image_url: null as string | null,
+        }));
 
   return (
     <Layout>
@@ -37,19 +54,22 @@ export default function Projects() {
 
       <section className="py-20 lg:py-24 bg-background">
         <div className="container-wide space-y-12 lg:space-y-16">
-          {t.projects.items.map((p, i) => {
+          {items.map((p, i) => {
             const reverse = i % 2 === 1;
+            const src = p.image_url || FALLBACK_IMAGES[p.slug];
             return (
-              <Reveal key={p.slug}>
+              <Reveal key={p.id}>
                 <article className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-card rounded-3xl border border-border p-6 lg:p-10 hover-lift">
                   <div className={`lg:col-span-6 ${reverse ? "lg:order-2" : ""}`}>
-                    <div className="relative rounded-2xl overflow-hidden shadow-elevate">
-                      <img
-                        src={IMAGES[p.slug]}
-                        alt={p.name}
-                        className="w-full aspect-[4/3] object-cover"
-                        loading="lazy"
-                      />
+                    <div className="relative rounded-2xl overflow-hidden shadow-elevate bg-muted">
+                      {src && (
+                        <img
+                          src={src}
+                          alt={p.name}
+                          className="w-full aspect-[4/3] object-cover"
+                          loading="lazy"
+                        />
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent" />
                       <div className="absolute top-4 start-4 inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur px-3 py-1 text-xs font-semibold text-primary">
                         <MapPin className="h-3 w-3" /> {p.location}

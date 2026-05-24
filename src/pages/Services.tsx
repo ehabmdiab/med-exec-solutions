@@ -80,7 +80,7 @@ export default function Services() {
                       </span>
                       <span className="text-xs font-semibold uppercase tracking-[0.18em]">0{i + 1} · Service</span>
                     </span>
-                    <h2 className="mt-4 font-display font-bold text-3xl lg:text-4xl text-primary !leading-[1.4] pb-2 overflow-visible">
+                    <h2 className="mt-4 font-display font-bold text-3xl lg:text-4xl text-primary !leading-[1.15] pb-1 overflow-visible">
                       {s.title}
                     </h2>
                     <p className="mt-4 text-lg text-muted-foreground leading-relaxed">{s.long}</p>

@@ -78,7 +78,7 @@ export default function Projects() {
                   </div>
                   <div className={`lg:col-span-6 ${reverse ? "lg:order-1" : ""}`}>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">{p.sector}</p>
-                    <h2 className="mt-2 font-display font-bold text-3xl lg:text-4xl text-primary !leading-[1.4] pb-2 overflow-visible">{p.name}</h2>
+                    <h2 className="mt-2 font-display font-bold text-3xl lg:text-4xl text-primary !leading-[1.15] pb-1 overflow-visible">{p.name}</h2>
                     <dl className="mt-6 space-y-5">
                       {[
                         { k: t.projects.table.problem, v: p.problem },

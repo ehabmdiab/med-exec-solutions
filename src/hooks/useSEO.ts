@@ -1,22 +1,63 @@
 import { useEffect } from "react";
 
-export function useSEO({ title, description }: { title: string; description: string }) {
+type SEOOptions = {
+  title: string;
+  description: string;
+  keywords?: string;
+  ogImage?: string;
+  ogType?: "website" | "article" | "profile";
+  noIndex?: boolean;
+};
+
+function upsertMeta(attr: "name" | "property", key: string, content: string) {
+  let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+export function useSEO({
+  title,
+  description,
+  keywords,
+  ogImage,
+  ogType = "website",
+  noIndex = false,
+}: SEOOptions) {
   useEffect(() => {
     document.title = title;
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.setAttribute("name", "description");
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute("content", description);
+    const url = window.location.origin + window.location.pathname + window.location.hash;
 
-    let canonical = document.querySelector('link[rel="canonical"]');
+    upsertMeta("name", "description", description);
+    if (keywords) upsertMeta("name", "keywords", keywords);
+    upsertMeta(
+      "name",
+      "robots",
+      noIndex
+        ? "noindex, nofollow"
+        : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    );
+
+    upsertMeta("property", "og:title", title);
+    upsertMeta("property", "og:description", description);
+    upsertMeta("property", "og:type", ogType);
+    upsertMeta("property", "og:url", url);
+    if (ogImage) upsertMeta("property", "og:image", ogImage);
+
+    upsertMeta("name", "twitter:card", "summary_large_image");
+    upsertMeta("name", "twitter:title", title);
+    upsertMeta("name", "twitter:description", description);
+    if (ogImage) upsertMeta("name", "twitter:image", ogImage);
+
+    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement("link");
       canonical.setAttribute("rel", "canonical");
       document.head.appendChild(canonical);
     }
     canonical.setAttribute("href", window.location.origin + window.location.pathname);
-  }, [title, description]);
+  }, [title, description, keywords, ogImage, ogType, noIndex]);
 }

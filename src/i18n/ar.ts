@@ -12,6 +12,7 @@ export const ar: Dict = {
     services: "الخدمات",
     projects: "المشاريع",
     gallery: "المعرض",
+    blog: "المدونة",
     contact: "تواصل معنا",
     cta: "اسألنا كيف",
   },

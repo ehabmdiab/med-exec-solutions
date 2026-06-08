@@ -26,7 +26,7 @@ export function useBlogPosts() {
   useEffect(() => {
     let active = true;
     (async () => {
-      const { data } = await supabase
+      const { data } = await (supabase as any)
         .from("blog_posts")
         .select("*")
         .eq("published", true)
@@ -52,7 +52,7 @@ export function useBlogPost(slug: string | undefined) {
     if (!slug) return;
     let active = true;
     (async () => {
-      const { data } = await supabase
+      const { data } = await (supabase as any)
         .from("blog_posts")
         .select("*")
         .eq("slug", slug)

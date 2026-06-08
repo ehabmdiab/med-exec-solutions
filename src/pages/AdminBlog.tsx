@@ -47,7 +47,7 @@ export default function AdminBlog() {
         navigate("/auth");
         return;
       }
-      const { data: roles } = await supabase
+      const { data: roles } = await (supabase as any)
         .from("user_roles")
         .select("role")
         .eq("user_id", u.id)
@@ -60,7 +60,7 @@ export default function AdminBlog() {
   }, [navigate]);
 
   const load = async () => {
-    const { data } = await supabase
+    const { data } = await (supabase as any)
       .from("blog_posts")
       .select("*")
       .order("published_at", { ascending: false });
@@ -132,7 +132,7 @@ export default function AdminBlog() {
   };
 
   const togglePublished = async (p: BlogPost) => {
-    const { error } = await supabase
+    const { error } = await (supabase as any)
       .from("blog_posts")
       .update({ published: !p.published })
       .eq("id", p.id);

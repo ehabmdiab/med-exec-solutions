@@ -12,6 +12,7 @@ export const en = {
     services: "Services",
     projects: "Projects",
     gallery: "Gallery",
+    blog: "Blog",
     contact: "Contact",
     cta: "Ask Us How",
   },

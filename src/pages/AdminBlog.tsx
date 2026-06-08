@@ -106,7 +106,7 @@ export default function AdminBlog() {
       };
       if (cover_image_url) payload.cover_image_url = cover_image_url;
 
-      const { error } = await supabase.from("blog_posts").insert(payload);
+      const { error } = await (supabase as any).from("blog_posts").insert(payload);
       if (error) throw error;
       toast({ title: "Post published" });
       setForm({ ...emptyForm });
@@ -123,7 +123,7 @@ export default function AdminBlog() {
 
   const deletePost = async (id: string) => {
     if (!confirm("Delete this post?")) return;
-    const { error } = await supabase.from("blog_posts").delete().eq("id", id);
+    const { error } = await (supabase as any).from("blog_posts").delete().eq("id", id);
     if (error) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
       return;

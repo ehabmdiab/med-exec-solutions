@@ -337,10 +337,19 @@ function ProtectedVideo({ src, poster }: { src: string; poster?: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
-  const toggle = () => {
+  const startPlay = async () => {
     const v = ref.current;
     if (!v) return;
-    if (v.paused) { v.play(); setPlaying(true); } else { v.pause(); setPlaying(false); }
+    try {
+      // Some browsers require muted to allow programmatic play
+      v.muted = true;
+      await v.play();
+      // Then unmute after playback starts
+      v.muted = false;
+      setPlaying(true);
+    } catch (err) {
+      console.error("Video play failed", err);
+    }
   };
 
   return (
@@ -349,18 +358,20 @@ function ProtectedVideo({ src, poster }: { src: string; poster?: string }) {
         ref={ref}
         src={src}
         poster={poster}
-        controls={false}
+        controls={playing}
         controlsList="nodownload noremoteplayback noplaybackrate"
         disablePictureInPicture
         playsInline
+        preload="metadata"
         onContextMenu={(e) => e.preventDefault()}
-        onClick={toggle}
-        className="w-full max-h-[80vh] object-contain bg-black cursor-pointer"
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        className="w-full max-h-[80vh] object-contain bg-black"
         style={{ WebkitUserSelect: "none", userSelect: "none" }}
       />
       {!playing && (
         <button
-          onClick={toggle}
+          onClick={startPlay}
           className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition"
           aria-label="Play"
         >

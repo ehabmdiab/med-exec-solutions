@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { useBlogPost } from "@/hooks/useBlogPosts";
+import { useSignedImageUrl } from "@/hooks/useSignedImageUrl";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useSEO } from "@/hooks/useSEO";
 import { ArrowLeft, Calendar } from "lucide-react";

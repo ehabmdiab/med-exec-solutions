@@ -1,9 +1,54 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
-import { useBlogPosts } from "@/hooks/useBlogPosts";
+import { useBlogPosts, type BlogPost } from "@/hooks/useBlogPosts";
+import { useSignedImageUrl } from "@/hooks/useSignedImageUrl";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useSEO } from "@/hooks/useSEO";
 import { Calendar, ArrowRight } from "lucide-react";
+
+function BlogCard({ post: p, locale }: { post: BlogPost; locale: string }) {
+  const title = locale === "ar" && p.title_ar ? p.title_ar : p.title_en;
+  const excerpt = locale === "ar" && p.excerpt_ar ? p.excerpt_ar : p.excerpt_en;
+  const date = new Date(p.published_at).toLocaleDateString(
+    locale === "ar" ? "ar-EG" : "en-US",
+    { year: "numeric", month: "long", day: "numeric" },
+  );
+  const imgUrl = useSignedImageUrl(p.cover_image_url);
+  return (
+    <Link
+      to={`/blog/${p.slug}`}
+      className="group bg-card border border-border rounded-2xl overflow-hidden shadow-soft hover-lift transition-all"
+    >
+      {imgUrl && (
+        <div className="aspect-[16/9] overflow-hidden bg-muted">
+          <img
+            src={imgUrl}
+            alt={title}
+            loading="lazy"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+      )}
+      <div className="p-6">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
+          <Calendar className="h-3.5 w-3.5" />
+          <span>{date}</span>
+          {p.author && <span>· {p.author}</span>}
+        </div>
+        <h2 className="font-display font-semibold text-xl text-primary leading-tight mb-2 group-hover:text-primary-glow">
+          {title}
+        </h2>
+        {excerpt && (
+          <p className="text-sm text-muted-foreground line-clamp-3">{excerpt}</p>
+        )}
+        <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary">
+          {locale === "ar" ? "اقرأ المزيد" : "Read more"}
+          <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+        </div>
+      </div>
+    </Link>
+  );
+}
 
 export default function Blog() {
   const { locale } = useI18n();
@@ -45,49 +90,9 @@ export default function Blog() {
             </p>
           ) : (
             <div className="grid md:grid-cols-2 gap-8">
-              {posts.map((p) => {
-                const title = locale === "ar" && p.title_ar ? p.title_ar : p.title_en;
-                const excerpt = locale === "ar" && p.excerpt_ar ? p.excerpt_ar : p.excerpt_en;
-                const date = new Date(p.published_at).toLocaleDateString(
-                  locale === "ar" ? "ar-EG" : "en-US",
-                  { year: "numeric", month: "long", day: "numeric" },
-                );
-                return (
-                  <Link
-                    key={p.id}
-                    to={`/blog/${p.slug}`}
-                    className="group bg-card border border-border rounded-2xl overflow-hidden shadow-soft hover-lift transition-all"
-                  >
-                    {p.cover_image_url && (
-                      <div className="aspect-[16/9] overflow-hidden bg-muted">
-                        <img
-                          src={p.cover_image_url}
-                          alt={title}
-                          loading="lazy"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                    )}
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-                        <Calendar className="h-3.5 w-3.5" />
-                        <span>{date}</span>
-                        {p.author && <span>· {p.author}</span>}
-                      </div>
-                      <h2 className="font-display font-semibold text-xl text-primary leading-tight mb-2 group-hover:text-primary-glow">
-                        {title}
-                      </h2>
-                      {excerpt && (
-                        <p className="text-sm text-muted-foreground line-clamp-3">{excerpt}</p>
-                      )}
-                      <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary">
-                        {locale === "ar" ? "اقرأ المزيد" : "Read more"}
-                        <ArrowRight className="h-4 w-4 rtl:rotate-180" />
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+              {posts.map((p) => (
+                <BlogCard key={p.id} post={p} locale={locale} />
+              ))}
             </div>
           )}
         </div>

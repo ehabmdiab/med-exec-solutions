@@ -270,11 +270,7 @@ export default function AdminBlog() {
                     className="flex items-center gap-3 border border-border rounded-lg p-3"
                   >
                     {p.cover_image_url && (
-                      <img
-                        src={p.cover_image_url}
-                        alt={p.title_en}
-                        className="h-14 w-14 object-cover rounded-md"
-                      />
+                      <AdminThumb path={p.cover_image_url} alt={p.title_en} />
                     )}
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-primary truncate">{p.title_en}</p>

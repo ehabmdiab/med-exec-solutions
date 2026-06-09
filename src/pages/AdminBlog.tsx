@@ -11,6 +11,13 @@ import { toast } from "@/hooks/use-toast";
 import { useSEO } from "@/hooks/useSEO";
 import { Trash2, LogOut } from "lucide-react";
 import type { BlogPost } from "@/hooks/useBlogPosts";
+import { useSignedImageUrl } from "@/hooks/useSignedImageUrl";
+
+function AdminThumb({ path, alt }: { path: string; alt: string }) {
+  const url = useSignedImageUrl(path);
+  if (!url) return <div className="h-14 w-14 rounded-md bg-muted" />;
+  return <img src={url} alt={alt} className="h-14 w-14 object-cover rounded-md" />;
+}
 
 const emptyForm = {
   slug: "",

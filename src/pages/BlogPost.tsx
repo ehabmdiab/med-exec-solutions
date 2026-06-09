@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { useBlogPost } from "@/hooks/useBlogPosts";
+import { useSignedImageUrl } from "@/hooks/useSignedImageUrl";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useSEO } from "@/hooks/useSEO";
 import { ArrowLeft, Calendar } from "lucide-react";
@@ -9,6 +10,7 @@ export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const { locale } = useI18n();
   const { post, loading } = useBlogPost(slug);
+  const coverUrl = useSignedImageUrl(post?.cover_image_url);
 
   const title = post ? (locale === "ar" && post.title_ar ? post.title_ar : post.title_en) : "Blog";
   const excerpt = post
@@ -20,7 +22,7 @@ export default function BlogPost() {
   useSEO({
     title: `${title} — AUH Blog`,
     description: excerpt || "AUH medical engineering blog post.",
-    ogImage: post?.cover_image_url ?? undefined,
+    ogImage: coverUrl ?? undefined,
     ogType: "article",
   });
 
@@ -75,9 +77,9 @@ export default function BlogPost() {
 
           {excerpt && <p className="text-lg text-muted-foreground mb-8">{excerpt}</p>}
 
-          {post.cover_image_url && (
+          {coverUrl && (
             <img
-              src={post.cover_image_url}
+              src={coverUrl}
               alt={title}
               className="w-full rounded-2xl mb-10 shadow-soft"
             />

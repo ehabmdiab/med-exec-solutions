@@ -11,6 +11,13 @@ import { toast } from "@/hooks/use-toast";
 import { useSEO } from "@/hooks/useSEO";
 import { Trash2, LogOut } from "lucide-react";
 import type { BlogPost } from "@/hooks/useBlogPosts";
+import { useSignedImageUrl } from "@/hooks/useSignedImageUrl";
+
+function AdminThumb({ path, alt }: { path: string; alt: string }) {
+  const url = useSignedImageUrl(path);
+  if (!url) return <div className="h-14 w-14 rounded-md bg-muted" />;
+  return <img src={url} alt={alt} className="h-14 w-14 object-cover rounded-md" />;
+}
 
 const emptyForm = {
   slug: "",
@@ -76,8 +83,8 @@ export default function AdminBlog() {
     const path = `${crypto.randomUUID()}.${ext}`;
     const { error } = await supabase.storage.from("blog-images").upload(path, file);
     if (error) throw error;
-    const { data } = supabase.storage.from("blog-images").getPublicUrl(path);
-    return data.publicUrl;
+    // Store the storage path; signed URLs are generated on read.
+    return path;
   };
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -270,11 +277,7 @@ export default function AdminBlog() {
                     className="flex items-center gap-3 border border-border rounded-lg p-3"
                   >
                     {p.cover_image_url && (
-                      <img
-                        src={p.cover_image_url}
-                        alt={p.title_en}
-                        className="h-14 w-14 object-cover rounded-md"
-                      />
+                      <AdminThumb path={p.cover_image_url} alt={p.title_en} />
                     )}
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-primary truncate">{p.title_en}</p>

@@ -76,8 +76,8 @@ export default function AdminBlog() {
     const path = `${crypto.randomUUID()}.${ext}`;
     const { error } = await supabase.storage.from("blog-images").upload(path, file);
     if (error) throw error;
-    const { data } = supabase.storage.from("blog-images").getPublicUrl(path);
-    return data.publicUrl;
+    // Store the storage path; signed URLs are generated on read.
+    return path;
   };
 
   const onSubmit = async (e: React.FormEvent) => {

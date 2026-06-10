@@ -75,7 +75,10 @@ export default function AdminBlog() {
   };
 
   useEffect(() => {
-    if (isAdmin) load();
+    if (isAdmin) {
+      load();
+      supabase.storage.createBucket("blog-images", { public: true }).catch(console.error);
+    }
   }, [isAdmin]);
 
   const uploadImage = async (file: File): Promise<string> => {

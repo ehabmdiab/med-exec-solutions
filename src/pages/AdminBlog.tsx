@@ -77,7 +77,7 @@ export default function AdminBlog() {
   useEffect(() => {
     if (isAdmin) {
       load();
-      supabase.storage.createBucket("blog-images", { public: true }).catch(console.error);
+      supabase.storage.createBucket("blog-images", { public: false }).catch(console.error);
     }
   }, [isAdmin]);
 

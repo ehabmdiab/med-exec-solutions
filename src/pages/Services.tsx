@@ -27,7 +27,7 @@ const DELIVERABLES: Record<string, string[]> = {
   turnkey: ["Concept & feasibility", "Architectural & MEP design", "Construction & fit-out", "Equipment integration", "Validation & handover"],
   regulatory: ["Technical file & dossier", "GMP gap assessment", "SFDA / EDA submission", "ISO 13485 readiness", "Audit preparation"],
   cleanroom: ["ISO 14644 classification", "HVAC & pressure cascade", "Wall, floor, ceiling systems", "Particle & EM monitoring", "Validation protocols (IQ/OQ/PQ)"],
-  sterilization: ["EO / Gamma / Steam", "Process validation", "Qualification protocols", "Routine release", "Compliance documentation"],
+  sterilization: ["EO / Gamma / Steam", "Qualification protocols", "Routine release", "Compliance documentation"],
 };
 
 export default function Services() {

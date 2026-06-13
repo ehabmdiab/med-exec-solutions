@@ -169,7 +169,7 @@ export default function Gallery() {
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
               {t.nav.gallery}
             </div>
-            <h1 className="mt-5 font-display font-bold text-4xl lg:text-6xl !leading-[1.15] text-balance pb-2 overflow-visible" style={{ color: '#326F6D' }}>
+            <h1 className="mt-5 font-display font-bold text-4xl lg:text-6xl !leading-[1.15] text-balance pb-2 overflow-visible text-white">
               {locale === "ar" ? "لحظات من داخل منشآتنا" : "Inside the work."}
             </h1>
             <p className="mt-4 text-lg text-white/85 max-w-2xl">

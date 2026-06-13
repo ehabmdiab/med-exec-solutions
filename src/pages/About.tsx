@@ -4,7 +4,7 @@ import { MissionVision } from "@/components/sections/MissionVision";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useSEO } from "@/hooks/useSEO";
-import labImg from "@/assets/lab-engineer.jpg";
+import aboutImg from "@/assets/about-booth.jpg";
 
 export default function About() {
   const { t } = useI18n();
@@ -16,7 +16,7 @@ export default function About() {
   return (
     <Layout>
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-soft overflow-hidden">
-        <div className="container-wide grid lg:grid-cols-12 gap-12 items-center">
+        <div className="container-wide grid lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-7">
             <Reveal>
               <span className="eyebrow">{t.about_page.eyebrow}</span>
@@ -26,8 +26,8 @@ export default function About() {
           </div>
           <Reveal className="lg:col-span-5" delay={120}>
             <img
-              src={labImg}
-              alt="Engineering team in a medical facility"
+              src={aboutImg}
+              alt="AUH at Global Health Exhibition"
               className="rounded-2xl shadow-elevate w-full aspect-[4/3] object-cover"
               loading="lazy"
             />

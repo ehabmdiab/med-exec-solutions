@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useI18n } from "@/i18n/I18nProvider";
 import { Reveal } from "@/components/Reveal";
 import { useParallax } from "@/hooks/useParallax";
-import labImg from "@/assets/lab-engineer.jpg";
+import aboutImg from "@/assets/about-booth.jpg";
 
 const ICONS = [Lightbulb, ShieldCheck, Workflow];
 
@@ -13,13 +13,13 @@ export function AboutTeaser() {
   const parallaxY = useParallax(0.08);
   return (
     <section className="py-20 lg:py-28 bg-background overflow-hidden">
-      <div className="container-wide grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="container-wide grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         <Reveal className="lg:col-span-6 order-2 lg:order-1">
           <div className="relative" style={{ transform: `translateY(${parallaxY}px)`, willChange: "transform" }}>
             <img
-              src={labImg}
-              alt="Medical engineering lab"
-              className="rounded-2xl shadow-elevate w-full aspect-[4/5] object-cover border border-border"
+              src={aboutImg}
+              alt="AUH at Global Health Exhibition"
+              className="rounded-2xl shadow-elevate w-full aspect-[4/3] object-cover border border-border"
               loading="lazy"
             />
             <div className="absolute -bottom-5 -end-5 hidden md:block bg-card border border-border rounded-2xl px-5 py-4 shadow-elevate">

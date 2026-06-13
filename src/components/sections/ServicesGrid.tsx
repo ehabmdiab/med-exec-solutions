@@ -33,7 +33,7 @@ export function ServicesGrid() {
             return (
               <Link
                 key={s.slug}
-                to="/services"
+                to={`/services#${s.slug}`}
                 className="group relative block bg-card rounded-2xl border border-border p-6 lg:p-7 shadow-soft hover-lift gradient-border-hover overflow-hidden"
               >
                 <span

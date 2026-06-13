@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Factory, FileCheck2, Wind, ShieldCheck, Check } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { Reveal } from "@/components/Reveal";
@@ -32,10 +34,25 @@ const DELIVERABLES: Record<string, string[]> = {
 
 export default function Services() {
   const { t } = useI18n();
+  const location = useLocation();
+
   useSEO({
     title: `${t.nav.services} — AUH`,
     description: t.services.sub,
   });
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        const timer = setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 150);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [location.hash]);
 
   return (
     <Layout>
@@ -57,7 +74,7 @@ export default function Services() {
             <div
               key={s.slug}
               id={s.slug}
-              className={`py-16 lg:py-24 ${i % 2 === 1 ? "bg-surface" : "bg-background"}`}
+              className={`py-16 lg:py-24 scroll-mt-16 lg:scroll-mt-20 ${i % 2 === 1 ? "bg-surface" : "bg-background"}`}
             >
               <div className="container-wide grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                 <Reveal className={`lg:col-span-6 ${reverse ? "lg:order-2" : ""}`}>

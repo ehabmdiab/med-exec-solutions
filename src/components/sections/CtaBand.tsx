@@ -22,9 +22,6 @@ export function CtaBand() {
                 <ArrowRight className="ms-2 h-4 w-4 rtl:rotate-180" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-border text-muted-foreground hover:border-primary hover:text-primary bg-transparent font-semibold rounded-xl">
-              <Link to="/contact">{t.cta.secondary}</Link>
-            </Button>
           </div>
         </Reveal>
       </div>

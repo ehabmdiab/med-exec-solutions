@@ -69,11 +69,45 @@ export function ContactForm() {
     }
     setErrors({});
     setSubmitting(true);
-    // Simulate submission delay
-    await new Promise((r) => setTimeout(r, 800));
-    setSubmitting(false);
-    toast({ title: t.contact.form.success });
-    setValues(initial);
+
+    try {
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "c9564c71-31f4-4998-a7cf-1b3b0dd24bb5";
+      
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: values.name,
+          email: values.email,
+          company: values.company || "N/A",
+          phone: values.phone || "N/A",
+          country: values.country || "N/A",
+          project_type: values.project_type || "N/A",
+          message: values.message,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        toast({ title: t.contact.form.success });
+        setValues(initial);
+      } else {
+        throw new Error(data.message || "Submission failed");
+      }
+    } catch (error) {
+      console.error("Failed to send email via Web3Forms:", error);
+      toast({
+        title: "Submission Error",
+        description: "Failed to send the email. Please check your network connection.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

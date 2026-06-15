@@ -190,8 +190,59 @@ export default function Gallery() {
             style={{ WebkitUserSelect: "none", userSelect: "none", WebkitTouchCallout: "none" }}
           >
             {items.map((item, idx) => (
-              <Reveal key={item.id} className={`col-span-2 ${item.span} group relative overflow-hidden rounded-2xl bg-card shadow-soft`}>
-                <GalleryTile item={item} locale={locale} onExpand={() => setOpenIndex(idx)} />
+              <Reveal key={item.id} className={`col-span-2 ${item.span} group relative overflow-hidden rounded-2xl bg-card shadow-soft cursor-zoom-in`}>
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(idx)}
+                  onContextMenu={noContext}
+                  className="absolute inset-0 w-full h-full text-start"
+                  aria-label={item.title}
+                >
+                  {item.type === "image" ? (
+                    <img
+                      src={item.src}
+                      alt={item.title}
+                      loading="lazy"
+                      draggable={false}
+                      onContextMenu={noContext}
+                      onDragStart={noContext}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110 pointer-events-none"
+                    />
+                  ) : (
+                    <>
+                      <img
+                        src={item.poster}
+                        alt={item.title}
+                        loading="lazy"
+                        draggable={false}
+                        onContextMenu={noContext}
+                        onDragStart={noContext}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110 pointer-events-none"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 text-primary shadow-elevate transition-transform duration-500 group-hover:scale-110">
+                          <Play className="h-7 w-7 ms-1" fill="currentColor" />
+                        </span>
+                      </div>
+                    </>
+                  )}
+                  <div className="absolute inset-0 z-10" onContextMenu={noContext} />
+                  <div className="absolute inset-0 z-20 bg-gradient-to-t from-primary/95 via-primary/30 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute inset-x-0 bottom-0 z-30 p-4 md:p-5 text-white translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-accent-gold">
+                      <span className="h-px w-6 bg-accent-gold" />
+                      {item.type === "video" ? (locale === "ar" ? "فيديو" : "Video") : (locale === "ar" ? "صورة" : "Photo")}
+                    </div>
+                    <h3 className="mt-1 font-display font-bold text-base md:text-lg leading-tight">{item.title}</h3>
+                    <p className="hidden md:block mt-1 text-xs text-white/80 line-clamp-1">{item.caption}</p>
+                  </div>
+                  <span className="absolute top-3 end-3 z-30 flex h-8 w-8 items-center justify-center rounded-full bg-white/15 backdrop-blur border border-white/30 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Maximize2 className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="absolute top-3 start-3 z-30 text-[10px] font-bold tracking-widest text-white/70 uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                    AUH ©
+                  </span>
+                </button>
               </Reveal>
             ))}
           </div>

@@ -328,23 +328,23 @@ function ProtectedVideo({ src, poster }: { src: string; poster?: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
-  const startPlay = async () => {
+  const startPlay = async (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     const v = ref.current;
     if (!v) return;
     try {
-      // Some browsers require muted to allow programmatic play
       v.muted = true;
       await v.play();
-      // Then unmute after playback starts
-      v.muted = false;
       setPlaying(true);
+      // Unmute shortly after playback begins
+      setTimeout(() => { if (ref.current) ref.current.muted = false; }, 150);
     } catch (err) {
       console.error("Video play failed", err);
     }
   };
 
   return (
-    <div className="relative w-full" onContextMenu={(e) => e.preventDefault()}>
+    <div className="relative w-full" onContextMenu={(e) => e.preventDefault()} onClick={(e) => e.stopPropagation()}>
       <video
         ref={ref}
         src={src}
@@ -355,6 +355,7 @@ function ProtectedVideo({ src, poster }: { src: string; poster?: string }) {
         playsInline
         preload="metadata"
         onContextMenu={(e) => e.preventDefault()}
+        onClick={(e) => e.stopPropagation()}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         className="w-full max-h-[80vh] object-contain bg-black"
@@ -362,6 +363,7 @@ function ProtectedVideo({ src, poster }: { src: string; poster?: string }) {
       />
       {!playing && (
         <button
+          type="button"
           onClick={startPlay}
           className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition"
           aria-label="Play"

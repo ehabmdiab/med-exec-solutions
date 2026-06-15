@@ -40,15 +40,18 @@ type MediaItem = {
   span: string;
 };
 
+// Resolve asset path against Vite's base URL so videos work on GitHub Pages subpath
+const V = (p: string) => `${import.meta.env.BASE_URL}${p}`.replace(/\/{2,}/g, "/").replace(":/", "://");
+
 const ITEMS_EN: MediaItem[] = [
   // Videos — 3 perfectly packed rows of 12
-  { id: "v1", type: "video", src: "/gallery/clip1.mp4", poster: poster1, title: "Cleanroom Walkthrough", caption: "Inside an operational AUH facility", span: "md:col-span-8 md:row-span-2" },
-  { id: "v4", type: "video", src: "/gallery/v4.mp4", poster: poster4, title: "Cleanroom Operations", caption: "Inside an ISO-classified suite", span: "md:col-span-4 md:row-span-2" },
-  { id: "v2", type: "video", src: "/gallery/v2.mp4", poster: poster2, title: "Facility Tour", caption: "Walkthrough of a delivered AUH facility", span: "md:col-span-6 md:row-span-2" },
-  { id: "v3", type: "video", src: "/gallery/v3.mp4", poster: poster3, title: "Production In Motion", caption: "Live shot of an active manufacturing line", span: "md:col-span-6 md:row-span-2" },
-  { id: "v5", type: "video", src: "/gallery/v5.mp4", poster: poster5, title: "Equipment Handover", caption: "Validated equipment ready for production", span: "md:col-span-4 md:row-span-2" },
-  { id: "v6", type: "video", src: "/gallery/v6.mp4", poster: poster6, title: "Site Progress", caption: "Construction milestone capture", span: "md:col-span-4 md:row-span-2" },
-  { id: "v7", type: "video", src: "/gallery/v7.mp4", poster: poster7, title: "Final Walkthrough", caption: "Pre-handover inspection footage", span: "md:col-span-4 md:row-span-2" },
+  { id: "v1", type: "video", src: V("gallery/clip1.mp4"), poster: poster1, title: "Cleanroom Walkthrough", caption: "Inside an operational AUH facility", span: "md:col-span-8 md:row-span-2" },
+  { id: "v4", type: "video", src: V("gallery/v4.mp4"), poster: poster4, title: "Cleanroom Operations", caption: "Inside an ISO-classified suite", span: "md:col-span-4 md:row-span-2" },
+  { id: "v2", type: "video", src: V("gallery/v2.mp4"), poster: poster2, title: "Facility Tour", caption: "Walkthrough of a delivered AUH facility", span: "md:col-span-6 md:row-span-2" },
+  { id: "v3", type: "video", src: V("gallery/v3.mp4"), poster: poster3, title: "Production In Motion", caption: "Live shot of an active manufacturing line", span: "md:col-span-6 md:row-span-2" },
+  { id: "v5", type: "video", src: V("gallery/v5.mp4"), poster: poster5, title: "Equipment Handover", caption: "Validated equipment ready for production", span: "md:col-span-4 md:row-span-2" },
+  { id: "v6", type: "video", src: V("gallery/v6.mp4"), poster: poster6, title: "Site Progress", caption: "Construction milestone capture", span: "md:col-span-4 md:row-span-2" },
+  { id: "v7", type: "video", src: V("gallery/v7.mp4"), poster: poster7, title: "Final Walkthrough", caption: "Pre-handover inspection footage", span: "md:col-span-4 md:row-span-2" },
   // Images — 7 perfectly packed rows of 12
   { id: "g1", type: "image", src: g1, title: "Production Line", caption: "Stainless-steel manufacturing equipment", span: "md:col-span-4 md:row-span-2" },
   { id: "g2", type: "image", src: g2, title: "Automated Packaging", caption: "Integrated medical disposables line", span: "md:col-span-8 md:row-span-2" },
@@ -68,13 +71,13 @@ const ITEMS_EN: MediaItem[] = [
 ];
 
 const ITEMS_AR: MediaItem[] = [
-  { id: "v1", type: "video", src: "/gallery/clip1.mp4", poster: poster1, title: "جولة داخل الغرفة النظيفة", caption: "داخل إحدى منشآت AUH التشغيلية", span: "md:col-span-8 md:row-span-2" },
-  { id: "v4", type: "video", src: "/gallery/v4.mp4", poster: poster4, title: "تشغيل الغرفة النظيفة", caption: "داخل جناح مطابق لمعايير ISO", span: "md:col-span-4 md:row-span-2" },
-  { id: "v2", type: "video", src: "/gallery/v2.mp4", poster: poster2, title: "جولة في المنشأة", caption: "جولة داخل منشأة AUH مُسلَّمة", span: "md:col-span-6 md:row-span-2" },
-  { id: "v3", type: "video", src: "/gallery/v3.mp4", poster: poster3, title: "الإنتاج أثناء التشغيل", caption: "لقطة حية لخط تصنيع نشط", span: "md:col-span-6 md:row-span-2" },
-  { id: "v5", type: "video", src: "/gallery/v5.mp4", poster: poster5, title: "تسليم المعدات", caption: "معدات مُتحقَّق منها وجاهزة للإنتاج", span: "md:col-span-4 md:row-span-2" },
-  { id: "v6", type: "video", src: "/gallery/v6.mp4", poster: poster6, title: "تقدم الموقع", caption: "لقطة من مرحلة التنفيذ", span: "md:col-span-4 md:row-span-2" },
-  { id: "v7", type: "video", src: "/gallery/v7.mp4", poster: poster7, title: "الجولة النهائية", caption: "تفتيش ما قبل التسليم", span: "md:col-span-4 md:row-span-2" },
+  { id: "v1", type: "video", src: V("gallery/clip1.mp4"), poster: poster1, title: "جولة داخل الغرفة النظيفة", caption: "داخل إحدى منشآت AUH التشغيلية", span: "md:col-span-8 md:row-span-2" },
+  { id: "v4", type: "video", src: V("gallery/v4.mp4"), poster: poster4, title: "تشغيل الغرفة النظيفة", caption: "داخل جناح مطابق لمعايير ISO", span: "md:col-span-4 md:row-span-2" },
+  { id: "v2", type: "video", src: V("gallery/v2.mp4"), poster: poster2, title: "جولة في المنشأة", caption: "جولة داخل منشأة AUH مُسلَّمة", span: "md:col-span-6 md:row-span-2" },
+  { id: "v3", type: "video", src: V("gallery/v3.mp4"), poster: poster3, title: "الإنتاج أثناء التشغيل", caption: "لقطة حية لخط تصنيع نشط", span: "md:col-span-6 md:row-span-2" },
+  { id: "v5", type: "video", src: V("gallery/v5.mp4"), poster: poster5, title: "تسليم المعدات", caption: "معدات مُتحقَّق منها وجاهزة للإنتاج", span: "md:col-span-4 md:row-span-2" },
+  { id: "v6", type: "video", src: V("gallery/v6.mp4"), poster: poster6, title: "تقدم الموقع", caption: "لقطة من مرحلة التنفيذ", span: "md:col-span-4 md:row-span-2" },
+  { id: "v7", type: "video", src: V("gallery/v7.mp4"), poster: poster7, title: "الجولة النهائية", caption: "تفتيش ما قبل التسليم", span: "md:col-span-4 md:row-span-2" },
   { id: "g1", type: "image", src: g1, title: "خط الإنتاج", caption: "معدات تصنيع من الفولاذ المقاوم للصدأ", span: "md:col-span-4 md:row-span-2" },
   { id: "g2", type: "image", src: g2, title: "التعبئة الآلية", caption: "خط مستلزمات طبية متكامل", span: "md:col-span-8 md:row-span-2" },
   { id: "g3", type: "image", src: g3, title: "جناح الغرفة النظيفة", caption: "بيئة محكومة مطابقة لمعايير ISO", span: "md:col-span-6 md:row-span-2" },

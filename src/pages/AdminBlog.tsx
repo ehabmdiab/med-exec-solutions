@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { useSEO } from "@/hooks/useSEO";
-import { Trash2, LogOut } from "lucide-react";
+import { Trash2, LogOut, Pencil, X } from "lucide-react";
 import type { BlogPost } from "@/hooks/useBlogPosts";
 import { useSignedImageUrl } from "@/hooks/useSignedImageUrl";
 

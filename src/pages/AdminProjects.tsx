@@ -325,7 +325,10 @@ export default function AdminProjects() {
                       <p className="font-semibold text-primary truncate">{p.name_en}</p>
                       <p className="text-xs text-muted-foreground truncate">{p.slug} · {p.location_en}</p>
                     </div>
-                    <Button size="icon" variant="ghost" onClick={() => deleteProject(p.id)}>
+                    <Button size="icon" variant="ghost" onClick={() => startEdit(p)} title="Edit">
+                      <Pencil className="h-4 w-4 text-primary" />
+                    </Button>
+                    <Button size="icon" variant="ghost" onClick={() => deleteProject(p.id)} title="Delete">
                       <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
                   </div>

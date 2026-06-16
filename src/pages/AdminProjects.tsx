@@ -132,12 +132,21 @@ export default function AdminProjects() {
       const payload: any = { ...form };
       if (image_url) payload.image_url = image_url;
 
-      const { error } = await supabase.from("projects").insert(payload);
-      if (error) throw error;
-      toast({ title: "Project added" });
+      if (editingId) {
+        const { error } = await supabase.from("projects").update(payload).eq("id", editingId);
+        if (error) throw error;
+        toast({ title: "Project updated" });
+      } else {
+        const { error } = await supabase.from("projects").insert(payload);
+        if (error) throw error;
+        toast({ title: "Project added" });
+      }
       setForm({ ...emptyForm });
       setImageFile(null);
-      (document.getElementById("img-input") as HTMLInputElement | null)?.value && ((document.getElementById("img-input") as HTMLInputElement).value = "");
+      setEditingId(null);
+      setExistingImage(null);
+      const inp = document.getElementById("img-input") as HTMLInputElement | null;
+      if (inp) inp.value = "";
       loadProjects();
     } catch (err: any) {
       toast({ title: "Error", description: err.message, variant: "destructive" });

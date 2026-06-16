@@ -163,6 +163,33 @@ export default function AdminBlog() {
     load();
   };
 
+  const startEdit = (p: BlogPost) => {
+    setEditingId(p.id);
+    setExistingImage(p.cover_image_url ?? null);
+    setImageFile(null);
+    setForm({
+      slug: p.slug,
+      title_en: p.title_en, title_ar: p.title_ar,
+      excerpt_en: p.excerpt_en ?? "", excerpt_ar: p.excerpt_ar ?? "",
+      content_en: p.content_en ?? "", content_ar: p.content_ar ?? "",
+      author: p.author ?? "",
+      tags: Array.isArray(p.tags) ? p.tags.join(", ") : "",
+      published: p.published,
+    });
+    const input = document.getElementById("blog-img-input") as HTMLInputElement | null;
+    if (input) input.value = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setExistingImage(null);
+    setImageFile(null);
+    setForm({ ...emptyForm });
+    const input = document.getElementById("blog-img-input") as HTMLInputElement | null;
+    if (input) input.value = "";
+  };
+
   const signOut = async () => {
     await supabase.auth.signOut();
     navigate("/auth");

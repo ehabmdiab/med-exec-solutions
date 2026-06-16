@@ -267,7 +267,16 @@ export default function AdminBlog() {
               onSubmit={onSubmit}
               className="bg-card rounded-2xl border border-border p-6 shadow-soft space-y-4"
             >
-              <h2 className="font-display font-semibold text-xl text-primary">New post</h2>
+              <div className="flex items-center justify-between">
+                <h2 className="font-display font-semibold text-xl text-primary">
+                  {editingId ? "Edit post" : "New post"}
+                </h2>
+                {editingId && (
+                  <Button type="button" variant="ghost" size="sm" onClick={cancelEdit}>
+                    <X className="h-4 w-4 me-1" /> Cancel
+                  </Button>
+                )}
+              </div>
               {field("slug", "Slug (unique, e.g. cleanroom-iso-7)")}
               <div className="grid grid-cols-2 gap-3">
                 {field("title_en", "Title (EN)")}

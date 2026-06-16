@@ -311,7 +311,7 @@ export default function AdminBlog() {
                 Published
               </label>
               <Button type="submit" disabled={saving} className="w-full">
-                {saving ? "Saving..." : "Publish post"}
+                {saving ? "Saving..." : editingId ? "Save changes" : "Publish post"}
               </Button>
             </form>
 

@@ -118,11 +118,19 @@ export default function AdminBlog() {
       };
       if (cover_image_url) payload.cover_image_url = cover_image_url;
 
-      const { error } = await (supabase as any).from("blog_posts").insert(payload);
-      if (error) throw error;
-      toast({ title: "Post published" });
+      if (editingId) {
+        const { error } = await (supabase as any).from("blog_posts").update(payload).eq("id", editingId);
+        if (error) throw error;
+        toast({ title: "Post updated" });
+      } else {
+        const { error } = await (supabase as any).from("blog_posts").insert(payload);
+        if (error) throw error;
+        toast({ title: "Post published" });
+      }
       setForm({ ...emptyForm });
       setImageFile(null);
+      setEditingId(null);
+      setExistingImage(null);
       const input = document.getElementById("blog-img-input") as HTMLInputElement | null;
       if (input) input.value = "";
       load();

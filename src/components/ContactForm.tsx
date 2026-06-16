@@ -191,7 +191,7 @@ export function ContactForm() {
         type="submit"
         size="lg"
         disabled={submitting}
-        className="bg-gradient-cta text-primary-foreground hover:opacity-95 hover-lift shadow-soft font-semibold w-full sm:w-auto"
+        className="bg-primary text-primary-foreground hover:opacity-95 hover-lift shadow-soft font-semibold w-full sm:w-auto"
       >
         {submitting ? (
           <>

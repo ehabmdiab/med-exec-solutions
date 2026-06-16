@@ -259,7 +259,16 @@ export default function AdminProjects() {
 
           <div className="grid lg:grid-cols-2 gap-8">
             <form onSubmit={onSubmit} className="bg-card rounded-2xl border border-border p-6 shadow-soft space-y-4">
-              <h2 className="font-display font-semibold text-xl text-primary">Add new project</h2>
+              <div className="flex items-center justify-between">
+                <h2 className="font-display font-semibold text-xl text-primary">
+                  {editingId ? "Edit project" : "Add new project"}
+                </h2>
+                {editingId && (
+                  <Button type="button" variant="ghost" size="sm" onClick={cancelEdit}>
+                    <X className="h-4 w-4 me-1" /> Cancel
+                  </Button>
+                )}
+              </div>
               {field("slug", "Slug (unique, e.g. dental-art)")}
               <div className="grid grid-cols-2 gap-3">
                 {field("name_en", "Name (EN)")}

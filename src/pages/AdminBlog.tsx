@@ -291,7 +291,10 @@ export default function AdminBlog() {
                 {field("tags", "Tags (comma separated)")}
               </div>
               <div>
-                <Label htmlFor="blog-img-input">Cover image</Label>
+                <Label htmlFor="blog-img-input">Cover image {editingId && "(leave empty to keep current)"}</Label>
+                {editingId && existingImage && !imageFile && (
+                  <div className="my-2"><AdminThumb path={existingImage} alt="current cover" /></div>
+                )}
                 <Input
                   id="blog-img-input"
                   type="file"

@@ -165,6 +165,35 @@ export default function AdminProjects() {
     loadProjects();
   };
 
+  const startEdit = (p: Project) => {
+    setEditingId(p.id);
+    setExistingImage(p.image_url);
+    setImageFile(null);
+    setForm({
+      slug: p.slug,
+      name_en: p.name_en, name_ar: p.name_ar,
+      location_en: p.location_en, location_ar: p.location_ar,
+      sector_en: p.sector_en, sector_ar: p.sector_ar,
+      problem_en: p.problem_en, problem_ar: p.problem_ar,
+      solution_en: p.solution_en, solution_ar: p.solution_ar,
+      outcome_en: p.outcome_en, outcome_ar: p.outcome_ar,
+      sort_order: p.sort_order,
+      published: p.published,
+    });
+    const inp = document.getElementById("img-input") as HTMLInputElement | null;
+    if (inp) inp.value = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setExistingImage(null);
+    setImageFile(null);
+    setForm({ ...emptyForm });
+    const inp = document.getElementById("img-input") as HTMLInputElement | null;
+    if (inp) inp.value = "";
+  };
+
   const signOut = async () => {
     await supabase.auth.signOut();
     navigate("/auth");

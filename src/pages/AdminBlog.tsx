@@ -340,7 +340,10 @@ export default function AdminBlog() {
                     <Button size="sm" variant="ghost" onClick={() => togglePublished(p)}>
                       {p.published ? "Unpublish" : "Publish"}
                     </Button>
-                    <Button size="icon" variant="ghost" onClick={() => deletePost(p.id)}>
+                    <Button size="icon" variant="ghost" onClick={() => startEdit(p)} title="Edit">
+                      <Pencil className="h-4 w-4 text-primary" />
+                    </Button>
+                    <Button size="icon" variant="ghost" onClick={() => deletePost(p.id)} title="Delete">
                       <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
                   </div>

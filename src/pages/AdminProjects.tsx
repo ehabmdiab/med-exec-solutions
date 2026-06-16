@@ -59,6 +59,8 @@ export default function AdminProjects() {
   const [form, setForm] = useState({ ...emptyForm });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [existingImage, setExistingImage] = useState<string | null>(null);
 
   // Auth + role
   useEffect(() => {

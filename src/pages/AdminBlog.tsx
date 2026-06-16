@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { useSEO } from "@/hooks/useSEO";
-import { Trash2, LogOut } from "lucide-react";
+import { Trash2, LogOut, Pencil, X } from "lucide-react";
 import type { BlogPost } from "@/hooks/useBlogPosts";
 import { useSignedImageUrl } from "@/hooks/useSignedImageUrl";
 
@@ -42,6 +42,8 @@ export default function AdminBlog() {
   const [form, setForm] = useState({ ...emptyForm });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [existingImage, setExistingImage] = useState<string | null>(null);
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
@@ -116,11 +118,19 @@ export default function AdminBlog() {
       };
       if (cover_image_url) payload.cover_image_url = cover_image_url;
 
-      const { error } = await (supabase as any).from("blog_posts").insert(payload);
-      if (error) throw error;
-      toast({ title: "Post published" });
+      if (editingId) {
+        const { error } = await (supabase as any).from("blog_posts").update(payload).eq("id", editingId);
+        if (error) throw error;
+        toast({ title: "Post updated" });
+      } else {
+        const { error } = await (supabase as any).from("blog_posts").insert(payload);
+        if (error) throw error;
+        toast({ title: "Post published" });
+      }
       setForm({ ...emptyForm });
       setImageFile(null);
+      setEditingId(null);
+      setExistingImage(null);
       const input = document.getElementById("blog-img-input") as HTMLInputElement | null;
       if (input) input.value = "";
       load();
@@ -151,6 +161,33 @@ export default function AdminBlog() {
       return;
     }
     load();
+  };
+
+  const startEdit = (p: BlogPost) => {
+    setEditingId(p.id);
+    setExistingImage(p.cover_image_url ?? null);
+    setImageFile(null);
+    setForm({
+      slug: p.slug,
+      title_en: p.title_en, title_ar: p.title_ar,
+      excerpt_en: p.excerpt_en ?? "", excerpt_ar: p.excerpt_ar ?? "",
+      content_en: p.content_en ?? "", content_ar: p.content_ar ?? "",
+      author: p.author ?? "",
+      tags: Array.isArray(p.tags) ? p.tags.join(", ") : "",
+      published: p.published,
+    });
+    const input = document.getElementById("blog-img-input") as HTMLInputElement | null;
+    if (input) input.value = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setExistingImage(null);
+    setImageFile(null);
+    setForm({ ...emptyForm });
+    const input = document.getElementById("blog-img-input") as HTMLInputElement | null;
+    if (input) input.value = "";
   };
 
   const signOut = async () => {
@@ -230,7 +267,16 @@ export default function AdminBlog() {
               onSubmit={onSubmit}
               className="bg-card rounded-2xl border border-border p-6 shadow-soft space-y-4"
             >
-              <h2 className="font-display font-semibold text-xl text-primary">New post</h2>
+              <div className="flex items-center justify-between">
+                <h2 className="font-display font-semibold text-xl text-primary">
+                  {editingId ? "Edit post" : "New post"}
+                </h2>
+                {editingId && (
+                  <Button type="button" variant="ghost" size="sm" onClick={cancelEdit}>
+                    <X className="h-4 w-4 me-1" /> Cancel
+                  </Button>
+                )}
+              </div>
               {field("slug", "Slug (unique, e.g. cleanroom-iso-7)")}
               <div className="grid grid-cols-2 gap-3">
                 {field("title_en", "Title (EN)")}
@@ -245,7 +291,10 @@ export default function AdminBlog() {
                 {field("tags", "Tags (comma separated)")}
               </div>
               <div>
-                <Label htmlFor="blog-img-input">Cover image</Label>
+                <Label htmlFor="blog-img-input">Cover image {editingId && "(leave empty to keep current)"}</Label>
+                {editingId && existingImage && !imageFile && (
+                  <div className="my-2"><AdminThumb path={existingImage} alt="current cover" /></div>
+                )}
                 <Input
                   id="blog-img-input"
                   type="file"
@@ -262,7 +311,7 @@ export default function AdminBlog() {
                 Published
               </label>
               <Button type="submit" disabled={saving} className="w-full">
-                {saving ? "Saving..." : "Publish post"}
+                {saving ? "Saving..." : editingId ? "Save changes" : "Publish post"}
               </Button>
             </form>
 
@@ -291,7 +340,10 @@ export default function AdminBlog() {
                     <Button size="sm" variant="ghost" onClick={() => togglePublished(p)}>
                       {p.published ? "Unpublish" : "Publish"}
                     </Button>
-                    <Button size="icon" variant="ghost" onClick={() => deletePost(p.id)}>
+                    <Button size="icon" variant="ghost" onClick={() => startEdit(p)} title="Edit">
+                      <Pencil className="h-4 w-4 text-primary" />
+                    </Button>
+                    <Button size="icon" variant="ghost" onClick={() => deletePost(p.id)} title="Delete">
                       <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
                   </div>

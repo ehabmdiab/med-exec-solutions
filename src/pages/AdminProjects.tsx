@@ -306,7 +306,7 @@ export default function AdminProjects() {
                 />
               </div>
               <Button type="submit" disabled={saving} className="w-full">
-                {saving ? "Saving..." : "Add project"}
+                {saving ? "Saving..." : editingId ? "Save changes" : "Add project"}
               </Button>
             </form>
 

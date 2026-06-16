@@ -285,7 +285,10 @@ export default function AdminProjects() {
               {field("outcome_en", "Outcome (EN)", true)}
               {field("outcome_ar", "Outcome (AR)", true)}
               <div>
-                <Label htmlFor="img-input">Image</Label>
+                <Label htmlFor="img-input">Image {editingId && "(leave empty to keep current)"}</Label>
+                {editingId && existingImage && !imageFile && (
+                  <img src={existingImage} alt="current" className="h-20 w-20 object-cover rounded-md my-2" />
+                )}
                 <Input
                   id="img-input"
                   type="file"

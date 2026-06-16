@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { useSEO } from "@/hooks/useSEO";
-import { Trash2, LogOut } from "lucide-react";
+import { Trash2, LogOut, Pencil, X } from "lucide-react";
 
 type Project = {
   id: string;
@@ -59,6 +59,8 @@ export default function AdminProjects() {
   const [form, setForm] = useState({ ...emptyForm });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [existingImage, setExistingImage] = useState<string | null>(null);
 
   // Auth + role
   useEffect(() => {
@@ -130,12 +132,21 @@ export default function AdminProjects() {
       const payload: any = { ...form };
       if (image_url) payload.image_url = image_url;
 
-      const { error } = await supabase.from("projects").insert(payload);
-      if (error) throw error;
-      toast({ title: "Project added" });
+      if (editingId) {
+        const { error } = await supabase.from("projects").update(payload).eq("id", editingId);
+        if (error) throw error;
+        toast({ title: "Project updated" });
+      } else {
+        const { error } = await supabase.from("projects").insert(payload);
+        if (error) throw error;
+        toast({ title: "Project added" });
+      }
       setForm({ ...emptyForm });
       setImageFile(null);
-      (document.getElementById("img-input") as HTMLInputElement | null)?.value && ((document.getElementById("img-input") as HTMLInputElement).value = "");
+      setEditingId(null);
+      setExistingImage(null);
+      const inp = document.getElementById("img-input") as HTMLInputElement | null;
+      if (inp) inp.value = "";
       loadProjects();
     } catch (err: any) {
       toast({ title: "Error", description: err.message, variant: "destructive" });
@@ -152,6 +163,35 @@ export default function AdminProjects() {
       return;
     }
     loadProjects();
+  };
+
+  const startEdit = (p: Project) => {
+    setEditingId(p.id);
+    setExistingImage(p.image_url);
+    setImageFile(null);
+    setForm({
+      slug: p.slug,
+      name_en: p.name_en, name_ar: p.name_ar,
+      location_en: p.location_en, location_ar: p.location_ar,
+      sector_en: p.sector_en, sector_ar: p.sector_ar,
+      problem_en: p.problem_en, problem_ar: p.problem_ar,
+      solution_en: p.solution_en, solution_ar: p.solution_ar,
+      outcome_en: p.outcome_en, outcome_ar: p.outcome_ar,
+      sort_order: p.sort_order,
+      published: p.published,
+    });
+    const inp = document.getElementById("img-input") as HTMLInputElement | null;
+    if (inp) inp.value = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setExistingImage(null);
+    setImageFile(null);
+    setForm({ ...emptyForm });
+    const inp = document.getElementById("img-input") as HTMLInputElement | null;
+    if (inp) inp.value = "";
   };
 
   const signOut = async () => {
@@ -219,7 +259,16 @@ export default function AdminProjects() {
 
           <div className="grid lg:grid-cols-2 gap-8">
             <form onSubmit={onSubmit} className="bg-card rounded-2xl border border-border p-6 shadow-soft space-y-4">
-              <h2 className="font-display font-semibold text-xl text-primary">Add new project</h2>
+              <div className="flex items-center justify-between">
+                <h2 className="font-display font-semibold text-xl text-primary">
+                  {editingId ? "Edit project" : "Add new project"}
+                </h2>
+                {editingId && (
+                  <Button type="button" variant="ghost" size="sm" onClick={cancelEdit}>
+                    <X className="h-4 w-4 me-1" /> Cancel
+                  </Button>
+                )}
+              </div>
               {field("slug", "Slug (unique, e.g. dental-art)")}
               <div className="grid grid-cols-2 gap-3">
                 {field("name_en", "Name (EN)")}
@@ -236,7 +285,10 @@ export default function AdminProjects() {
               {field("outcome_en", "Outcome (EN)", true)}
               {field("outcome_ar", "Outcome (AR)", true)}
               <div>
-                <Label htmlFor="img-input">Image</Label>
+                <Label htmlFor="img-input">Image {editingId && "(leave empty to keep current)"}</Label>
+                {editingId && existingImage && !imageFile && (
+                  <img src={existingImage} alt="current" className="h-20 w-20 object-cover rounded-md my-2" />
+                )}
                 <Input
                   id="img-input"
                   type="file"
@@ -254,7 +306,7 @@ export default function AdminProjects() {
                 />
               </div>
               <Button type="submit" disabled={saving} className="w-full">
-                {saving ? "Saving..." : "Add project"}
+                {saving ? "Saving..." : editingId ? "Save changes" : "Add project"}
               </Button>
             </form>
 
@@ -273,7 +325,10 @@ export default function AdminProjects() {
                       <p className="font-semibold text-primary truncate">{p.name_en}</p>
                       <p className="text-xs text-muted-foreground truncate">{p.slug} · {p.location_en}</p>
                     </div>
-                    <Button size="icon" variant="ghost" onClick={() => deleteProject(p.id)}>
+                    <Button size="icon" variant="ghost" onClick={() => startEdit(p)} title="Edit">
+                      <Pencil className="h-4 w-4 text-primary" />
+                    </Button>
+                    <Button size="icon" variant="ghost" onClick={() => deleteProject(p.id)} title="Delete">
                       <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
                   </div>

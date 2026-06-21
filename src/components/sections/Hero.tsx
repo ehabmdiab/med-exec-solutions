@@ -101,7 +101,7 @@ const slides: Slide[] = [
     id: "turnkey",
     title: {
       en: "Turnkey Project Solutions",
-      ar: "مشاريع تسليم مفتاح متكاملة",
+      ar: "حلول مشاريع تسليم المفتاح",
     },
     subtitle: {
       en: "Complete Execution, One Partner",
@@ -112,7 +112,7 @@ const slides: Slide[] = [
       ar: "نتولى تنفيذ المشروع بالكامل — من تصميم المنشأة والمرافق إلى توريد المعدات والتشغيل الفعلي — مما يضمن بيئة إنتاج سلسة وجاهزة للعمل فوراً.",
     },
     icon: Building2,
-    tabLabel: { en: "Turnkey Projects", ar: "مشاريع متكاملة" },
+    tabLabel: { en: "Turnkey Projects", ar: "مشاريع تسليم المفتاح" },
     stats: [
       {
         value: { en: "5+", ar: "+٥" },

@@ -316,8 +316,7 @@ function BackgroundParticles() {
   );
 }
 
-function InteractiveScene({ mirror }: { mirror: boolean }) {
-  const [hovered, setHovered] = useState(false);
+function InteractiveScene({ mirror, canvasHovered }: { mirror: boolean; canvasHovered: boolean }) {
   const { viewport } = useThree();
   const compact = viewport.width < 6.2;
   const sideX = mirror ? -2.25 : 2.25;
@@ -327,11 +326,7 @@ function InteractiveScene({ mirror }: { mirror: boolean }) {
     <>
       <StudioLighting />
       <group position={compact ? [compactX, -0.1, 0] : [sideX, 0.05, 0]} scale={compact ? 0.7 : 0.9}>
-        <LogoGroup
-          hovered={hovered}
-          onPointerOver={(e) => { e.stopPropagation(); setHovered(true); }}
-          onPointerOut={(e) => { e.stopPropagation(); setHovered(false); }}
-        />
+        <LogoGroup hovered={canvasHovered} />
         <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, -3.4, 0]}>
           <planeGeometry args={[80, 80]} />
           <shadowMaterial transparent opacity={0.28} />
@@ -344,8 +339,14 @@ function InteractiveScene({ mirror }: { mirror: boolean }) {
 export function Logo3DScene() {
   const { dir } = useI18n();
   const mirror = dir === "rtl";
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <div className="absolute inset-0 z-[1] pointer-events-auto opacity-95">
+    <div
+      className="absolute inset-0 z-[1] pointer-events-auto opacity-95"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       <Canvas
         camera={{ position: [0, 0.35, 10.5], fov: 38 }}
         gl={{
@@ -361,9 +362,10 @@ export function Logo3DScene() {
         tabIndex={-1}
       >
         <Suspense fallback={null}>
-          <InteractiveScene mirror={mirror} />
+          <InteractiveScene mirror={mirror} canvasHovered={hovered} />
         </Suspense>
       </Canvas>
     </div>
   );
 }
+

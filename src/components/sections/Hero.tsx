@@ -3,85 +3,253 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import {
   ArrowRight,
   ShieldCheck,
-  ChevronLeft,
-  ChevronRight,
   Building2,
   BadgeCheck,
-  MapPin,
+  Target,
+  Cpu,
+  Globe,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/i18n/I18nProvider";
 import { Logo3DScene } from "@/components/Logo3DScene";
-import cleanroom from "@/assets/hero-cleanroom.jpg";
-import manufacturing from "@/assets/medical-manufacturing.jpg";
-import sterilization from "@/assets/sterilization.jpg";
-import regulatory from "@/assets/regulatory.jpg";
-import engineer from "@/assets/lab-engineer.jpg";
-import suit from "@/assets/cleanroom-suit.jpg";
 
 type Slide = {
-  title: string;
-  subtitle?: string;
-  text: string;
-  image: string;
+  id: string;
+  title: { en: string; ar: string };
+  subtitle: { en: string; ar: string };
+  text: { en: string; ar: string };
+  icon: React.ComponentType<{ className?: string }>;
+  tabLabel: { en: string; ar: string };
+  stats: {
+    value: { en: string; ar: string };
+    label: { en: string; ar: string };
+  }[];
 };
 
 const slides: Slide[] = [
   {
-    title: "Ask Us How (AUH)",
-    subtitle: "Medical Engineering & Consulting",
-    text: "A fast-growing medical engineering firm established in 2018, focused on turning ideas into reality in the medical device industry. We provide end-to-end solutions from concept to compliant operation.",
-    image: manufacturing,
+    id: "overview",
+    title: {
+      en: "Turning Medical Ideas Into Reality",
+      ar: "نحوّل الأفكار الطبية إلى واقع",
+    },
+    subtitle: {
+      en: "Ask Us How (AUH)",
+      ar: "اسألنا كيف (AUH)",
+    },
+    text: {
+      en: "A fast-growing medical engineering firm established in 2018, focused on turning ideas into reality in the medical device industry. We provide end-to-end solutions from concept to compliant operation.",
+      ar: "شركة هندسة طبية سريعة النمو تأسست عام 2018، تركز على تحويل الأفكار إلى واقع في قطاع الأجهزة الطبية. نقدم حلولاً متكاملة من الفكرة وحتى التشغيل المتوافق.",
+    },
+    icon: ShieldCheck,
+    tabLabel: { en: "Overview", ar: "نبذة" },
+    stats: [
+      {
+        value: { en: "2018", ar: "٢٠١٨" },
+        label: { en: "Founded", ar: "سنة التأسيس" },
+      },
+      {
+        value: { en: "12+", ar: "+١٢" },
+        label: { en: "Facilities", ar: "منشأة مُسلّمة" },
+      },
+      {
+        value: { en: "4", ar: "٤" },
+        label: { en: "Countries", ar: "دول" },
+      },
+      {
+        value: { en: "100%", ar: "١٠٠٪" },
+        label: { en: "Compliance", ar: "سجل امتثال" },
+      },
+    ],
   },
   {
-    title: "Our Mission & Vision",
-    text: "We deliver innovative turnkey solutions that empower clients to build world-class medical products and facilities. Our vision is to become the partner of choice in the MENA region and beyond.",
-    image: engineer,
+    id: "mission",
+    title: {
+      en: "Our Mission & Vision",
+      ar: "رسالتنا ورؤيتنا",
+    },
+    subtitle: {
+      en: "Pioneering Medical Engineering",
+      ar: "ريادة الهندسة الطبية",
+    },
+    text: {
+      en: "We deliver innovative turnkey solutions that empower clients to build world-class medical products and facilities. Our vision is to become the partner of choice in the MENA region and beyond.",
+      ar: "نقدم حلولاً متكاملة مبتكرة تمكن عملائنا من بناء منشآت ومنتجات طبية ذات مستوى عالمي. رؤيتنا هي أن نكون الشريك المفضل في منطقة الشرق الأوسط وشمال أفريقيا وخارجها.",
+    },
+    icon: Target,
+    tabLabel: { en: "Mission & Vision", ar: "الرسالة والرؤية" },
+    stats: [
+      {
+        value: { en: "Precision", ar: "دقة" },
+        label: { en: "Core Value", ar: "قيمة أساسية" },
+      },
+      {
+        value: { en: "MENA", ar: "الشرق الأوسط" },
+        label: { en: "Vision Focus", ar: "نطاق الرؤية" },
+      },
+      {
+        value: { en: "Partner", ar: "شريك" },
+        label: { en: "Of Choice", ar: "مفضل" },
+      },
+      {
+        value: { en: "Quality", ar: "جودة" },
+        label: { en: "Standard", ar: "معايير" },
+      },
+    ],
   },
   {
-    title: "Turnkey Project Solutions",
-    text: "We handle full project execution — from facility design and utilities to equipment sourcing and operational startup — ensuring a seamless, ready-to-run production environment.",
-    image: cleanroom,
+    id: "turnkey",
+    title: {
+      en: "Turnkey Project Solutions",
+      ar: "مشاريع تسليم مفتاح متكاملة",
+    },
+    subtitle: {
+      en: "Complete Execution, One Partner",
+      ar: "تنفيذ كامل، شريك واحد",
+    },
+    text: {
+      en: "We handle full project execution — from facility design and utilities to equipment sourcing and operational startup — ensuring a seamless, ready-to-run production environment.",
+      ar: "نتولى تنفيذ المشروع بالكامل — من تصميم المنشأة والمرافق إلى توريد المعدات والتشغيل الفعلي — مما يضمن بيئة إنتاج سلسة وجاهزة للعمل فوراً.",
+    },
+    icon: Building2,
+    tabLabel: { en: "Turnkey Projects", ar: "مشاريع متكاملة" },
+    stats: [
+      {
+        value: { en: "5+", ar: "+٥" },
+        label: { en: "Facilities Built", ar: "منشآت طبية" },
+      },
+      {
+        value: { en: "Full MEP", ar: "كامل ميكانيكا/كهرباء" },
+        label: { en: "In-house design", ar: "تصميم داخلي" },
+      },
+      {
+        value: { en: "Concept", ar: "مفهوم" },
+        label: { en: "To Handover", ar: "إلى التسليم" },
+      },
+      {
+        value: { en: "Ready", ar: "جاهز" },
+        label: { en: "Operation", ar: "التشغيل" },
+      },
+    ],
   },
   {
-    title: "Regulatory & Compliance Expertise",
-    text: "We simplify complex regulatory processes including SFDA registration, ensuring full compliance with international standards such as ISO 13485 and CE marking.",
-    image: regulatory,
+    id: "regulatory",
+    title: {
+      en: "Regulatory & Compliance Expertise",
+      ar: "خبرة الاعتمادات والامتثال",
+    },
+    subtitle: {
+      en: "Navigating Global Standards",
+      ar: "التعامل مع المعايير العالمية",
+    },
+    text: {
+      en: "We simplify complex regulatory processes including SFDA registration, ensuring full compliance with international standards such as ISO 13485 and CE marking.",
+      ar: "نبسط العمليات التنظيمية المعقدة بما في ذلك التسجيل لدى الهيئة العامة للغذاء والدواء (SFDA)، مع ضمان الامتثال الكامل للمعايير الدولية مثل ISO 13485 وعلامة CE.",
+    },
+    icon: BadgeCheck,
+    tabLabel: { en: "Regulatory & SFDA", ar: "الاعتمادات والتنظيم" },
+    stats: [
+      {
+        value: { en: "5+", ar: "+٥" },
+        label: { en: "SFDA Registrations", ar: "تسجيلات SFDA" },
+      },
+      {
+        value: { en: "ISO", ar: "أيزو" },
+        label: { en: "13485 Pathway", ar: "مسار 13485" },
+      },
+      {
+        value: { en: "GMP", ar: "التصنيع الجيد" },
+        label: { en: "Ready", ar: "جاهزية" },
+      },
+      {
+        value: { en: "100%", ar: "١٠٠٪" },
+        label: { en: "Approval Rate", ar: "معدل الموافقة" },
+      },
+    ],
   },
   {
-    title: "Advanced Engineering Solutions",
-    text: "From clean room design and construction to sterilization systems and process validation, we deliver high-performance environments for medical manufacturing.",
-    image: sterilization,
+    id: "engineering",
+    title: {
+      en: "Advanced Engineering Solutions",
+      ar: "حلول هندسية متطورة",
+    },
+    subtitle: {
+      en: "Controlled Environments & Systems",
+      ar: "بيئات وأنظمة مُتحكَّم بها",
+    },
+    text: {
+      en: "From clean room design and construction to sterilization systems and process validation, we deliver high-performance environments for medical manufacturing.",
+      ar: "من تصميم وإنشاء الغرف النظيفة إلى أنظمة التعقيم والتحقق من العمليات، نقدم بيئات عالية الأداء للتصنيع الطبي.",
+    },
+    icon: Cpu,
+    tabLabel: { en: "Engineering", ar: "الهندسة المتطورة" },
+    stats: [
+      {
+        value: { en: "ISO 7/8", ar: "أيزو ٧/٨" },
+        label: { en: "Cleanrooms", ar: "غرف نظيفة" },
+      },
+      {
+        value: { en: "EO/Steam", ar: "أكسيد الإيثيلين/البخار" },
+        label: { en: "Sterilization", ar: "التعقيم" },
+      },
+      {
+        value: { en: "GMP", ar: "GMP" },
+        label: { en: "Validated", ar: "عمليات مؤهلة" },
+      },
+      {
+        value: { en: "High", ar: "عالية" },
+        label: { en: "Performance", ar: "الأداء" },
+      },
+    ],
   },
   {
-    title: "Proven Projects Across Regions",
-    text: "We have successfully delivered multiple medical manufacturing facilities across Egypt and Saudi Arabia, helping clients achieve operational excellence and market readiness.",
-    image: suit,
+    id: "proven",
+    title: {
+      en: "Proven Projects Across Regions",
+      ar: "مشاريع مُثبتة عبر المناطق",
+    },
+    subtitle: {
+      en: "Operational Excellence in EG & KSA",
+      ar: "تميز تشغيلي في مصر والسعودية",
+    },
+    text: {
+      en: "We have successfully delivered multiple medical manufacturing facilities across Egypt and Saudi Arabia, helping clients achieve operational excellence and market readiness.",
+      ar: "لقد سلمنا بنجاح العديد من منشآت التصنيع الطبي في جميع أنحاء مصر والمملكة العربية السعودية، مما ساعد عملائنا على تحقيق التميز التشغيلي والجاهزية للسوق.",
+    },
+    icon: Globe,
+    tabLabel: { en: "Proven Projects", ar: "مشاريعنا الناجحة" },
+    stats: [
+      {
+        value: { en: "EG", ar: "مصر" },
+        label: { en: "HQ Cairo", ar: "المقر بالقاهرة" },
+      },
+      {
+        value: { en: "KSA", ar: "السعودية" },
+        label: { en: "Branch Riyadh", ar: "فرع الرياض" },
+      },
+      {
+        value: { en: "12+", ar: "+١٢" },
+        label: { en: "Facilities", ar: "منشآت" },
+      },
+      {
+        value: { en: "Active", ar: "نشطة" },
+        label: { en: "Operational status", ar: "حالة التشغيل" },
+      },
+    ],
   },
-];
-
-const stats = [
-  { icon: Building2, value: "5+", label: "Medical Manufacturing Facilities" },
-  { icon: BadgeCheck, value: "5+", label: "SFDA Registrations" },
-  { icon: MapPin, value: "EG · KSA", label: "Projects in Egypt & Saudi Arabia" },
-  { icon: ShieldCheck, value: "100%", label: "Commitment to Quality" },
 ];
 
 export function Hero() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
   const timerRef = useRef<number | null>(null);
 
   const go = useCallback(
     (i: number) => setIndex(((i % slides.length) + slides.length) % slides.length),
     []
   );
-  const next = useCallback(() => go(index + 1), [index, go]);
-  const prev = useCallback(() => go(index - 1), [index, go]);
 
   useEffect(() => {
-    if (paused) return;
     timerRef.current = window.setTimeout(
       () => setIndex((i) => (i + 1) % slides.length),
       6000
@@ -89,47 +257,46 @@ export function Hero() {
     return () => {
       if (timerRef.current) window.clearTimeout(timerRef.current);
     };
-  }, [index, paused]);
+  }, [index]);
 
   return (
-    <section className="relative min-h-[92vh] flex flex-col overflow-hidden">
-      {/* Smooth continuous gradient background (teal -> orange) */}
+    <section className="relative h-auto md:h-[92vh] min-h-[620px] md:min-h-[760px] lg:min-h-[820px] lg:max-h-[920px] flex flex-col justify-between overflow-hidden">
+      {/* Base Gradient Background */}
       <div
-        className="absolute inset-0"
-        aria-hidden
+        className="absolute inset-0 z-0"
         style={{
           background:
             "linear-gradient(110deg, #02C8B3 0%, #02C8B3 35%, #6FA76A 55%, #D87C23 80%, #D87C23 100%)",
         }}
       />
 
-      {/* Very subtle noise */}
-      <div className="absolute inset-0 noise-overlay z-[1]" />
+      {/* Subtle Noise Overlay */}
+      <div className="absolute inset-0 noise-overlay z-0 pointer-events-none opacity-40" />
 
-      {/* 3D Model — centered across the split */}
+      {/* 3D Model Canvas — overlays the background */}
       <Logo3DScene />
 
-      {/* Top hero content */}
-      <div className="container-wide relative z-10 pt-24 lg:pt-32 pb-16 pointer-events-none">
-        <div className="max-w-3xl animate-fade-in-up">
+      {/* Main Body Content */}
+      <div className="container-wide relative z-10 flex-grow flex items-center pt-20 md:pt-24 pb-28 md:pb-20 pointer-events-none">
+        <div key={index} className="max-w-3xl animate-fade-in-up w-full">
           {/* Accent line */}
-          <div className="w-12 h-[2px] bg-gradient-to-r from-white/80 to-white/40 mb-6" />
+          <div className="w-12 h-[2px] bg-gradient-to-r from-white/80 to-white/40 mb-5 sm:mb-6" />
           <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
             <ShieldCheck className="h-3.5 w-3.5" />
-            {t.hero.eyebrow}
+            {slides[index].subtitle[locale]}
           </span>
-          <h1 className="mt-6 font-display font-extrabold text-4xl sm:text-5xl lg:text-7xl !text-white !leading-[1.1] text-balance pb-2 overflow-visible">
-            {t.hero.title}
+          <h1 className="mt-4 sm:mt-6 font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl !text-white !leading-[1.1] text-balance pb-1 overflow-visible">
+            {slides[index].title[locale]}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg sm:text-xl text-white/75 leading-relaxed">
-            {t.hero.subtitle}
+          <p className="mt-4 sm:mt-5 max-w-2xl text-base sm:text-lg lg:text-xl text-white/75 leading-relaxed">
+            {slides[index].text[locale]}
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-4 pointer-events-auto">
+          <div className="mt-6 sm:mt-8 flex flex-wrap gap-4 pointer-events-auto">
             <Button
               asChild
               size="lg"
-              className="bg-white text-[#3E6A6A] hover:bg-white/90 hover-lift font-semibold rounded-xl shadow-elevate"
+              className="bg-white text-[#3E6A6A] hover:bg-white/90 hover-lift font-semibold rounded-xl shadow-elevate text-sm sm:text-base"
             >
               <Link to="/contact">
                 {t.hero.primary}
@@ -140,145 +307,51 @@ export function Hero() {
               asChild
               size="lg"
               variant="outline"
-              className="border-white/30 !text-white hover:border-white/60 hover:bg-white/10 bg-transparent font-semibold rounded-xl"
+              className="border-white/30 !text-white hover:border-white/60 hover:bg-white/10 bg-transparent font-semibold rounded-xl text-sm sm:text-base"
             >
               <Link to="/services">{t.hero.secondary}</Link>
             </Button>
           </div>
-        </div>
 
-        {/* Stats bar */}
-        <div className="mt-16 lg:mt-20 grid grid-cols-2 lg:grid-cols-4 gap-[1px] bg-white/10 rounded-2xl overflow-hidden max-w-4xl">
-          {t.hero.stats.map((s) => (
-            <div key={s.label} className="bg-white/10 backdrop-blur-sm p-5 lg:p-7">
-              <p className="counter-number text-2xl lg:text-4xl text-white">{s.value}</p>
-              <p className="mt-1 text-xs lg:text-sm text-white/60 font-medium">{s.label}</p>
-            </div>
-          ))}
+          {/* Dynamic Stats bar */}
+          <div className="mt-8 lg:mt-10 grid grid-cols-2 lg:grid-cols-4 gap-[1px] bg-white/10 rounded-2xl overflow-hidden max-w-4xl backdrop-blur-sm pointer-events-auto">
+            {slides[index].stats.map((s, sIdx) => (
+              <div key={sIdx} className="bg-white/5 p-4 lg:p-5">
+                <p className="counter-number text-lg sm:text-xl lg:text-2xl text-white font-bold">{s.value[locale]}</p>
+                <p className="mt-1 text-[11px] sm:text-xs text-white/60 font-medium">{s.label[locale]}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Infused Company Overview Slider */}
-      <div className="container-wide relative z-10 pb-24 lg:pb-32">
-        <div className="max-w-2xl mb-8">
-          <div className="w-12 h-[2px] bg-gradient-to-r from-white/80 to-white/40 mb-5" />
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/70">
-            <ShieldCheck className="h-3.5 w-3.5" />
-            Company Overview
-          </span>
-          <h2 className="mt-3 font-display font-extrabold text-3xl sm:text-4xl !text-white leading-tight">
-            Who we are, what we deliver
-          </h2>
-        </div>
+      {/* Tabs Control Bar - Docked to bottom */}
+      <div className="relative w-full z-20 pointer-events-auto border-t border-white/10 bg-black/35 backdrop-blur-md grid grid-cols-3 md:grid-cols-6">
+        {slides.map((s, i) => {
+          const Icon = s.icon;
+          const isActive = i === index;
+          return (
+            <button
+              key={s.id}
+              onClick={() => go(i)}
+              className={`relative flex flex-col items-center justify-center py-3.5 sm:py-4 px-2 text-center transition-all duration-300 ${
+                isActive
+                  ? "bg-white/10 text-white"
+                  : "text-white/60 hover:bg-white/5 hover:text-white"
+              }`}
+            >
+              {/* Highlight bar on top */}
+              {isActive && (
+                <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#02C8B3]" />
+              )}
 
-        <div
-          className="relative rounded-3xl overflow-hidden shadow-elevate border border-white/20"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
-          <div className="relative">
-            {slides.map((s, i) => (
-              <div
-                key={i}
-                className={`grid md:grid-cols-2 transition-opacity duration-700 ease-out ${
-                  i === index
-                    ? "opacity-100 relative"
-                    : "opacity-0 absolute inset-0 pointer-events-none"
-                }`}
-                aria-hidden={i !== index}
-              >
-                {/* Text */}
-                <div className="p-8 sm:p-12 lg:p-14 flex flex-col justify-center min-h-[340px] lg:min-h-[400px] bg-white/95 text-[#3E6A6A]">
-                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#3E6A6A]/50">
-                    {String(i + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
-                  </p>
-                  <h3 className="mt-4 font-display font-extrabold text-2xl lg:text-3xl text-[#3E6A6A] leading-tight">
-                    {s.title}
-                  </h3>
-                  {s.subtitle && (
-                    <p className="mt-2 text-base lg:text-lg text-[#3E6A6A]/80 font-medium">
-                      {s.subtitle}
-                    </p>
-                  )}
-                  <p className="mt-5 text-[#3E6A6A]/70 leading-relaxed text-base lg:text-lg">
-                    {s.text}
-                  </p>
-                </div>
-
-                {/* Image */}
-                <div className="relative min-h-[260px] md:min-h-full">
-                  <img
-                    src={s.image}
-                    alt={s.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, hsl(180 28% 33% / 0.25), hsl(174 62% 47% / 0.15))",
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Arrows */}
-          <button
-            onClick={prev}
-            aria-label="Previous slide"
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 h-11 w-11 rounded-full bg-white/90 hover:bg-white text-[#3E6A6A] shadow-elevate flex items-center justify-center transition"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            onClick={next}
-            aria-label="Next slide"
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 h-11 w-11 rounded-full bg-white/90 hover:bg-white text-[#3E6A6A] shadow-elevate flex items-center justify-center transition"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-
-          {/* Dots */}
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex gap-2">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => go(i)}
-                aria-label={`Go to slide ${i + 1}`}
-                className={`h-2 rounded-full transition-all ${
-                  i === index
-                    ? "w-8 bg-[#3E6A6A]"
-                    : "w-2 bg-[#3E6A6A]/40 hover:bg-[#3E6A6A]/60"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Stats bar */}
-        <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-[1px] bg-white/10 rounded-2xl overflow-hidden">
-          {stats.map((s) => {
-            const Icon = s.icon;
-            return (
-              <div
-                key={s.label}
-                className="bg-white/10 backdrop-blur-sm p-5 lg:p-6 flex items-start gap-4"
-              >
-                <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0 bg-white/15 text-white">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="counter-number text-xl lg:text-2xl text-white">{s.value}</p>
-                  <p className="mt-1 text-xs lg:text-sm text-white/70 font-medium leading-snug">
-                    {s.label}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              <Icon className="h-4 w-4 sm:h-5 sm:w-5 mb-1.5 sm:mb-2 shrink-0" />
+              <span className="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wider block">
+                {s.tabLabel[locale]}
+              </span>
+            </button>
+          );
+        })}
       </div>
     </section>
   );

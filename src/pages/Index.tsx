@@ -3,6 +3,7 @@ import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/sections/Hero";
 import { LogoLoader } from "@/components/LogoLoader";
 import { AboutTeaser } from "@/components/sections/AboutTeaser";
+import { CompanyOverviewSlider } from "@/components/sections/CompanyOverviewSlider";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { ProjectsShowcase } from "@/components/sections/ProjectsShowcase";
 import { WhyAUH } from "@/components/sections/WhyAUH";
@@ -40,6 +41,7 @@ export default function Index() {
       )}
       <h1 className="sr-only">{t.hero.title}</h1>
       <Hero />
+      <CompanyOverviewSlider />
       <AboutTeaser />
       <ServicesGrid />
       <ProjectsShowcase />

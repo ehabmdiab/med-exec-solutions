@@ -30,8 +30,8 @@ const slides: Slide[] = [
   {
     id: "overview",
     title: {
-      en: "Turning Medical Ideas Into Reality",
-      ar: "نحوّل الأفكار الطبية إلى واقع",
+      en: "Turning Medical Ideas\nInto Reality",
+      ar: "نحوّل الأفكار الطبية\nإلى واقع",
     },
     subtitle: {
       en: "Ask Us How (AUH)",
@@ -100,8 +100,8 @@ const slides: Slide[] = [
   {
     id: "turnkey",
     title: {
-      en: "Turnkey Project Solutions",
-      ar: "حلول مشاريع تسليم المفتاح",
+      en: "Turnkey Project\nSolutions",
+      ar: "حلول مشاريع\nتسليم المفتاح",
     },
     subtitle: {
       en: "Complete Execution, One Partner",
@@ -135,8 +135,8 @@ const slides: Slide[] = [
   {
     id: "regulatory",
     title: {
-      en: "Regulatory & Compliance Expertise",
-      ar: "خبرة الاعتمادات والامتثال",
+      en: "Regulatory & Compliance\nExpertise",
+      ar: "خبرة الاعتمادات\nوالامتثال",
     },
     subtitle: {
       en: "Navigating Global Standards",
@@ -170,8 +170,8 @@ const slides: Slide[] = [
   {
     id: "engineering",
     title: {
-      en: "Advanced Engineering Solutions",
-      ar: "حلول هندسية متطورة",
+      en: "Advanced Engineering\nSolutions",
+      ar: "حلول هندسية\nمتطورة",
     },
     subtitle: {
       en: "Controlled Environments & Systems",
@@ -205,8 +205,8 @@ const slides: Slide[] = [
   {
     id: "proven",
     title: {
-      en: "Proven Projects Across Regions",
-      ar: "مشاريع مُثبتة عبر المناطق",
+      en: "Proven Projects\nAcross Regions",
+      ar: "مشاريع مُثبتة\nعبر المناطق",
     },
     subtitle: {
       en: "Operational Excellence in EG & KSA",
@@ -238,6 +238,131 @@ const slides: Slide[] = [
     ],
   },
 ];
+
+interface TypewriterHeadingProps {
+  text: string;
+  className?: string;
+}
+
+function TypewriterHeading({ text, className }: TypewriterHeadingProps) {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+
+  useEffect(() => {
+    let index = 0;
+    setDisplayedText("");
+    setIsTypingComplete(false);
+
+    const delayTimer = setTimeout(() => {
+      const interval = setInterval(() => {
+        setDisplayedText((prev) => {
+          if (index < text.length) {
+            const next = text.slice(0, index + 1);
+            index++;
+            return next;
+          } else {
+            clearInterval(interval);
+            setIsTypingComplete(true);
+            return text;
+          }
+        });
+      }, 35);
+
+      return () => clearInterval(interval);
+    }, 150);
+
+    return () => clearTimeout(delayTimer);
+  }, [text]);
+
+  return (
+    <h1 className={`relative ${className}`}>
+      {/* Invisible clone to reserve space */}
+      <span className="invisible select-none pointer-events-none block whitespace-pre-line">
+        {text}
+        <span className="inline-block w-[3px] h-[0.75em] ml-1.5 rtl:mr-1.5 rtl:ml-0" />
+      </span>
+      {/* Typing content absolutely overlaid */}
+      <span className="absolute inset-0 block whitespace-pre-line">
+        {displayedText}
+        <span
+          className={`inline-block w-[3px] h-[0.75em] bg-white ml-1.5 rtl:mr-1.5 rtl:ml-0 align-middle ${
+            isTypingComplete ? "animate-pulse" : "opacity-100"
+          }`}
+          style={{ animationDuration: "1s" }}
+        />
+      </span>
+    </h1>
+  );
+}
+
+interface CounterProps {
+  value: string;
+  isArabic: boolean;
+}
+
+function Counter({ value, isArabic }: CounterProps) {
+  const easternDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+  const toWestern = (str: string) =>
+    str.replace(/[٠-٩]/g, (w) => easternDigits.indexOf(w).toString());
+
+  const westernValue = toWestern(value);
+  const match = westernValue.match(/^([^0-9]*)(\d+)([^0-9]*)$/);
+
+  if (!match) {
+    return <>{value}</>;
+  }
+
+  const prefix = match[1];
+  const target = parseInt(match[2], 10);
+  const suffix = match[3];
+
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const duration = 700; // snappy 700ms duration
+    const startTime = performance.now();
+    let frameId: number;
+
+    const update = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // easeOutExpo: starts extremely fast and slows down smoothly
+      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const current = Math.floor(easeProgress * target);
+
+      setCount(current);
+
+      if (progress < 1) {
+        frameId = requestAnimationFrame(update);
+      } else {
+        setCount(target);
+      }
+    };
+
+    frameId = requestAnimationFrame(update);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+    };
+  }, [target]);
+
+  const formatValue = (num: number) => {
+    const formattedNum = num.toString();
+    if (isArabic) {
+      return formattedNum.replace(/[0-9]/g, (w) => easternDigits[parseInt(w, 10)]);
+    }
+    return formattedNum;
+  };
+
+  return (
+    <>
+      {prefix}
+      {formatValue(count)}
+      {suffix}
+    </>
+  );
+}
 
 export function Hero() {
   const { t, locale } = useI18n();
@@ -285,9 +410,10 @@ export function Hero() {
             <ShieldCheck className="h-3.5 w-3.5" />
             {slides[index].subtitle[locale]}
           </span>
-          <h1 className="mt-4 sm:mt-6 font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl !text-white !leading-[1.1] text-balance pb-1 overflow-visible">
-            {slides[index].title[locale]}
-          </h1>
+          <TypewriterHeading
+            text={slides[index].title[locale]}
+            className="mt-4 sm:mt-6 font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl !text-white !leading-[1.1] whitespace-pre-line pb-1 overflow-visible"
+          />
           <p className="mt-4 sm:mt-5 max-w-2xl text-base sm:text-lg lg:text-xl text-white/75 leading-relaxed">
             {slides[index].text[locale]}
           </p>
@@ -314,10 +440,12 @@ export function Hero() {
           </div>
 
           {/* Dynamic Stats bar */}
-          <div className="mt-8 lg:mt-10 grid grid-cols-2 lg:grid-cols-4 gap-[1px] bg-white/10 rounded-2xl overflow-hidden max-w-4xl backdrop-blur-sm pointer-events-auto">
+          <div className="mt-8 lg:mt-10 grid grid-cols-2 lg:grid-cols-4 gap-[1px] bg-white/10 rounded-2xl overflow-hidden max-w-4xl backdrop-blur-sm pointer-events-auto animate-fade-in-up-delayed">
             {slides[index].stats.map((s, sIdx) => (
               <div key={sIdx} className="bg-white/5 p-4 lg:p-5">
-                <p className="counter-number text-lg sm:text-xl lg:text-2xl text-white font-bold">{s.value[locale]}</p>
+                <p className="counter-number text-lg sm:text-xl lg:text-2xl text-white font-bold">
+                  <Counter value={s.value[locale]} isArabic={locale === "ar"} />
+                </p>
                 <p className="mt-1 text-[11px] sm:text-xs text-white/60 font-medium">{s.label[locale]}</p>
               </div>
             ))}

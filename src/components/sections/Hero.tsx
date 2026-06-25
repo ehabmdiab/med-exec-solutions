@@ -364,6 +364,53 @@ function Counter({ value, isArabic }: CounterProps) {
   );
 }
 
+interface TypewriterParagraphProps {
+  text: string;
+  className?: string;
+  delay?: number;
+}
+
+function TypewriterParagraph({ text, className, delay = 600 }: TypewriterParagraphProps) {
+  const [displayedText, setDisplayedText] = useState("");
+
+  useEffect(() => {
+    let index = 0;
+    setDisplayedText("");
+
+    const delayTimer = setTimeout(() => {
+      const interval = setInterval(() => {
+        setDisplayedText((prev) => {
+          if (index < text.length) {
+            const next = text.slice(0, index + 1);
+            index++;
+            return next;
+          } else {
+            clearInterval(interval);
+            return text;
+          }
+        });
+      }, 15);
+
+      return () => clearInterval(interval);
+    }, delay);
+
+    return () => clearTimeout(delayTimer);
+  }, [text, delay]);
+
+  return (
+    <p className={`relative ${className}`}>
+      {/* Invisible clone to reserve space */}
+      <span className="invisible select-none pointer-events-none block">
+        {text}
+      </span>
+      {/* Typing content absolutely overlaid */}
+      <span className="absolute inset-0 block">
+        {displayedText}
+      </span>
+    </p>
+  );
+}
+
 export function Hero() {
   const { t, locale } = useI18n();
   const [index, setIndex] = useState(0);
@@ -414,9 +461,10 @@ export function Hero() {
             text={slides[index].title[locale]}
             className="mt-4 sm:mt-6 font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl !text-white !leading-[1.1] whitespace-pre-line pb-1 overflow-visible"
           />
-          <p className="mt-4 sm:mt-5 max-w-2xl text-base sm:text-lg lg:text-xl text-white/75 leading-relaxed">
-            {slides[index].text[locale]}
-          </p>
+          <TypewriterParagraph
+            text={slides[index].text[locale]}
+            className="mt-4 sm:mt-5 max-w-2xl text-base sm:text-lg lg:text-xl text-white/75 leading-relaxed"
+          />
 
           <div className="mt-6 sm:mt-8 flex flex-wrap gap-4 pointer-events-auto">
             <Button

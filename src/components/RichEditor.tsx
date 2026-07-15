@@ -82,9 +82,6 @@ export function RichEditor({ value, onChange, direction = "ltr", height = 420 }:
         promotion: false,
       }}
       licenseKey="gpl"
-      init2={undefined as never}
-      {...({} as Record<string, never>)}
-      }}
     />
   );
 }

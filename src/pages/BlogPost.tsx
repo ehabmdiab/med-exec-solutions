@@ -5,6 +5,7 @@ import { useSignedImageUrl } from "@/hooks/useSignedImageUrl";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useSEO } from "@/hooks/useSEO";
 import { ArrowLeft, Calendar } from "lucide-react";
+import DOMPurify from "dompurify";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -98,9 +99,13 @@ export default function BlogPost() {
             </div>
           )}
 
-          <div className="prose prose-lg max-w-none text-foreground whitespace-pre-wrap leading-relaxed">
-            {content}
-          </div>
+          <div
+            className="prose prose-lg max-w-none text-foreground leading-relaxed
+              prose-headings:font-display prose-headings:text-primary
+              prose-a:text-primary prose-strong:text-primary
+              prose-img:rounded-xl prose-blockquote:border-primary"
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content ?? "") }}
+          />
         </div>
       </article>
     </Layout>

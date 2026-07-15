@@ -12,6 +12,7 @@ import { useSEO } from "@/hooks/useSEO";
 import { Trash2, LogOut, Pencil, X } from "lucide-react";
 import type { BlogPost } from "@/hooks/useBlogPosts";
 import { useSignedImageUrl } from "@/hooks/useSignedImageUrl";
+import { RichEditor } from "@/components/RichEditor";
 
 function AdminThumb({ path, alt }: { path: string; alt: string }) {
   const url = useSignedImageUrl(path);
@@ -284,8 +285,25 @@ export default function AdminBlog() {
               </div>
               {field("excerpt_en", "Excerpt (EN)", true, 2)}
               {field("excerpt_ar", "Excerpt (AR)", true, 2)}
-              {field("content_en", "Content (EN)", true, 10)}
-              {field("content_ar", "Content (AR)", true, 10)}
+              <div>
+                <Label>Content (EN)</Label>
+                <div className="mt-1.5 rounded-md border border-input overflow-hidden">
+                  <RichEditor
+                    value={form.content_en}
+                    onChange={(v) => setForm({ ...form, content_en: v })}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label>Content (AR)</Label>
+                <div className="mt-1.5 rounded-md border border-input overflow-hidden" dir="rtl">
+                  <RichEditor
+                    value={form.content_ar}
+                    onChange={(v) => setForm({ ...form, content_ar: v })}
+                    direction="rtl"
+                  />
+                </div>
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 {field("author", "Author")}
                 {field("tags", "Tags (comma separated)")}

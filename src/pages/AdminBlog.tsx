@@ -12,6 +12,7 @@ import { useSEO } from "@/hooks/useSEO";
 import { Trash2, LogOut, Pencil, X } from "lucide-react";
 import type { BlogPost } from "@/hooks/useBlogPosts";
 import { useSignedImageUrl } from "@/hooks/useSignedImageUrl";
+import { RichEditor } from "@/components/RichEditor";
 
 function AdminThumb({ path, alt }: { path: string; alt: string }) {
   const url = useSignedImageUrl(path);

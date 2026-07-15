@@ -80,7 +80,10 @@ export function RichEditor({ value, onChange, direction = "ltr", height = 420 }:
         quickbars_insert_toolbar: false,
         branding: false,
         promotion: false,
-        license_key: "gpl",
+      }}
+      licenseKey="gpl"
+      init2={undefined as never}
+      {...({} as Record<string, never>)}
       }}
     />
   );

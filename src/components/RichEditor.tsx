@@ -5,7 +5,12 @@ import "tinymce/tinymce";
 import "tinymce/models/dom";
 import "tinymce/themes/silver";
 import "tinymce/icons/default";
-import "tinymce/skins/ui/oxide/skin.js";
+
+// Skin CSS (loaded into the page by Vite)
+import "tinymce/skins/ui/oxide/skin.min.css";
+// Content CSS (injected via content_style into the editor iframe)
+import contentCss from "tinymce/skins/content/default/content.min.css?inline";
+import contentUiCss from "tinymce/skins/ui/oxide/content.min.css?inline";
 
 // Plugins
 import "tinymce/plugins/advlist";
@@ -27,6 +32,20 @@ import "tinymce/plugins/help";
 import "tinymce/plugins/wordcount";
 import "tinymce/plugins/quickbars";
 
+const customContentStyle = `
+body{font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.7;color:#0f172a;padding:1rem}
+h1,h2,h3,h4{font-weight:700;color:#0b3b4a;margin:1em 0 .4em;line-height:1.25}
+h1{font-size:2em} h2{font-size:1.5em} h3{font-size:1.25em}
+a{color:#0891b2;text-decoration:underline}
+blockquote{border-left:4px solid #0891b2;padding-left:1em;color:#475569;margin:1em 0;font-style:italic}
+code{background:#f1f5f9;padding:.15em .35em;border-radius:.25em;font-family:ui-monospace,monospace}
+pre{background:#0f172a;color:#e2e8f0;padding:1em;border-radius:.5em;overflow:auto}
+img{max-width:100%;height:auto;border-radius:.5em}
+ul,ol{padding-left:1.5em;margin:.75em 0}
+table{border-collapse:collapse}
+table td,table th{border:1px solid #cbd5e1;padding:.4em .6em}
+`;
+
 type Props = {
   value: string;
   onChange: (v: string) => void;
@@ -34,7 +53,7 @@ type Props = {
   height?: number;
 };
 
-export function RichEditor({ value, onChange, direction = "ltr", height = 400 }: Props) {
+export function RichEditor({ value, onChange, direction = "ltr", height = 420 }: Props) {
   return (
     <Editor
       value={value}
@@ -45,8 +64,7 @@ export function RichEditor({ value, onChange, direction = "ltr", height = 400 }:
         directionality: direction,
         skin: false,
         content_css: false,
-        content_style:
-          "body{font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.7;color:#0f172a} h1,h2,h3,h4{font-weight:700;color:#0b3b4a;margin:1em 0 .4em} h1{font-size:2em} h2{font-size:1.5em} h3{font-size:1.25em} a{color:#0891b2;text-decoration:underline} blockquote{border-left:4px solid #0891b2;padding-left:1em;color:#475569;margin:1em 0} code{background:#f1f5f9;padding:.15em .35em;border-radius:.25em}",
+        content_style: [contentCss, contentUiCss, customContentStyle].join("\n"),
         plugins: [
           "advlist","autolink","lists","link","image","charmap","preview","anchor",
           "searchreplace","visualblocks","code","fullscreen","insertdatetime","media",
@@ -62,6 +80,7 @@ export function RichEditor({ value, onChange, direction = "ltr", height = 400 }:
         quickbars_insert_toolbar: false,
         branding: false,
         promotion: false,
+        license_key: "gpl",
       }}
     />
   );

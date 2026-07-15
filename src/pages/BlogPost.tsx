@@ -99,9 +99,13 @@ export default function BlogPost() {
             </div>
           )}
 
-          <div className="prose prose-lg max-w-none text-foreground whitespace-pre-wrap leading-relaxed">
-            {content}
-          </div>
+          <div
+            className="prose prose-lg max-w-none text-foreground leading-relaxed
+              prose-headings:font-display prose-headings:text-primary
+              prose-a:text-primary prose-strong:text-primary
+              prose-img:rounded-xl prose-blockquote:border-primary"
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content ?? "") }}
+          />
         </div>
       </article>
     </Layout>

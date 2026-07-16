@@ -71,7 +71,7 @@ export function ContactForm() {
     setSubmitting(true);
 
     try {
-      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "c9564c71-31f4-4998-a7cf-1b3b0dd24bb5";
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "77be38bf-ed2f-4f06-9584-19cff3a891e3";
       
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",

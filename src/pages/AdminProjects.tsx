@@ -278,8 +278,8 @@ export default function AdminProjects() {
                 {field("sector_en", "Sector (EN)")}
                 {field("sector_ar", "Sector (AR)")}
               </div>
-              {field("problem_en", "Problem (EN)", true)}
-              {field("problem_ar", "Problem (AR)", true)}
+              {field("problem_en", "Challenge (EN)", true)}
+              {field("problem_ar", "Challenge (AR)", true)}
               {field("solution_en", "Solution (EN)", true)}
               {field("solution_ar", "Solution (AR)", true)}
               {field("outcome_en", "Outcome (EN)", true)}

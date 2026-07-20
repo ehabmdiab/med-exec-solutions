@@ -120,7 +120,7 @@ export const ar: Dict = {
         outcome: "تسليم غرفة نظيفة بفئة ISO 7 بدون أي توقف تشغيلي.",
       },
     ],
-    table: { problem: "المشكلة", solution: "الحل", outcome: "النتيجة" },
+    table: { problem: "التحدي", solution: "الحل", outcome: "النتيجة" },
   },
   why: {
     eyebrow: "لماذا AUH",

@@ -120,7 +120,7 @@ export const en = {
         outcome: "Cleanroom delivered to ISO Class 7 with zero operational downtime.",
       },
     ],
-    table: { problem: "Problem", solution: "Solution", outcome: "Outcome" },
+    table: { problem: "Challenge", solution: "Solution", outcome: "Outcome" },
   },
   why: {
     eyebrow: "Why AUH",

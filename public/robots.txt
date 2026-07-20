@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /auth
 
-Sitemap: https://med-exec-solutions.lovable.app/sitemap.xml
+Sitemap: https://www.auhegy.com/sitemap.xml

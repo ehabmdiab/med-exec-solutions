@@ -529,8 +529,8 @@ export function Hero() {
                 <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#02C8B3]" />
               )}
 
-              <Icon className="h-4 w-4 sm:h-5 sm:w-5 mb-1.5 sm:mb-2 shrink-0" />
-              <span className="text-[11px] sm:text-xs md:text-sm font-extrabold uppercase tracking-wider block">
+              <Icon className="h-5 w-5 sm:h-6 sm:w-6 mb-1.5 sm:mb-2 shrink-0" />
+              <span className="text-xs sm:text-sm md:text-base font-extrabold uppercase tracking-wider block">
                 {s.tabLabel[locale]}
               </span>
             </button>

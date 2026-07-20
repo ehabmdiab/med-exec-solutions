@@ -326,7 +326,7 @@ function Counter({ value, isArabic }: CounterProps) {
     const update = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      
+
       // easeOutExpo: starts extremely fast and slows down smoothly
       const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
       const current = Math.floor(easeProgress * target);
@@ -350,7 +350,10 @@ function Counter({ value, isArabic }: CounterProps) {
   const formatValue = (num: number) => {
     const formattedNum = num.toString();
     if (isArabic) {
-      return formattedNum.replace(/[0-9]/g, (w) => easternDigits[parseInt(w, 10)]);
+      return formattedNum.replace(
+        /[0-9]/g,
+        (w) => easternDigits[parseInt(w, 10)],
+      );
     }
     return formattedNum;
   };
@@ -370,7 +373,11 @@ interface TypewriterParagraphProps {
   delay?: number;
 }
 
-function TypewriterParagraph({ text, className, delay = 600 }: TypewriterParagraphProps) {
+function TypewriterParagraph({
+  text,
+  className,
+  delay = 600,
+}: TypewriterParagraphProps) {
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
@@ -404,9 +411,7 @@ function TypewriterParagraph({ text, className, delay = 600 }: TypewriterParagra
         {text}
       </span>
       {/* Typing content absolutely overlaid */}
-      <span className="absolute inset-0 block">
-        {displayedText}
-      </span>
+      <span className="absolute inset-0 block">{displayedText}</span>
     </p>
   );
 }
@@ -417,14 +422,15 @@ export function Hero() {
   const timerRef = useRef<number | null>(null);
 
   const go = useCallback(
-    (i: number) => setIndex(((i % slides.length) + slides.length) % slides.length),
-    []
+    (i: number) =>
+      setIndex(((i % slides.length) + slides.length) % slides.length),
+    [],
   );
 
   useEffect(() => {
     timerRef.current = window.setTimeout(
       () => setIndex((i) => (i + 1) % slides.length),
-      6000
+      6000,
     );
     return () => {
       if (timerRef.current) window.clearTimeout(timerRef.current);
@@ -494,7 +500,9 @@ export function Hero() {
                 <p className="counter-number text-lg sm:text-xl lg:text-2xl text-white font-bold">
                   <Counter value={s.value[locale]} isArabic={locale === "ar"} />
                 </p>
-                <p className="mt-1 text-[11px] sm:text-xs text-white/60 font-medium">{s.label[locale]}</p>
+                <p className="mt-1 text-[11px] sm:text-xs text-white/60 font-medium">
+                  {s.label[locale]}
+                </p>
               </div>
             ))}
           </div>
@@ -522,7 +530,7 @@ export function Hero() {
               )}
 
               <Icon className="h-4 w-4 sm:h-5 sm:w-5 mb-1.5 sm:mb-2 shrink-0" />
-              <span className="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wider block">
+              <span className="text-[11px] sm:text-xs md:text-sm font-extrabold uppercase tracking-wider block">
                 {s.tabLabel[locale]}
               </span>
             </button>

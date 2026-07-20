@@ -44,12 +44,14 @@ export default function Contact() {
                       {o.phone}
                     </a>
                   </li>
-                  <li className="flex items-center gap-3">
-                    <Mail className="h-4 w-4 text-secondary shrink-0" />
-                    <a href={`mailto:${o.email}`} className="text-foreground hover:text-secondary transition-colors">
-                      {o.email}
-                    </a>
-                  </li>
+                  {o.emails.map((email) => (
+                    <li key={email} className="flex items-center gap-3">
+                      <Mail className="h-4 w-4 text-secondary shrink-0" />
+                      <a href={`mailto:${email}`} className="text-foreground hover:text-secondary transition-colors">
+                        {email}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             ))}

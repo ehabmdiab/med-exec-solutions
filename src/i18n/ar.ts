@@ -156,15 +156,15 @@ export const ar: Dict = {
     offices: {
       egypt: {
         label: "مصر — المقر الرئيسي",
-        address: "القاهرة، مصر",
-        phone: "+20 100 000 0000",
-        email: "info@askushow.com",
+        address: "ميديكال سنتر ٣، وحدة رقم ٢٢٣، الدور الثاني، مدينة نصر، القاهرة",
+        phone: "+20 100 077 6946",
+        emails: ["Mohamed@auhegy.com"],
       },
       saudi: {
         label: "السعودية — الفرع",
-        address: "الرياض، المملكة العربية السعودية",
-        phone: "+966 50 000 0000",
-        email: "ksa@askushow.com",
+        address: "5512 طريق ابو عبيدة عامر بن الجراح ، الرياض (RQAA5534)",
+        phone: "+966 50 163 6357",
+        emails: ["Reyad@auhegy.com"],
       },
     },
     form: {

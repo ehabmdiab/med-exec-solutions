@@ -156,15 +156,15 @@ export const en = {
     offices: {
       egypt: {
         label: "Egypt — HQ",
-        address: "Cairo, Egypt",
-        phone: "+20 100 000 0000",
-        email: "info@askushow.com",
+        address: "Medical Center 3, Unit 223, 2nd Floor, Nasr City, Cairo, Egypt",
+        phone: "+20 100 077 6946",
+        emails: ["Mohamed@auhegy.com"],
       },
       saudi: {
         label: "Saudi Arabia — Branch",
-        address: "Riyadh, Kingdom of Saudi Arabia",
-        phone: "+966 50 000 0000",
-        email: "ksa@askushow.com",
+        address: "5512 Abu Ubaidah Amir ibn al-Jarrah Rd, Riyadh, Saudi Arabia (RQAA5534)",
+        phone: "+966 50 163 6357",
+        emails: ["Reyad@auhegy.com"],
       },
     },
     form: {

@@ -55,10 +55,12 @@ export function SiteFooter() {
                   <Phone className="h-4 w-4 shrink-0 text-primary" />
                   <a href={`tel:${o.phone.replace(/\s/g, "")}`} className="hover:text-primary">{o.phone}</a>
                 </p>
-                <p className="flex items-center gap-2 text-muted-foreground">
-                  <Mail className="h-4 w-4 shrink-0 text-primary" />
-                  <a href={`mailto:${o.email}`} className="hover:text-primary">{o.email}</a>
-                </p>
+                {o.emails.map((email) => (
+                  <p key={email} className="flex items-center gap-2 text-muted-foreground">
+                    <Mail className="h-4 w-4 shrink-0 text-primary" />
+                    <a href={`mailto:${email}`} className="hover:text-primary">{email}</a>
+                  </p>
+                ))}
               </div>
             ))}
           </div>
